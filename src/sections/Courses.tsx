@@ -8,7 +8,7 @@ const Courses = () => {
 
       <div className="flex flex-wrap gap-5 sm:mt-10 mt-6 mb-[10px] md:justify-between justify-center">
         {courses.map((course, idx) => (
-          <div className="flex-1 max-w-[305px] min-w-[280px]" key={idx}>
+          <div className="flex-1 max-w-[305px] min-w-[270px]" key={idx}>
             <div className="h-[200px] rounded-tl-[20px] rounded-tr-[20px] overflow-hidden">
                 <img src={course.image} alt="" className="w-full h-full object-cover" />
             </div>
