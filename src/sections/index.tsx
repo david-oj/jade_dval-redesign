@@ -3,6 +3,8 @@ import Hero from './Hero';
 import Courses from "./Courses";
 import Roadmap from "./Roadmap";
 import JadeStarCTA from "./JadeStarCTA";
+import Faqs from "./Faqs";
+import Partner from "./Partner";
 
 export {
     Header,
@@ -10,4 +12,7 @@ export {
     Courses,
     Roadmap,
     JadeStarCTA,
+    Faqs,
+    Partner,
+    
 }
