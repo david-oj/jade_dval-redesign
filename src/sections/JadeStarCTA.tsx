@@ -6,7 +6,7 @@ const JadeStarCTA = () => {
     const starsSlicedRight = jadeStars.slice(2, 5);
   return (
     <section className="md:mx-25 max-md:px-6 mmt-[71px] mb-19.5">
-      <div className="flex items-center lg:px-16 px-6 lg:gap-25.5 md:gap-16 mx-auto max-md:max-w-lg rounded-[28px] bg-primary/5">
+      <div className="flex @container items-center lg:px-16 px-6 lg:gap-25.5 md:gap-16 mx-auto max-md:max-w-lg rounded-[28px] bg-primary/5">
         <div className="flex items-center gap-4.5">
           <div className="flex flex-col lg:gap-5 gap-2 max-md:hidden">
             {starsSlicedLeft.map(
@@ -26,10 +26,10 @@ const JadeStarCTA = () => {
             {starsSlicedRight.map(
               (star, idx) => {
                 return (
-                    <div key={idx} className={`${(idx === 0) ? "rounded-b-2xl" : 
+                    <div key={idx} className={`${(idx === 0) ? "md:rounded-b-2xl max-md:rounded-xl lg:h-[100px] xl:h-[122px]  @max-[640px]:h-[116px] " : 
                                              (idx === starsSlicedRight.length - 1) 
-                                             ? "rounded-t-2xl" : "rounded-2xl"} 
-                                             max-w-[186px] max-lg:w-[100px] lg:h-[120px] xl:h-[162px] md:h-[116px] overflow-hidden  `}>
+                                             ? "md:rounded-t-2xl max-md:rounded-xl lg:h-[100px] xl:h-[122px] @max-[640px]:h-[116px] " : "rounded-2xl lg:h-[120px] xl:h-[162px] md:h-[116px] "} 
+                                             max-w-[186px] max-lg:w-[100px] overflow-hidden  `}>
                       <img
                         src={star.star}
                         alt="jade_d'val_stars"

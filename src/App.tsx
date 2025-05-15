@@ -10,7 +10,7 @@ import {
 
 function App() {
   return (
-    <>
+    <div className="max-w-[1536px] mx-auto">
       <div className="bg-black max-h-[736px] overflow-hidden">
         <Header />
         <Hero />
@@ -21,7 +21,7 @@ function App() {
       <Faqs />
       <Partner />
       <JadeStarCTA />
-    </>
+    </div>
   );
 }
 
