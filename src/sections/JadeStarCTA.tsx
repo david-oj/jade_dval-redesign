@@ -15,7 +15,7 @@ const JadeStarCTA = () => {
                     <div key={idx} className="max-w-[186px] max-lg:w-[100px] lg:h-[120px] xl:h-[162px] md:h-[116px] rounded-2xl overflow-hidden">
                       <img
                         src={star.star}
-                        alt=""
+                        alt="jade_d'val_stars"
                         className="w-full h-full object-cover"
                       />
                     </div>
@@ -32,7 +32,7 @@ const JadeStarCTA = () => {
                                              max-w-[186px] max-lg:w-[100px] lg:h-[120px] xl:h-[162px] md:h-[116px] overflow-hidden  `}>
                       <img
                         src={star.star}
-                        alt=""
+                        alt="jade_d'val_stars"
                         className="w-full h-full object-cover"
                       />
                     </div>

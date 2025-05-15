@@ -10,6 +10,7 @@ import jadeStar3 from "./jadeStar3.png";
 import jadeStar4 from "./jadeStar4.png";
 import jadeStar5 from "./jadeStar5.png";
 import faqsImage from "./faqsImage.png";
+import partnerCircles from "./partnerCircles.png";
 
 export {
   logo,
@@ -24,5 +25,6 @@ export {
   jadeStar4,
   jadeStar5,
   faqsImage,
+  partnerCircles,
   
 };

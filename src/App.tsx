@@ -1,4 +1,12 @@
-import { Header, Hero, Courses, Roadmap, JadeStarCTA, Faqs } from "./sections";
+import {
+  Header,
+  Hero,
+  Courses,
+  Roadmap,
+  JadeStarCTA,
+  Faqs,
+  Partner,
+} from "./sections";
 
 function App() {
   return (
@@ -11,6 +19,7 @@ function App() {
       <Courses />
       <Roadmap />
       <Faqs />
+      <Partner />
       <JadeStarCTA />
     </>
   );
