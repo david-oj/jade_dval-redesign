@@ -5,7 +5,7 @@
 
 @layer base {
   h2 {
-    @apply font-satoshi font-bold text-[32px] leading-[120%] text-black
+    @apply font-satoshi font-bold text-[32px] leading-[120%] text-black max-sm:text-xl
   }
 
   h3 {
@@ -14,6 +14,16 @@
   p{
     @apply text-black text-base leading-[120%] font-normal font-satoshi
   }
+  input, select {
+    @apply mt-2 w-full px-3 py-2 border rounded-lg font-satoshi text-[#B0B3B5] text-base font-medium
+  }
+  input, select {
+    @apply mt-2 w-full px-3 py-2 border rounded-lg font-satoshi text-[#B0B3B5] text-base font-medium focus:text-black
+  }
+
+label{
+  @apply block text-sm font-semibold font-satoshi 
+}
 }
 
 
@@ -51,6 +61,7 @@
   scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
   --text3: #878787;
+  --subtle: #7D7F81;
   --black: #1f1f1f;
   --primary: #127767;
   --secondary: #BC923F;
@@ -89,6 +100,7 @@
 @theme inline {
   --font-raleway: Raleway, sans-serif;
   --font-satoshi: Satoshi;
+  --color-subtle: var(--subtle);
   --color-text3: var(--text3);
   --color-black: var(--black);
   --color-primary: var(--primary);

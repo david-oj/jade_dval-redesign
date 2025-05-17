@@ -11,6 +11,7 @@ import jadeStar4 from "./jadeStar4.png";
 import jadeStar5 from "./jadeStar5.png";
 import faqsImage from "./faqsImage.png";
 import partnerCircles from "./partnerCircles.png";
+import formImage from "./formImage.png"
 
 export {
   logo,
@@ -26,5 +27,6 @@ export {
   jadeStar5,
   faqsImage,
   partnerCircles,
+  formImage
   
 };

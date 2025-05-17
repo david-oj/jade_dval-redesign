@@ -5,6 +5,7 @@ import Roadmap from "./Roadmap";
 import JadeStarCTA from "./JadeStarCTA";
 import Faqs from "./Faqs";
 import Partner from "./Partner";
+import EnrollNow from "./EnrollNow";
 
 export {
     Header,
@@ -14,5 +15,6 @@ export {
     JadeStarCTA,
     Faqs,
     Partner,
+    EnrollNow
     
 }

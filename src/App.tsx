@@ -6,6 +6,7 @@ import {
   JadeStarCTA,
   Faqs,
   Partner,
+  EnrollNow,
 } from "./sections";
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
       <Faqs />
       <Partner />
       <JadeStarCTA />
+      <EnrollNow />
     </div>
   );
 }
