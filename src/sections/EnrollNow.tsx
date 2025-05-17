@@ -51,7 +51,7 @@ const EnrollNow = () => {
   };
 
   return (
-    <section className="md:mx-25 max-md:px-6 mt-7 sm:mt-19.5 sm:mb-8 mb-4.5">
+    <section id="enroll" className="md:mx-25 max-md:px-6 mt-7 sm:mt-19.5 sm:mb-8 mb-4.5">
       <div className="flex max-sm:flex-col-reverse gap-8 sm:items-center justify-between i">
         <div className="flex-1 shadow-sm rounded-lg sm:px-10 sm:py-8 p-4">
           <form onSubmit={handleSubmit} className="space-y-4 mt-4">
@@ -155,7 +155,7 @@ const EnrollNow = () => {
             of African Techstars. Whether you're starting from scratch or
             leveling up your skills, we’ve got a course for you.
           </p>
-          <div className="h-[177px] sm:max-h-[327px] rounded-2xl overflow-hidden">
+          <div className="max-sm:h-[177px] sm:max-h-[327px] rounded-2xl overflow-hidden">
             <img src={formImage} alt="" className="w-full h-full object-cover " />
           </div>
         </div>

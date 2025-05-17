@@ -9,6 +9,11 @@ import {
   jadeStar4,
   jadeStar5,
 } from "@/assets/images";
+import location from "@/assets/icons/location.svg?react";
+import mail from "@/assets/icons/mail.svg?react";
+import telephone from "@/assets/icons/telephone.svg?react";
+import {facebook, instagram, linkedin, twitter, whatsapp} from "@/assets/icons";
+
 
 export const courses: {
   title: string;
@@ -118,86 +123,59 @@ export const faqs: { question: string; answer: string }[] = [
 ];
 
 type Footer = {
+  icon: React.ElementType ;
   title: string;
-  links: { label: string; href: string }[];
+  description?: string;
+  phones?: { phone: string }[];
 }[];
-
-export const footerLinks: Footer = [
+export const footerItems: Footer = [
   {
-    title: "Courses",
-    links: [
-      {
-        label: "Frontend Development",
-        href: "#courses",
-      },
-      {
-        label: "Backend Development",
-        href: "#courses",
-      },
-      {
-        label: "UI/UX Design",
-        href: "#courses",
-      },
-      {
-        label: "Blockchain Technology",
-        href: "#courses",
-      },
-    ],
+    icon: location,
+    title: "Location",
+    description: "#23 Charpey, Ogun, Ogun State.",
   },
   {
-    title: "Company",
-    links: [
-      {
-        label: "About Us",
-        href: "#about",
-      },
-      {
-        label: "Faqs",
-        href: "#faqs",
-      },
-      {
-        label: "Contact Us",
-        href: "#enroll-form",
-      },
-      {
-        label: "Privacy Policy",
-        href: "#",
-      },
-    ],
+    icon: mail,
+    title: "Email",
+    description: "#23 Charpey, Ogun, Ogun State.",
   },
   {
-    title: "Partner",
-    links: [
-      {
-        label: "Our Partners",
-        href: "#",
-      },
-      {
-        label: "Become a partner",
-        href: "#",
-      },
+    icon: telephone,
+    title: "Phone",
+    phones: [
+      { phone: "+234-903-667-2345" },
+      { phone: "+234-345-678-0987" },
     ],
   },
 ];
-
-// export const socialIcons: {
-//   icon: React.ElementType;
-//   link: string;
-//   alt: string;
-// }[] = [
-//   {
-//     icon: twitter,
-//     link: "https://twitter.com",
-//     alt: "twitter_logo",
-//   },
-//   {
-//     icon: instagram,
-//     link: "https://instagram.com",
-//     alt: "instaram_logo",
-//   },
-//   {
-//     icon: facebook,
-//     link: " https://facebook.com",
-//     alt: " facebook_logo",
-//   },
-// ];
+export const socialIcons: {
+  icon: string;
+  link: string;
+  alt: string;
+}[] = [
+  {
+    icon: twitter,
+    link: "https://twitter.com",
+    alt: "twitter_logo",
+  },
+  {
+    icon: instagram,
+    link: "https://instagram.com",
+    alt: "instaram_logo",
+  },
+  {
+    icon: facebook,
+    link: " https://facebook.com",
+    alt: " facebook_logo",
+  },
+  {
+    icon: linkedin,
+    link: " https://linkedin.com",
+    alt: " facebook_logo",
+  },
+  {
+    icon: whatsapp,
+    link: " https://whatsapp.com",
+    alt: " facebook_logo",
+  },
+];

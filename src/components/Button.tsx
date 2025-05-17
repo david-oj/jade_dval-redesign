@@ -17,9 +17,9 @@ const Button = ({
   font = "font-raleway",
   textColor = "text-white",
 }: ButtonProps) => {
-  const baseStyles = `${bgColor} w-full text-lg ${font} ${textColor} ${bgColor} ${borderRadius} font-raleway font-medium `;
+  const baseStyles = `${bgColor} w-full text-lg  ${font} ${textColor} ${bgColor} ${borderRadius} font-raleway font-medium `;
   return (
-    <button type={type} className={`${baseStyles} ${className}`}>
+    <button type={type} className={`${baseStyles} ${className} transform active:scale-[0.975] transition-all`}>
       {children}
     </button>
   );

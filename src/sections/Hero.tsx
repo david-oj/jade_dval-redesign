@@ -3,7 +3,7 @@ import { Button } from "@/components";
 
 const Hero = () => {
   return (
-    <section className="sm:mx-25 pt-10 max-sm:px-6">
+    <section  className="sm:mx-25 pt-10 max-sm:px-6">
       <div className="flex md:flex-row flex-col justify-between gap-4">
         <div className="flex self-center flex-col flex-1 gap-6 max-md:w-full max-md:text-center">
           <h1 className="text-white bg max-w-[640px] lg:text-5xl md:text-3xl text-2xl leading-[120%] font-satoshi font-bold">
@@ -17,8 +17,9 @@ const Hero = () => {
             skills. Choose a <br className="max-sm:block hidden" /> course and
             start building your future now.
           </p>
-
-          <Button children="Enroll Now" className="sm:max-w-[327px] py-4 max-md:self-center" />
+          <a href="#enroll">
+            <Button children="Enroll Now" className="sm:max-w-[327px] py-4 max-md:self-center" />
+          </a>
         </div>
 
         <div className="flex-1 max-md:self-center max-w-[600px] max-md:w-[76%] max-md:mt-5 ">

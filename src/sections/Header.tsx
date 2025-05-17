@@ -2,7 +2,7 @@ import { logo } from "@/assets/images";
 
 const Header = () => {
   return (
-    <section className="sm:mx-20 pt-7 pl-5 pr-3">
+    <header className="sm:mx-20 pt-7 pl-5 pr-3">
       <div className="flex justify-between w-full">
         <div className="flex items-center gap-1">
           <div className="max-w-[50px] max-h-[50px]">
@@ -17,7 +17,7 @@ const Header = () => {
           Enroll Now
         </button>
       </div>
-    </section>
+    </header>
   );
 };
 

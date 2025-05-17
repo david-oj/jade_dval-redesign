@@ -30,7 +30,7 @@ const Roadmap = () => {
                 >
                   <StepCard {...step} />
                 </div>
-                <div className="flex flex-col lg:ml-10 xl:ml-16 max-lg:items-center relative">
+                <div className="flex flex-col bg-[#F3F8F7] lg:ml-10 xl:ml-16 max-lg:items-center relative">
                   {/* circle mobile */}
                   <div className="h-7.5 w-7.5 lg:absolute top-1/2 -left-16.5  xl:-left-22.5  flex justify-center items-center border border-secondary rounded-full ">
                     <div className=" h-5 w-5 bg-secondary rounded-full" />
@@ -39,7 +39,7 @@ const Roadmap = () => {
                   <p className="md:text-xl text-sm text-text3">Step</p>
                   <h3 className="md:text-5xl text-2xl">{step.step}</h3>
                   {/* vertical bar mobile */}
-                   <div className={`absolute ${idx === steps.length - 1 ? "hidden" : "block"} lg:hidden  border-2 border-black md:h-[50%] h-[115%] border-dashed transform translate-x-1/2 right-1/2 top-[100%]`} />
+                   <div className={`absolute ${idx === steps.length - 1 ? "hidden" : "block"} lg:hidden  border-2 border-black md:h-[95%] h-[195%] border-dashed transform translate-x-1/2 right-1/2 top-[100%]`} />
                 </div>
               </div>
             ) : (
@@ -47,7 +47,7 @@ const Roadmap = () => {
                 className=" lg:grid grid-cols-2 flex items-center gap-6"
                 key={idx}
               >
-                <div className="flex flex-col lg:mr-10 xl:mr-16 items-end max-lg:items-center relative">
+                <div className="flex bg-[#F3F8F7] flex-col lg:mr-10 xl:mr-16 items-end max-lg:items-center relative">
                   {/* circle mobile */}
                   <div className="h-7.5 w-7.5 lg:absolute top-1/2 lg:-right-16.5 xl:-right-22.5 flex justify-center items-center border border-secondary rounded-full ">
                     <div className=" h-5 w-5 bg-secondary rounded-full" />
@@ -56,7 +56,7 @@ const Roadmap = () => {
                   <p className="md:text-xl text-sm text-text3">Step</p>
                   <h3 className="md:text-5xl text-2xl">{step.step}</h3>
                   {/* vertical bar mobile */}
-                   <div className={`absolute ${idx === steps.length - 1 ? "hidden" : "block"} lg:hidden  border-2 border-black md:h-[50%] h-[115%] border-dashed transform translate-x-1/2 right-1/2 top-[100%]`} />
+                   <div className={`absolute ${idx === steps.length - 1 ? "hidden" : "block"} lg:hidden  border-2 border-black md:h-[95%] h-[195%] border-dashed transform translate-x-1/2 right-1/2 top-[100%]`} />
                 </div>
                 <div
                   className={`flex  ${isEven ? "justify-end  lg:mr-7.5 xl:mr-12.5" : " lg:ml-7.5 xl:ml-12.5"

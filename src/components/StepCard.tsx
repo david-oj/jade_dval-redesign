@@ -8,7 +8,7 @@ type Card = {
 
 const StepCard = ({ title, description }: Card) => {
   return (
-    <div className="md:px-12.5 px-5 py-6.25 flex justify-center items-start rounded-[40px] md:rounded-full lg:max-w-[527px] md:max-w-[509px] sm:max-w-[320px]  max-w-[273px] gap-5 bg-primary">
+    <div className="md:px-12.5 px-5 py-6.25 flex justify-center items-start rounded-[40px]  lg:rounded-full lg:max-w-[527px] md:max-w-[509px] sm:max-w-[320px] max-w-[273px] gap-5 bg-primary">
       <div className="md:flex hidden w-16 h-16 items-center justify-center rounded-full bg-white">
         <img src={checkCircle} alt="checkedCircle" className="w-10 h-10" />
       </div>
