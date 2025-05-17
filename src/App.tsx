@@ -9,45 +9,23 @@ import {
   EnrollNow,
   Footer,
 } from "./sections";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 function App() {
   return (
-    <BrowserRouter>
-      <div className="max-w-[1536px] mx-auto">
+    <div className="max-w-[1536px] mx-auto">
+      <div className="bg-black max-h-[736px] overflow-hidden">
         <Header />
-        <Routes>
-          {/* Main landing page route */}
-          <Route
-            path="/"
-            element={
-              <>
-                <div className="bg-black max-h-[736px] overflow-hidden">
-                  <Hero />
-                </div>
-                <Courses />
-                <Roadmap />
-                <Faqs />
-                <Partner />
-                <JadeStarCTA />
-                <Footer />
-              </>
-            }
-          />
-
-          {/* Enroll form route */}
-          <Route
-            path="/enroll"
-            element={
-              <>
-                <EnrollNow />
-                <Footer />
-              </>
-            }
-          />
-        </Routes>
+        <Hero />
       </div>
-    </BrowserRouter>
+
+      <Courses />
+      <Roadmap />
+      <Faqs />
+      <Partner />
+      <JadeStarCTA />
+      <EnrollNow />
+      <Footer />
+    </div>
   );
 }
 
