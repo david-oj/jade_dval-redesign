@@ -1,4 +1,4 @@
-import { useState, ChangeEvent, FormEvent } from "react";
+import { useState, useEffect, ChangeEvent, FormEvent } from "react";
 import { Button } from "@/components";
 import { formImage } from "@/assets/images";
 import Mail from "@/assets/icons/mail.svg?react";
@@ -22,15 +22,40 @@ const initialFormData: FormData = {
 const EnrollNow = () => {
   const [formData, setFormData] = useState<FormData>(initialFormData);
 
+  // Handle hash change to set course & effect auto-scroll
+  useEffect(() => {
+    const handleHashChange = () => {
+      const hash = window.location.hash;
+      if (hash.includes("enroll?course=")) {
+        const courseId = decodeURIComponent(hash.split("course=")[1]);
+        setFormData((prev) => ({ ...prev, course: courseId }));
+
+        // Force scroll in case browser doesn't auto-scroll
+        document
+          .getElementById("enroll")
+          ?.scrollIntoView({ behavior: "smooth" });
+      }
+    };
+
+    // Initial check
+    handleHashChange();
+
+    // Listen for hash changes
+    window.addEventListener("hashchange", handleHashChange);
+
+    return () => window.removeEventListener("hashchange", handleHashChange);
+  }, []);
+  // Function to handle changes in form inputs
   const handleChange = (
     e: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
   ) => {
-    const { name, value, type } = e.target;
-    const checked = (e.target as HTMLInputElement).checked;
+    const { name, value, type } = e.target; // Destructure name, value, and type from the event target
+    const checked = (e.target as HTMLInputElement).checked; // Get the checked property for checkbox inputs
 
+    // Update the formData state with new input values
     setFormData((prev) => ({
       ...prev,
-      [name]: type === "checkbox" ? checked : value,
+      [name]: type === "checkbox" ? checked : value, // Use 'checked' for checkboxes, otherwise use 'value'
     }));
   };
 
@@ -51,7 +76,10 @@ const EnrollNow = () => {
   };
 
   return (
-    <section id="enroll" className="md:mx-25 max-md:px-6 mt-7 sm:mt-19.5 sm:mb-8 mb-4.5">
+    <section
+      id="enroll"
+      className="md:mx-25 max-md:px-6 mt-7 sm:mt-19.5 sm:mb-8 mb-4.5"
+    >
       <div className="flex max-sm:flex-col-reverse gap-8 sm:items-center justify-between i">
         <div className="flex-1 shadow-sm rounded-lg sm:px-10 sm:py-8 p-4">
           <form onSubmit={handleSubmit} className="space-y-4 mt-4">
@@ -71,7 +99,7 @@ const EnrollNow = () => {
             <div>
               <label>Email</label>
               <div className="flex gap-3 pl-3 items-center rounded-lg border h-10 ">
-                <Mail/>
+                <Mail />
                 <input
                   type="email"
                   placeholder="you@example.com"
@@ -113,15 +141,15 @@ const EnrollNow = () => {
                 onChange={handleChange}
                 required
               >
-                <option selected disabled>
+                <option value="" disabled>
                   Select Course
                 </option>
-                <option value="Frontend Development">
+                <option value="Frontend-development">
                   Frontend Development
                 </option>
-                <option value="Backend Development">Backend Development</option>
-                <option value="UI/UX Design">UI/UX Design</option>
-                <option value="Blockchain Technology">
+                <option value="Backend-development">Backend Development</option>
+                <option value="UI/UX-design">UI/UX Design</option>
+                <option value="Blockchain-technology">
                   Blockchain Technology
                 </option>
               </select>
@@ -129,11 +157,7 @@ const EnrollNow = () => {
 
             <div>
               <label>Do you have a laptop?</label>
-              <select
-                name="ownLaptop"
-                id="ownLaptop"
-                required
-              >
+              <select name="ownLaptop" id="ownLaptop" required>
                 <option value="Select" disabled selected>
                   Select
                 </option>
@@ -156,7 +180,11 @@ const EnrollNow = () => {
             leveling up your skills, we’ve got a course for you.
           </p>
           <div className="max-sm:h-[177px] sm:max-h-[327px] rounded-2xl overflow-hidden">
-            <img src={formImage} alt="" className="w-full h-full object-cover " />
+            <img
+              src={formImage}
+              alt="Enroll Now"
+              className="w-full h-full object-cover "
+            />
           </div>
         </div>
       </div>

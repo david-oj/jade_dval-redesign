@@ -16,12 +16,14 @@ import {facebook, instagram, linkedin, twitter, whatsapp} from "@/assets/icons";
 
 
 export const courses: {
+  id: string;
   title: string;
   description: string;
   image: string;
   linkText: string;
 }[] = [
   {
+    id: "UI/UX-design",
     title: "UI/UX Design",
     description:
       "Learn how to build powerful websites, apps, and digital products using the most in-demand programming languages and frameworks.",
@@ -29,6 +31,7 @@ export const courses: {
     linkText: "Enroll Now",
   },
   {
+    id: "Frontend-development",
     title: "Frontend Development",
     description:
       "Learn how to build powerful websites, apps, and digital products using the most in-demand programming languages and frameworks.",
@@ -36,6 +39,7 @@ export const courses: {
     linkText: "Enroll Now",
   },
   {
+    id: "Backend-development",
     title: "Backend Development",
     description:
       "Learn how to build powerful websites, apps, and digital products using the most in-demand programming languages and frameworks.",
@@ -43,6 +47,7 @@ export const courses: {
     linkText: "Enroll Now",
   },
   {
+    id: "Blockchain-technology",
     title: "Blockchain Technology",
     description:
       "Learn how to build powerful websites, apps, and digital products using the most in-demand programming languages and frameworks.",

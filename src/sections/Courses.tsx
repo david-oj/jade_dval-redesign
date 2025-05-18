@@ -1,10 +1,18 @@
 import { courses } from "@/constants";
 import { Button } from "@/components";
 
+
 const Courses = () => {
+  // This function handles the click event on the enroll button and redirects
+  // the user to the enroll section with the course id as a hash parameter.
+  const handleEnrollClick = (courseId: string) => {
+    window.location.hash = `#enroll?course=${encodeURIComponent(courseId)}`;
+  };
+
+
   return (
     <section className="sm:my-20 mt-7 mb-11 max-md:px-6 md:mx-20">
-      <div className=" flex flex-col items-center">
+      <div className="flex flex-col items-center">
         <h2 className="text-center max-sm:text-xl">
           Find the Perfect Courses For You
         </h2>
@@ -26,10 +34,16 @@ const Courses = () => {
                 </p>
 
                 <Button
+                  type="button"
                   children="Enroll Now"
-                  className="py-[10.5px] mt-4 text-sm  bg-primary/10"
+                  className="py-[10.5px] mt-4 text-sm bg-primary/10"
                   textColor="text-primary"
                   font="font-satoshi"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation(); // Important for nested click handlers
+                    handleEnrollClick(course.id);
+                  }}
                 />
               </div>
             </div>
