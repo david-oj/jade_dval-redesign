@@ -45,6 +45,8 @@ const EnrollNow = () => {
 
     return () => window.removeEventListener("hashchange", handleHashChange);
   }, []);
+
+  
   // Function to handle changes in form inputs
   const handleChange = (
     e: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>

@@ -6,12 +6,12 @@ import courseImg3 from "./courseImg3.png";
 import courseImg4 from "./courseImg4.png";
 import jadeStar1 from "./jadeStar1.png";
 import jadeStar2 from "./jadeStar2.png";
-import jadeStar3 from "./jadeStar3.png";
+import jadeStar3 from "./jadeStar3.jpg";
 import jadeStar4 from "./jadeStar4.png";
-import jadeStar5 from "./jadeStar5.png";
+import jadeStar5 from "./jadeStar5.jpg";
 import faqsImage from "./faqsImage.png";
 import partnerCircles from "./partnerCircles.png";
-import formImage from "./formImage.png"
+import formImage from "./formImage.png";
 
 export {
   logo,
@@ -27,6 +27,5 @@ export {
   jadeStar5,
   faqsImage,
   partnerCircles,
-  formImage
-  
+  formImage,
 };
