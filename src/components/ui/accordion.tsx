@@ -1,6 +1,7 @@
 import * as React from "react";
 import * as AccordionPrimitive from "@radix-ui/react-accordion";
-import { ChevronDownIcon } from "lucide-react";
+import { ChevronDownIcon, Plus, Minus } from "lucide-react";
+import { useState } from "react";
 
 import { cn } from "@/lib/utils";
 
@@ -28,9 +29,11 @@ function AccordionTrigger({
   children,
   ...props
 }: React.ComponentProps<typeof AccordionPrimitive.Trigger>) {
+  const [toggle, setToggle] = useState(false);
   return (
     <AccordionPrimitive.Header className="flex">
       <AccordionPrimitive.Trigger
+        onClick={() => setToggle((prev) => !prev)}
         data-slot="accordion-trigger"
         className={cn(
           "focus-visible:border-ring focus-visible:ring-ring/50 flex flex-1 items-start justify-between gap-4 rounded-md pt-4 pb-1 text-left text-sm font-medium transition-all outline-none hover:underline focus-visible:ring-[3px] disabled:pointer-events-none disabled:opacity-50 [&[data-state=open]>svg]:rotate-180",
@@ -39,7 +42,11 @@ function AccordionTrigger({
         {...props}
       >
         {children}
-        <ChevronDownIcon className="text-muted-foreground pointer-events-none size-4 shrink-0 translate-y-0.5 transition-transform duration-200" />
+        {toggle ? (
+          <Minus className="text-white bg-primary rounded-xs pointer-events-none size-4 shrink-0 translate-y-0.5 transition-transform duration-200" />
+        ) : (
+          <Plus className="text-white bg-primary rounded-xs pointer-events-none size-4 shrink-0 translate-y-0.5 transition-transform duration-200" />
+        )}
       </AccordionPrimitive.Trigger>
     </AccordionPrimitive.Header>
   );
