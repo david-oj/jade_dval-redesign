@@ -25,14 +25,11 @@ const Hero = () => {
 
         <div className="flex-1 max-h-[618px] relative max-md:self-center max-w-[600px] max-md:w-[76%] max-md:mt-5 ">
              {/* Star 1 - top Left */}
-            <Star className="absolute max-lg:w-[27px] max-md:h-[26px] md:top-[13%] left-[5%] lg:left-[2%]"/>
+            <Star className="absolute max-lg:w-[27px] max-md:h-[26px] top-[2%] md:top-[13%] left-[3%] lg:left-[2%]"/>
              {/* Star 2 - middle right */}
-            <Star className="absolute max-lg:w-[27px] max-md:h-[26px] right-0 top-[15%] md:top-[30%]"/>
+            <Star className="absolute max-lg:w-[27px] max-md:h-[26px] right-0 top-[16%] md:top-[30%]"/>
              {/* Star 3 - Bottom Left */}
-            <Star className="absolute max-lg:w-[27px] max-md:h-[26px] bottom-[48%] md:bottom-[39.5%] -left-[5%] lg:-left-[8%]"/>
-          {/* <img src={star} alt="hero_star" className="absolute  top-20" />
-          <img src={star} alt="hero_star" className="absolute right-0" />
-          <img src={star} alt="hero_star" className="absolute bottom-61" /> */}
+            <Star className="absolute max-lg:w-[27px] max-md:h-[26px] bottom-[51%] md:bottom-[39.5%] -left-[5%] lg:-left-[8%]"/>
           <img
             src={heroImage}
             alt="hero image"

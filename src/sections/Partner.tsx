@@ -14,7 +14,7 @@ const Partner = () => {
                 <Button children="Become a partner" bgColor="bg-white" textColor="text-primary" className="max-w-[327px] py-[10.5px] text-sm" />
             </div>
             <div className="absolute right-0 h-f lg:max-w-[600px] max-sm:hidden md:max-w-[400px]">
-                <img src={partnerCircles} alt="" className="w-full h-full" />
+                <img src={partnerCircles} alt="partner" className="w-full h-full" />
             </div>
         </div>
     </section>
