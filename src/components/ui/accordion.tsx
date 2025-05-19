@@ -1,7 +1,6 @@
 import * as React from "react";
 import * as AccordionPrimitive from "@radix-ui/react-accordion";
 import { Plus, Minus } from "lucide-react";
-import { useState } from "react";
 
 import { cn } from "@/lib/utils";
 
@@ -29,24 +28,36 @@ function AccordionTrigger({
   children,
   ...props
 }: React.ComponentProps<typeof AccordionPrimitive.Trigger>) {
-  const [toggle, setToggle] = useState(false);
   return (
     <AccordionPrimitive.Header className="flex">
       <AccordionPrimitive.Trigger
-        onClick={() => setToggle((prev) => !prev)}
         data-slot="accordion-trigger"
         className={cn(
-          "focus-visible:border-ring focus-visible:ring-ring/50 flex flex-1 items-start justify-between gap-4 rounded-md pt-4 pb-1 text-left text-sm font-medium transition-all outline-none hover:underline focus-visible:ring-[3px] disabled:pointer-events-none disabled:opacity-50 [&[data-state=open]>svg]:rotate-180",
+          "group",
+          "focus-visible:border-ring focus-visible:ring-ring/50 flex flex-1 items-start justify-between gap-4",
+          "rounded-md pt-4 pb-1 text-left text-sm font-medium transition-all outline-none",
+          "hover:underline focus-visible:ring-[3px] disabled:pointer-events-none disabled:opacity-50",
           className
         )}
         {...props}
       >
         {children}
-        {toggle ? (
-          <Minus className="text-white w-4 h-4 sm:w-6 sm:h-6 bg-primary rounded-xs pointer-events-none size-4 shrink-0 translate-y-0.5 transition-transform duration-200" />
-        ) : (
-          <Plus className="text-white w-4 h-4 sm:w-6 sm:h-6 bg-primary rounded-xs pointer-events-none size-4 shrink-0 translate-y-0.5 transition-transform duration-200" />
-        )}
+
+        {/* Plus: show by default, hide when open */}
+        <Plus
+          className={cn(
+            "block w-4 h-4 sm:w-6 sm:h-6 rounded-xs sm:rounded-sm pointer-events-none bg-primary text-white",
+            "group-data-[state=open]:hidden"
+          )}
+        />
+
+        {/* Minus: hidden by default, show when open */}
+        <Minus
+          className={cn(
+            "hidden w-4 h-4 sm:w-6 sm:h-6 rounded-xs sm:rounded-sm pointer-events-none bg-primary text-white",
+            "group-data-[state=open]:block"
+          )}
+        />
       </AccordionPrimitive.Trigger>
     </AccordionPrimitive.Header>
   );

@@ -26,10 +26,10 @@ const Header = () => {
             {toggle ? <Close className="text-white transition-all duration-300 " /> : <Menu className="text-white transition-all duration-300 " />}
           </button>
           {toggle && (
-            <div className="absolute animate-slide-top rounded-lg bg-white/10 backdrop-blur-md z-10 right-0 top-10">
-              <ul className="space-y-3 py-2 px-3 ">
+            <div className="absolute py-3 px-6 animate-slide-top rounded-lg bg-white/10 backdrop-blur-md z-10 right-0 top-10">
+              <ul className="space-y-3 ">
                 <li>
-                  <a href="#" className="text-white hover:text-primary transition-colors duration-100">Partner</a>
+                  <a href="#partner" className="text-white hover:text-primary transition-colors duration-100">Partner</a>
                 </li>
                 <li>
                   <a href="#enroll" className="text-white hover:text-primary transition-colors duration-100">Enroll</a>
