@@ -19,7 +19,7 @@ const Hero = () => {
             start building your future now.
           </p>
           <a href="#enroll">
-            <Button children="Enroll Now" className="sm:max-w-[327px] py-4 max-md:self-center" />
+            <Button children="Enroll Now" className="sm:max-w-[327px] py-[15.5px] max-md:self-center" />
           </a>
         </div>
 

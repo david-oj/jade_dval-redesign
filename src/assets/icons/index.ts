@@ -10,6 +10,8 @@ import instagram from './instagram.svg';
 import whatsapp from './whatsapp.svg';
 import copyright from './copyright.svg';
 import star from './Star.svg';
+import menu from "./menu.svg";
+import close from "./close.svg";
 
 export {
     checkCircle,
@@ -23,5 +25,7 @@ export {
     instagram,
     whatsapp,
     copyright,
-    star
+    star,
+    menu,
+    close
 }

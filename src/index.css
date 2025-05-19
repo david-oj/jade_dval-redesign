@@ -11,21 +11,40 @@
   h3 {
     @apply font-satoshi font-bold text-xl leading-[120%] text-black
   }
-  p{
+
+  p, li {
     @apply text-black text-base leading-[120%] font-normal font-satoshi
   }
+
   input, select {
     @apply mt-2 w-full px-3 py-2 border rounded-lg font-satoshi text-[#B0B3B5] text-base font-medium
   }
+
   input, select {
     @apply mt-2 w-full px-3 py-2 border rounded-lg font-satoshi text-[#B0B3B5] text-base font-medium focus:text-black
   }
 
-label{
-  @apply block text-sm font-semibold font-satoshi 
-}
+  label {
+    @apply block text-sm font-semibold font-satoshi
+  }
 }
 
+
+@keyframes slide-top {
+  0% {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.animate-slide-top {
+  animation: slide-top 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
 
 @font-face {
   font-family: 'Satoshi';
