@@ -23,6 +23,8 @@ export default function Courses() {
         setOpenCourseId(null);
       }
     };
+    // initial check in case we mounted on desktop
+    if (mq.matches) setOpenCourseId(null);
     mq.addEventListener("change", onChange);
 
   const handleEnrollClick = (courseId: string) => {

@@ -52,7 +52,7 @@ const PartnerDialog = () => {
       <DialogTrigger asChild>
        <Button children="Become a partner" bgColor="bg-white" textColor="text-primary" className="max-w-[327px] py-[10.5px] text-sm" />
       </DialogTrigger>
-      <DialogContent className="shadow-sm rounded-lg p-4 sm:px-10 sm:py-8 max-w-md">
+      <DialogContent className="shadow-sm rounded-lg p-4 sm:px-10 sm:py-8 sm:max-w-md">
         <DialogHeader>
           <DialogTitle className="">Partner With Us</DialogTitle>
           <DialogDescription>
@@ -60,7 +60,7 @@ const PartnerDialog = () => {
           </DialogDescription>
         </DialogHeader>
 
-        <form onSubmit={handleSubmit} className="space-y-4 mt-4">
+        <form onSubmit={handleSubmit} className="space-y-4 mt-4 ">
           <div>
             <label htmlFor="name" className="block mb-1 text-sm font-medium">
               Name
