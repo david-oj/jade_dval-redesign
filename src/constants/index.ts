@@ -34,7 +34,7 @@ export const courses: {
     id: "Frontend-development",
     title: "Frontend Development",
     description:
-      "Learn how to build responsive, high-performance websites and web applications using HTML, CSS, JavaScript, and modern frameworks like React and Vue. We cover the fundamentals of frontend development, UI integration, and version control with tools like Git and VS Code.",
+      "Learn how to build responsive, high-performance websites and web applications using HTML, CSS, JavaScript, and modern frameworks like React and Vue. We cover the fundamentals of frontend development, UI integration, and version control with tools like Git and GitHub.",
     image: courseImg2,
     linkText: "Enroll Now",
   },
@@ -42,7 +42,7 @@ export const courses: {
     id: "Backend-development",
     title: "Backend Development",
     description:
-      "Learn how to build the backbone of web and mobile applications using powerful backend technologies. We cover server-side programming, APIs, databases, and authentication using tools and frameworks like Node.js, Express, phyton, Django, MongoDB, and PostgreSQL.",
+      "Learn how to build the backbone of web and mobile applications using powerful backend technologies. We cover server-side programming, APIs, databases, and authentication using tools and frameworks like Node.js, Express, Python, Django, MongoDB and PostgreSQL.",
     image: courseImg3,
     linkText: "Enroll Now",
   },
@@ -50,7 +50,7 @@ export const courses: {
     id: "Mobile-app-development",
     title: "Mobile Development",
     description:
-      "Learn how to build beautiful, high-performance mobile apps for both Android and iOS using Flutter and the Dart programming language. We cover everything from UI design to state management and backend integration — all with one codebase.",
+      "Learn how to build beautiful, high-performance mobile apps for both Android and iOS using Flutter and the Dart programming language. We cover everything from UI design to state management and backend integration, all with one codebase.",
     image: courseImg4,
     linkText: "Enroll Now",
   },
