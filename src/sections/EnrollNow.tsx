@@ -151,8 +151,8 @@ const EnrollNow = () => {
                 </option>
                 <option value="Backend-development">Backend Development</option>
                 <option value="UI/UX-design">UI/UX Design</option>
-                <option value="Blockchain-technology">
-                  Blockchain Technology
+                <option value="Mobile-development">
+                  Mobile Development
                 </option>
               </select>
             </div>

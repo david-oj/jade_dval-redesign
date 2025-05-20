@@ -47,7 +47,7 @@ export const courses: {
     linkText: "Enroll Now",
   },
   {
-    id: "Mobile-app-development",
+    id: "Mobile-development",
     title: "Mobile Development",
     description:
       "Learn how to build beautiful, high-performance mobile apps for both Android and iOS using Flutter and the Dart programming language. We cover everything from UI design to state management and backend integration, all with one codebase.",
