@@ -1,6 +1,7 @@
 // pages/Dashboard.tsx
 import useAuthGuard from "@/hooks/useAuthGuard";
 import { useState } from "react";
+import { Button } from "@/components";
 
 const dummyStudents = [
   {
@@ -53,23 +54,48 @@ const Dashboard = () => {
         </button>
       </div>
 
+      {/* Summary Cards */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
+        <div className="bg-primary/5 p-4 rounded-lg shadow-sm">
+          <div className="font-satoshi">
+            <span className="text-2xl font-bold text-primary block">
+              {dummyStudents.length}
+            </span>
+            <span className="text-gray-600 text-sm">Total Registrations</span>
+          </div>
+        </div>
+        <div className="bg-primary/5 p-4 rounded-lg shadow-sm">
+          <div className="font-satoshi">
+            <span className="text-2xl font-bold text-primary block">
+              {dummyPartners.length}
+            </span>
+            <span className="text-gray-600 text-sm">Partnership Offers</span>
+          </div>
+        </div>
+      </div>
+
+      {/* section View toggle buttons */}
       <div className="flex gap-4 mb-6">
-        <button
+        <Button
           onClick={() => setView("students")}
-          className={`px-4 py-2 rounded-lg text-sm ${
+          className={`px-4 py-2 rounded-lg text-sm max-w-[82px] ${
             view === "students" ? "bg-primary text-white" : "bg-gray-100"
           }`}
+          bgColor=""
+          textColor=""
         >
           Students
-        </button>
-        <button
+        </Button>
+        <Button
           onClick={() => setView("partners")}
-          className={`px-4 py-2 rounded-lg text-sm ${
+          className={`px-4 py-2 rounded-lg text-sm max-w-[82px] ${
             view === "partners" ? "bg-primary text-white" : "bg-gray-100"
           }`}
+          bgColor=""
+          textColor=""
         >
           Partners
-        </button>
+        </Button>
       </div>
 
       <div className="overflow-x-auto">
