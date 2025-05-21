@@ -39,7 +39,7 @@ const Dashboard = () => {
   const [view, setView] = useState<"students" | "partners">("students");
 
   return (
-    <section className="p-6 max-w-5xl mx-auto mt-10">
+    <section className="p-6 max-w-5xl mx-auto my-10">
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-xl font-semibold">Admin Dashboard</h1>
         <button

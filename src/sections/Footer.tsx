@@ -12,14 +12,14 @@ const Footer = () => {
                 <Icon className="text-white" />
                 {item.description ? (
                   <div className="space-y-1 ">
-                    <h3 className="text-white">{item.title}</h3>
+                    <h3 className="text-white max-sm:text-base">{item.title}</h3>
                     <p className="text-white leading-[20px]">
                       {item.description}
                     </p>
                   </div>
                 ) : (
                   <div className="">
-                    <h3 className="text-white mb-1">{item.title}</h3>
+                    <h3 className="text-white mb-1 max-sm:text-base">{item.title}</h3>
                     {item.phones?.map((phone, idx) => (
                       <p key={idx} className="text-white">
                         {phone.phone}
