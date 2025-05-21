@@ -1,31 +1,23 @@
-import {
-  Header,
-  Hero,
-  Courses,
-  Roadmap,
-  JadeStarCTA,
-  Faqs,
-  Partner,
-  EnrollNow,
-  Footer,
-} from "./sections";
+import { Routes, Route, Navigate } from "react-router-dom";
+import LandingPage from "@/pages/LandingPage";
+import Login from "@/pages/Login"
+import Dashboard from "@/pages/Dashboard";
 
 function App() {
   return (
-    <div className="max-w-[1536px] mx-auto">
-      <div className="bg-black max-h-screen overflow-hidden">
-        <Header />
-        <Hero />
-      </div>
+    <Routes>
+      {/* Public Landing */}
+      <Route path="/" element={<LandingPage />} />
 
-      <Courses />
-      <Roadmap />
-      <Faqs />
-      <Partner />
-      <JadeStarCTA />
-      <EnrollNow />
-      <Footer />
-    </div>
+      {/* Auth Pages */}
+      <Route path="/login" element={<Login />} />
+
+      {/* Protected Dashboard */}
+      <Route path="/dashboard" element={<Dashboard />} />
+
+      {/* Catch-all: redirect unknown URLs to home */}
+      <Route path="*" element={<Navigate to="/" replace />} />
+    </Routes>
   );
 }
 

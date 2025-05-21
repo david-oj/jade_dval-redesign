@@ -26,6 +26,8 @@ export default function Courses() {
     // initial check in case we mounted on desktop
     if (mq.matches) setOpenCourseId(null);
     mq.addEventListener("change", onChange);
+    return () => mq.removeEventListener("change", onChange);
+  }, []);
 
   const handleEnrollClick = (courseId: string) => {
     window.location.hash = `#enroll?course=${encodeURIComponent(courseId)}`;
@@ -38,11 +40,13 @@ export default function Courses() {
           Find the Perfect Courses For You
         </h2>
 
-        {/* Desktop Grid */}
+        {/* Desktop view */}
         <div className="flex flex-wrap gap-5 sm:mt-10 mt-6 mb-[10px] md:justify-between justify-center max-md:hidden">
           {courses.map((course) => (
             <div
               className="flex-1 relative max-w-[305px] min-w-[270px] flex flex-col"
+              key={course.id}
+            >
               <div className="h-[200px] rounded-t-[20px] overflow-hidden">
                 <img
                   src={course.image}

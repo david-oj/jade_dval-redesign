@@ -46,7 +46,6 @@ const EnrollNow = () => {
     return () => window.removeEventListener("hashchange", handleHashChange);
   }, []);
 
-  
   // Function to handle changes in form inputs
   const handleChange = (
     e: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
@@ -151,16 +150,20 @@ const EnrollNow = () => {
                 </option>
                 <option value="Backend-development">Backend Development</option>
                 <option value="UI/UX-design">UI/UX Design</option>
-                <option value="Mobile-development">
-                  Mobile Development
-                </option>
+                <option value="Mobile-development">Mobile Development</option>
               </select>
             </div>
 
             <div>
               <label>Do you have a laptop?</label>
-              <select name="ownLaptop" id="ownLaptop" required>
-                <option value="Select" disabled selected>
+              <select
+                name="ownLaptop"
+                id="ownLaptop"
+                value={formData.ownLaptop}
+                onChange={handleChange}
+                required
+              >
+                <option value="Select" disabled>
                   Select
                 </option>
                 <option value="Yes">Yes</option>
