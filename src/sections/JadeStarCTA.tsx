@@ -4,7 +4,7 @@ import { Button } from "@/components";
 const JadeStarCTA = () => {
   return (
     <section className="md:mx-25 max-h-[488px] overflow-hidden max-md:px-6 mt-[71px] mb-19.5">
-      <div className="flex @container items-center lg:px-16 px-6 lg:gap-25.5 md:gap-16 mx-auto max-md:max-w-lg rounded-[28px] bg-primary/5">
+      <div className="flex @container items-center lg:px-16 px-6 lg:gap-25.5 md:gap-16 mx-auto max-md:max-w-lg rounded-lg sm:rounded-[28px] bg-primary/3">
         <div className="flex flex-1 max-h-[488px] max-md:hidden overflow-hidden items-center gap-4.5">
           <div className="flex flex-col lg:gap-5 gap-2">
             {jadeStars.map(
@@ -39,7 +39,7 @@ const JadeStarCTA = () => {
           </div>
         </div>
 
-        <div className="max-w-[484px] flex-1 max-md:items-center max-md:text-center flex flex-col gap-4 sm:gap-6">
+        <div className="max-w-[484px] max-sm:py-8 flex-1 max-md:items-center max-md:text-center flex flex-col gap-4 sm:gap-6">
           <h2 className="max-sm:text-xl ">
             Join the Movement. Become a Jade Star.
           </h2>
