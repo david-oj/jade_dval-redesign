@@ -40,7 +40,7 @@ const Dashboard = () => {
 
   return (
     <section className="p-6 max-w-5xl mx-auto mt-10">
-      <div className="flex justify-between items-center mb-6 bg-amber-100">
+      <div className="flex justify-between items-center mb-6">
         <h1 className="text-xl font-semibold">Admin Dashboard</h1>
         <button
           className="text-sm text-red-600"
@@ -74,9 +74,9 @@ const Dashboard = () => {
 
       <div className="overflow-x-auto">
         {view === "students" ? (
-          <table className="w-full  text-sm border rounded-lg overflow-hidden">
+          <table className="w-full font-satoshi text-sm border rounded-lg overflow-hidden">
             <thead className="bg-gray-100 text-left">
-              <tr>
+              <tr className="">
                 <th className="px-4 py-2">Full Name</th>
                 <th className="px-4 py-2">Email</th>
                 <th className="px-4 py-2">Phone</th>
@@ -97,7 +97,7 @@ const Dashboard = () => {
             </tbody>
           </table>
         ) : (
-          <table className="w-full text-sm border rounded-lg overflow-hidden">
+          <table className="w-full font-satoshi text-sm border rounded-lg overflow-hidden">
             <thead className="bg-gray-100 text-left">
               <tr>
                 <th className="px-4 py-2">Name</th>

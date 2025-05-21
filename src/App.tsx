@@ -1,23 +1,14 @@
-import { Routes, Route, Navigate } from "react-router-dom";
-import LandingPage from "@/pages/LandingPage";
-import Login from "@/pages/Login"
-import Dashboard from "@/pages/Dashboard";
+import { Outlet } from "react-router-dom";
+import { Footer } from "./sections";
 
 function App() {
   return (
-    <Routes>
-      {/* Public Landing */}
-      <Route path="/" element={<LandingPage />} />
-
-      {/* Auth Pages */}
-      <Route path="/login" element={<Login />} />
-
-      {/* Protected Dashboard */}
-      <Route path="/dashboard" element={<Dashboard />} />
-
-      {/* Catch-all: redirect unknown URLs to home */}
-      <Route path="*" element={<Navigate to="/" replace />} />
-    </Routes>
+    <div className="min-h-screen flex flex-col">
+      <main className="flex-grow">
+        <Outlet /> {/* This will contain your page content */}
+      </main>
+      <Footer /> {/* Footer will stick to bottom */}
+    </div>
   );
 }
 
