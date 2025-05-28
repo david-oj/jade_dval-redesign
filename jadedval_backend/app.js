@@ -31,6 +31,7 @@ app.use('/api', partnerRoute);
 
 
 app.listen(PORT, () => {
+    console.log('https://jade-dval-redesign-backend.onrender.com')
     console.log(`Server is running on port ${PORT}`);
-    console.log(`http://localhost:${PORT}`);
+    // console.log(`http://localhost:${PORT}`);
 })
