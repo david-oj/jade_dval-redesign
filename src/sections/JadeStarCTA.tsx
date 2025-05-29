@@ -27,7 +27,10 @@ const JadeStarCTA = () => {
             {jadeStars.map(
               (star, idx) =>
                 idx > 1 && (
-                  <div key={idx} className="max-w-[186px] max-h-[162px] rounded-2xl overflow-hidden">
+                  <div
+                    key={idx}
+                    className="max-w-[186px] max-h-[162px] rounded-2xl overflow-hidden"
+                  >
                     <img
                       src={star.star}
                       alt="jade_d'val_stars"
@@ -48,7 +51,12 @@ const JadeStarCTA = () => {
             Enroll in hands-on programs, work with mentors, and unlock global
             opportunities. The future of tech is waiting for you.
           </p>
-          <Button children="Enroll Now" className="max-w-[250px] py-[10.5px]" />
+          <a href="#enroll" className="w-full">
+            <Button
+              children="Enroll Now"
+              className="max-w-[250px] py-[10.5px]"
+            />
+          </a>
         </div>
       </div>
     </section>

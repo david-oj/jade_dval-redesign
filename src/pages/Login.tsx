@@ -9,7 +9,7 @@ const Login = () => {
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
-    if (password === "admin123") {
+    if (password === "admin256") {
       localStorage.setItem("isAdmin", "true");
       navigate("/dashboard");
     } else {

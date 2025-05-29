@@ -2,25 +2,29 @@ import { useState, useEffect, ChangeEvent, FormEvent } from "react";
 import { Button } from "@/components";
 import { formImage } from "@/assets/images";
 import Mail from "@/assets/icons/mail.svg?react";
+import { API_BASE } from "@/lib/api";
 
 type FormData = {
   fullName: string;
   email: string;
-  tel: string;
-  course: string;
-  ownLaptop: string;
+  phone: string;
+  interest: string;
+  // ownLaptop: string;
 };
 
 const initialFormData: FormData = {
   fullName: "",
   email: "",
-  tel: "",
-  course: "",
-  ownLaptop: "",
+  phone: "",
+  interest: "",
+  // ownLaptop: "",
 };
 
 const EnrollNow = () => {
   const [formData, setFormData] = useState<FormData>(initialFormData);
+  const [submitting, setSubmitting] = useState<boolean>(false);
+  const [submitMsg, setSubmitMsg] = useState<string | null>(null);
+  const [statusColor, setStatusColor] = useState<string | null>(null);
 
   // Handle hash change to set course & effect auto-scroll
   useEffect(() => {
@@ -28,7 +32,7 @@ const EnrollNow = () => {
       const hash = window.location.hash;
       if (hash.includes("enroll?course=")) {
         const courseId = decodeURIComponent(hash.split("course=")[1]);
-        setFormData((prev) => ({ ...prev, course: courseId }));
+        setFormData((prev) => ({ ...prev, interest: courseId }));
 
         // Force scroll in case browser doesn't auto-scroll
         document
@@ -36,10 +40,8 @@ const EnrollNow = () => {
           ?.scrollIntoView({ behavior: "smooth" });
       }
     };
-
     // Initial check
     handleHashChange();
-
     // Listen for hash changes
     window.addEventListener("hashchange", handleHashChange);
 
@@ -62,17 +64,39 @@ const EnrollNow = () => {
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setSubmitting(true);
+
+    // split fullName into firstname & lastname
+    const { fullName, ...rest } = formData;
+    const [firstName, ...lastParts] = fullName.trim().split(/\s+/);
+    const lastName = lastParts.join(" ");
+
+    // build payload with the keys your API expects
+    const payload = { firstName, lastName, ...rest };
+
+    console.log("submitting:", payload);
 
     try {
-      await fetch("/enroll", {
+      const res = await fetch(`${API_BASE}/enroll`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify(payload),
       });
 
-      setFormData(initialFormData);
+      if (!res.ok) {
+        setStatusColor("text-red-400");
+        const err = await res.json();
+        throw new Error(err.message || "Submission failed");
+      } else {
+        setStatusColor("text-primary");
+        const msg = await res.json();
+        setSubmitMsg(msg.message);
+      }
     } catch (error) {
-      console.error(error);
+      setSubmitMsg(error instanceof Error ? error.message : "Submission failed");
+    } finally {
+      setSubmitting(false);
+      console.log("submitted successfully");
     }
   };
 
@@ -124,9 +148,9 @@ const EnrollNow = () => {
                   type="tel"
                   placeholder="e.g. 08012345678"
                   className="p-0 px-3 mt-0 rounded-r-lg border-none rounded-none "
-                  name="tel"
-                  id="tel"
-                  value={formData.tel}
+                  name="phone"
+                  id="phone"
+                  value={formData.phone}
                   onChange={handleChange}
                   required
                 />
@@ -136,25 +160,25 @@ const EnrollNow = () => {
             <div>
               <label>Course</label>
               <select
-                name="course"
-                id="course"
-                value={formData.course}
+                name="interest"
+                id="interest"
+                value={formData.interest}
                 onChange={handleChange}
                 required
               >
                 <option value="" disabled>
                   Select Course
                 </option>
-                <option value="Frontend-development">
+                <option value="Frontend Development">
                   Frontend Development
                 </option>
-                <option value="Backend-development">Backend Development</option>
-                <option value="UI/UX-design">UI/UX Design</option>
+                <option value="Backend Development">Backend Development</option>
+                <option value="UI/UX Design">UI/UX Design</option>
                 <option value="Mobile-development">Mobile Development</option>
               </select>
             </div>
 
-            <div>
+            {/* <div>
               <label>Do you have a laptop?</label>
               <select
                 name="ownLaptop"
@@ -169,12 +193,19 @@ const EnrollNow = () => {
                 <option value="Yes">Yes</option>
                 <option value="No">No</option>
               </select>
-            </div>
+            </div> */}
             <Button
               type="submit"
-              children="Enroll Now"
+              children={submitting ? "Submitting..." : " Enroll"}
               className="rounded-4 text-sm py-[10.5px]"
+              disabled={submitting}
             />
+
+            {submitMsg && (
+              <p className={`${statusColor} text-sm `} aria-live="assertive">
+                {submitMsg}
+              </p>
+            )}
           </form>
         </div>
         <div className="flex-1 flex flex-col gap-4 max-sm:text-center">
