@@ -1,43 +1,76 @@
 // pages/Dashboard.tsx
 import useAuthGuard from "@/hooks/useAuthGuard";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "@/components";
+import { API_BASE } from "@/lib/api";
 
-const dummyStudents = [
-  {
-    fullName: "Jane Doe",
-    email: "jane@example.com",
-    tel: "08012345678",
-    course: "Frontend",
-    ownLaptop: "Yes",
-  },
-  {
-    fullName: "John Smith",
-    email: "john@example.com",
-    tel: "08098765432",
-    course: "Backend",
-    ownLaptop: "No",
-  },
-];
+type Students = {
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone: string;
+  interest: string;
+  // ownLaptop: string;
+};
 
-const dummyPartners = [
-  {
-    name: "Alice Partner",
-    email: "alice@corp.com",
-    phone: "0805551111",
-    message: "Sponsorship offer.",
-  },
-  {
-    name: "Bob NGO",
-    email: "bob@ngo.org",
-    phone: "0804442222",
-    message: "Free workshop proposal.",
-  },
-];
+type Partners = {
+  name: string;
+  email: string;
+  phone: string;
+  howWouldYouLikeToPartner: string;
+};
+
 
 const Dashboard = () => {
   useAuthGuard();
   const [view, setView] = useState<"students" | "partners">("students");
+  const [students, setStudents] = useState<Students[]>([]);
+  const [partners, setPartners] = useState<Partners[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchstudents = async () => {
+      try {
+        const res = await fetch(`${API_BASE}/students`);
+        const data = await res.json();
+
+        if (!res.ok) {
+          const err = await res.json();
+          throw new Error(err.message || "Failed to fetch");
+        }
+
+        setStudents(data);
+      } catch (error) {
+        setError(error instanceof Error ? error.message : "Failed to fetch");
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchstudents();
+  }, []);
+
+  useEffect(() => {
+    const fetchPartners = async () => {
+      try {
+        const res = await fetch(`${API_BASE}/partners`);
+        const data = await res.json();
+
+        if (!res.ok) {
+          const err = await res.json();
+          throw new Error(err.message || "Failed to fetch");
+        }
+
+        setPartners(data);
+      } catch (error) {
+        setError(error instanceof Error ? error.message : "Failed to fetch");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchPartners();
+  }, [view]);
 
   return (
     <section className="p-6 max-w-5xl mx-auto my-10">
@@ -59,16 +92,14 @@ const Dashboard = () => {
         <div className="bg-primary/5 p-4 rounded-lg shadow-sm">
           <div className="font-satoshi">
             <span className="text-2xl font-bold text-primary block">
-              {dummyStudents.length}
+              {students.length}
             </span>
             <span className="text-gray-600 text-sm">Total Registrations</span>
           </div>
         </div>
         <div className="bg-primary/5 p-4 rounded-lg shadow-sm">
           <div className="font-satoshi">
-            <span className="text-2xl font-bold text-primary block">
-              {dummyPartners.length}
-            </span>
+            <span className="text-2xl font-bold text-primary block">{partners.length}</span>
             <span className="text-gray-600 text-sm">Partnership Offers</span>
           </div>
         </div>
@@ -98,12 +129,17 @@ const Dashboard = () => {
         </Button>
       </div>
 
-      <div className="overflow-x-auto">
-        {view === "students" ? (
+      <div className="overflow-auto  max-h-screen">
+        {loading ? (
+          <p>Loading...</p>
+        ) : error ? (
+          <p className="text-red-500">{error}</p>
+        ) : view === "students" ? (
           <table className="w-full font-satoshi text-sm border rounded-lg overflow-hidden">
             <thead className="bg-gray-100 text-left">
               <tr className="">
-                <th className="px-4 py-2">Full Name</th>
+                <th className="px-4 py-2">First Name</th>
+                <th className="px-4 py-2">Last Name</th>
                 <th className="px-4 py-2">Email</th>
                 <th className="px-4 py-2">Phone</th>
                 <th className="px-4 py-2">Course</th>
@@ -111,13 +147,13 @@ const Dashboard = () => {
               </tr>
             </thead>
             <tbody>
-              {dummyStudents.map((s, i) => (
+              {students.map((s, i) => (
                 <tr key={i} className="border-t">
-                  <td className="px-4 py-2">{s.fullName}</td>
+                  <td className="px-4 py-2">{s.firstName}</td>
+                  <td className="px-4 py-2">{s.lastName}</td>
                   <td className="px-4 py-2">{s.email}</td>
-                  <td className="px-4 py-2">{s.tel}</td>
-                  <td className="px-4 py-2">{s.course}</td>
-                  <td className="px-4 py-2">{s.ownLaptop}</td>
+                  <td className="px-4 py-2">{s.phone}</td>
+                  <td className="px-4 py-2 line-clamp-3 max-h-[calc(1.5rem*3)]">{s.interest}</td>
                 </tr>
               ))}
             </tbody>
@@ -133,12 +169,12 @@ const Dashboard = () => {
               </tr>
             </thead>
             <tbody>
-              {dummyPartners.map((p, i) => (
+              {partners.map((p, i) => (
                 <tr key={i} className="border-t">
                   <td className="px-4 py-2">{p.name}</td>
                   <td className="px-4 py-2">{p.email}</td>
                   <td className="px-4 py-2">{p.phone}</td>
-                  <td className="px-4 py-2">{p.message}</td>
+                  <td className="px-4 py-2 line-clamp-3 max-h-[calc(1.5rem*3)]">{p.howWouldYouLikeToPartner}</td>
                 </tr>
               ))}
             </tbody>
