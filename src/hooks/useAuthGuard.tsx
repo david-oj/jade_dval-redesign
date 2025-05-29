@@ -1,15 +1,25 @@
 import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
+
+export const AUTH_TOKEN_KEY = import.meta.env.VITE_AUTH_TOKEN_KEY;
 
 const useAuthGuard = () => {
   const navigate = useNavigate();
+  const { pathname } = useLocation();
 
   useEffect(() => {
-    const isAdmin = localStorage.getItem("isAdmin") === "true";
-    if (!isAdmin) {
-      navigate("/login", { replace: true });
+    const token = localStorage.getItem(AUTH_TOKEN_KEY);
+    if (!token) {
+      navigate(`/login?from=${encodeURIComponent(pathname)}`);
+      return;
     }
-  }, [navigate]);
+    const issued = Number(token);
+    // expiration: 1 hour
+    if (Date.now() - issued > 3600000) {
+      localStorage.removeItem(AUTH_TOKEN_KEY);
+      navigate(`/login?expired=true`);
+    }
+  }, [navigate, pathname]);
 };
 
 export default useAuthGuard;
