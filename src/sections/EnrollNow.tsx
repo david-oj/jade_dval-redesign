@@ -89,14 +89,15 @@ const EnrollNow = () => {
         throw new Error(err.message || "Submission failed");
       } else {
         setStatusColor("text-primary");
-        const msg = await res.json();
-        setSubmitMsg(msg.message);
+        const success = await res.json();
+        setSubmitMsg(success.message);
       }
     } catch (error) {
       setSubmitMsg(error instanceof Error ? error.message : "Submission failed");
     } finally {
       setSubmitting(false);
       console.log("submitted successfully");
+      setFormData(initialFormData);
     }
   };
 
