@@ -2,8 +2,7 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 const studentSchema = new Schema({
-    firstName: { type: String, required: true },
-    lastName: { type: String, required: true },
+    fullName: { type: String, required: true },
     email: { type: String, required: true, unique: true },
     phone: { type: String, required: true },
     interest: {
@@ -15,7 +14,8 @@ const studentSchema = new Schema({
             'Blockchain Technology'
         ],
         required: true
-    }
+    },
+    haveALaptop: { type: Boolean, default: false }
 })
 
 const patnerWithUs = new Schema({
