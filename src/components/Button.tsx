@@ -17,7 +17,7 @@ const Button = ({
   textColor = "text-white",
   ...props // Capture remaining props
 }: ButtonProps) => {
-  const baseStyles = `${bgColor} w-full text-lg ${font} ${textColor} ${borderRadius} font-medium`;
+  const baseStyles = `${bgColor} w-full h-fit text-lg ${font} ${textColor} ${borderRadius} font-medium`;
 
   return (
     <button

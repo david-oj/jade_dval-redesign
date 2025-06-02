@@ -2,6 +2,8 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components";
+import { AUTH_TOKEN_KEY } from "@/hooks/useAuthGuard";
+import {sha256} from 'js-sha256';
 
 const Login = () => {
   const [password, setPassword] = useState("");
@@ -9,9 +11,11 @@ const Login = () => {
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
-    if (password === "admin123") {
-      localStorage.setItem("isAdmin", "true");
-      navigate("/dashboard");
+    const hash = sha256(password);
+
+    if (hash === import.meta.env.VITE_ADMIN_PASSWORD_HASH) {
+      localStorage.setItem(AUTH_TOKEN_KEY, Date.now().toString());
+      navigate("/dashboard", { replace: true });
     } else {
       alert("Incorrect password");
     }

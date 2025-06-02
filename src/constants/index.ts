@@ -23,7 +23,7 @@ export const courses: {
   linkText: string;
 }[] = [
   {
-    id: "UI/UX-design",
+    id: "UI/UX Design",
     title: "UI/UX Design",
     description:
       "Learn how to design intuitive, user-friendly interfaces and engaging digital experiences for websites, apps, and products. Perfect for beginners, We covers essential UI/UX principles and hands-on training with industry-standard tools like Figma, Adobe XD, and Sketch.",
@@ -31,7 +31,7 @@ export const courses: {
     linkText: "Enroll Now",
   },
   {
-    id: "Frontend-development",
+    id: "Frontend Development",
     title: "Frontend Development",
     description:
       "Learn how to build responsive, high-performance websites and web applications using HTML, CSS, JavaScript, and modern frameworks like React and Vue. We cover the fundamentals of frontend development, UI integration, and version control with tools like Git and GitHub.",
@@ -39,7 +39,7 @@ export const courses: {
     linkText: "Enroll Now",
   },
   {
-    id: "Backend-development",
+    id: "Backend Development",
     title: "Backend Development",
     description:
       "Learn how to build the backbone of web and mobile applications using powerful backend technologies. We cover server-side programming, APIs, databases, and authentication using tools and frameworks like Node.js, Express, Python, Django, MongoDB and PostgreSQL.",
