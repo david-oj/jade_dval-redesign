@@ -26,6 +26,7 @@ const EnrollNow = () => {
   const [submitMsg, setSubmitMsg] = useState<string | null>(null);
   const [statusColor, setStatusColor] = useState<string | null>(null);
   const [successModal, setSuccessModal] = useState<boolean>(false);
+  const [submittedEmail, setSubmittedEmail] = useState<string>("");
 
   // Handle hash change to set course & effect auto-scroll
   useEffect(() => {
@@ -49,7 +50,7 @@ const EnrollNow = () => {
     return () => window.removeEventListener("hashchange", handleHashChange);
   }, []);
 
-  // Function to handle changes in form inputs
+  // Function to handle changes in form inputs-
   const handleChange = (
     e: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
   ) => {
@@ -72,6 +73,8 @@ const EnrollNow = () => {
       ...formData,
       haveALaptop: formData.haveALaptop === "Yes" ? true : false,
     };
+
+    setSubmittedEmail(payload.email);
 
     console.log("submitting:", payload);
 
@@ -229,7 +232,7 @@ const EnrollNow = () => {
                 </h2>
                 <p className="mb-6">
                   Thank you for enrolling! A confirmation email has been sent to{" "}
-                  <strong>{formData.email || "your inbox"}</strong>.
+                  <strong>{submittedEmail || "your inbox"}</strong>.
                 </p>
                 <Button
                   className="bg-primary text-white py-1 rounded"
