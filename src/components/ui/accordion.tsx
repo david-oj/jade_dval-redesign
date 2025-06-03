@@ -54,7 +54,7 @@ function AccordionTrigger({
         {/* Minus: hidden by default, show when open */}
         <Minus
           className={cn(
-            "hidden  rounded-xs sm:rounded-sm pointer-events-none bg-primary text-white",
+            "hidden w-4 h-4 sm:w-6 sm:h-6 rounded-xs sm:rounded-sm pointer-events-none bg-primary text-white",
             "group-data-[state=open]:block"
           )}
         />
