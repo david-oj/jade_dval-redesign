@@ -9,7 +9,7 @@ type FormData = {
   email: string;
   phone: string;
   interest: string;
-  // ownLaptop: string;
+  haveALaptop: string;
 };
 
 const initialFormData: FormData = {
@@ -17,7 +17,7 @@ const initialFormData: FormData = {
   email: "",
   phone: "",
   interest: "",
-  // ownLaptop: "",
+  haveALaptop: "",
 };
 
 const EnrollNow = () => {
@@ -66,13 +66,8 @@ const EnrollNow = () => {
     e.preventDefault();
     setSubmitting(true);
 
-    // split fullName into firstname & lastname
-    const { fullName, ...rest } = formData;
-    const [firstName, ...lastParts] = fullName.trim().split(/\s+/);
-    const lastName = lastParts.join(" ");
-
     // build payload with the keys your API expects
-    const payload = { firstName, lastName, ...rest };
+    const payload = {...formData, haveALaptop: formData.haveALaptop === 'Yes' ? true : false};
 
     console.log("submitting:", payload);
 
@@ -167,7 +162,7 @@ const EnrollNow = () => {
                 onChange={handleChange}
                 required
               >
-                <option value="" disabled>
+                <option value="" disabled hidden>
                   Select Course
                 </option>
                 <option value="Frontend Development">
@@ -179,22 +174,22 @@ const EnrollNow = () => {
               </select>
             </div>
 
-            {/* <div>
+            <div>
               <label>Do you have a laptop?</label>
               <select
-                name="ownLaptop"
-                id="ownLaptop"
-                value={formData.ownLaptop}
+                name="haveALaptop"
+                id="haveALaptop"
+                value={formData.haveALaptop}
                 onChange={handleChange}
                 required
               >
-                <option value="Select" disabled>
+                <option value="" disabled hidden>
                   Select
                 </option>
                 <option value="Yes">Yes</option>
                 <option value="No">No</option>
               </select>
-            </div> */}
+            </div>
             <Button
               type="submit"
               children={submitting ? "Submitting..." : " Enroll"}
