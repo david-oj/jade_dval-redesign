@@ -46,7 +46,7 @@ function AccordionTrigger({
         {/* Plus: show by default, hide when open */}
         <Plus
           className={cn(
-            "block w-4 h-4 sm:w-6 sm:h-6 rounded-xs sm:rounded-sm pointer-events-none bg-primary text-white",
+            "block min-w-4 min-w-h-4 sm:min-w-6 sm:min-w-h-6 rounded-xs sm:rounded-sm pointer-events-none bg-primary text-white",
             "group-data-[state=open]:hidden"
           )}
         />
@@ -54,7 +54,7 @@ function AccordionTrigger({
         {/* Minus: hidden by default, show when open */}
         <Minus
           className={cn(
-            "hidden w-4 h-4 sm:w-6 sm:h-6 rounded-xs sm:rounded-sm pointer-events-none bg-primary text-white",
+            "hidden w-4 h-4 sm:min-w-6 sm:min-h-6 rounded-xs sm:rounded-sm pointer-events-none bg-primary text-white",
             "group-data-[state=open]:block"
           )}
         />
