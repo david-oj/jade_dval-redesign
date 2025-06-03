@@ -11,7 +11,7 @@ const studentSchema = new Schema({
             'UI/UX Design',
             'Frontend Development',
             'Backend Development',
-            'Mobile Development',
+            'Mobile-development',
         ],
         required: true
     },
