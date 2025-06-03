@@ -9,11 +9,11 @@ import * as XLSX from "xlsx";
 import { saveAs } from "file-saver";
 
 type Student = {
-  firstName: string;
-  lastName: string;
+  fullName: string;
   email: string;
   phone: string;
   interest: string;
+  haveALaptop: boolean;
 };
 
 type Partner = {
@@ -65,11 +65,10 @@ const Dashboard: React.FC = () => {
     doc.text(title, 14, 22);
 
     if (view === "students") {
-      const head = [["No","First Name", "Last Name", "Email", "Phone", "Interest"]];
+      const head = [["No","Full Name", "Email", "Phone", "Interest"]];
       const body = students.map((s, i) => [
         i + 1,
-        s.firstName,
-        s.lastName,
+        s.fullName,
         s.email,
         s.phone,
         s.interest,
@@ -109,8 +108,7 @@ const Dashboard: React.FC = () => {
     if (view === "students") {
       data = students.map((s, i) => ({
         No: i + 1,
-        "First Name": s.firstName,
-        "Last Name": s.lastName,
+        "Full Name": s.fullName,
         Email: s.email,
         Phone: s.phone,
         Interest: s.interest,
@@ -227,8 +225,7 @@ const Dashboard: React.FC = () => {
           <table className="w-full font-satoshi text-sm border rounded-lg overflow-hidden">
             <thead className="bg-gray-100 text-left">
               <tr className="">
-                <th className="px-4 py-2">First Name</th>
-                <th className="px-4 py-2">Last Name</th>
+                <th className="px-4 py-2">Full Name</th>
                 <th className="px-4 py-2">Email</th>
                 <th className="px-4 py-2">Phone</th>
                 <th className="px-4 py-2">Course</th>
@@ -238,13 +235,13 @@ const Dashboard: React.FC = () => {
             <tbody>
               {students.map((s, i) => (
                 <tr key={i} className="border-t">
-                  <td className="px-4 py-2">{s.firstName}</td>
-                  <td className="px-4 py-2">{s.lastName}</td>
+                  <td className="px-4 py-2">{s.fullName}</td>
                   <td className="px-4 py-2">{s.email}</td>
                   <td className="px-4 py-2">{s.phone}</td>
                   <td className="px-4 py-2 line-clamp-3 max-h-[calc(1.5rem*3)]">
                     {s.interest}
                   </td>
+                  <td className="px-4 py-2]">{s.haveALaptop ? "Yes" : "No"}</td>
                 </tr>
               ))}
             </tbody>
