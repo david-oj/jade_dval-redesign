@@ -30,7 +30,7 @@ const PartnerDialog = () => {
   const [submitMsg, setSubmitMsg] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState<boolean>(false);
   const [statusColor, setStatusColor] = useState<string | null>(null);
-  const [successModal, setSuccessModal] = useState<boolean>(true);
+  const [successModal, setSuccessModal] = useState<boolean>(false);
   const [submittedEmail, setSubmittedEmail] = useState<string>("");
   const [submittedName, setSubmittedName] = useState<string>("");
 
@@ -59,10 +59,11 @@ const PartnerDialog = () => {
         setStatusColor("text-red-400");
         throw new Error(err.message || "Submission failed");
       } else {
-        const success = await res.json();
-        setStatusColor("text-primary");
-        setSubmitMsg(success.message);
+        // const success = await res.json();
+        // setStatusColor("text-primary");
+        // setSubmitMsg(success.message);
         setSuccessModal(true);
+        setSubmitMsg(null);
       }
     } catch (error) {
       setSubmitMsg(
