@@ -30,6 +30,9 @@ const PartnerDialog = () => {
   const [submitMsg, setSubmitMsg] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState<boolean>(false);
   const [statusColor, setStatusColor] = useState<string | null>(null);
+  const [successModal, setSuccessModal] = useState<boolean>(true);
+  const [submittedEmail, setSubmittedEmail] = useState<string>("");
+  const [submittedName, setSubmittedName] = useState<string>("");
 
   const handleChange = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -42,8 +45,8 @@ const PartnerDialog = () => {
     e.preventDefault();
     setSubmitting(true);
 
-    console.log("Submitting:", form);
-
+    setSubmittedEmail(form.email);
+    setSubmittedName(form.name);
     try {
       const res = await fetch(`${API_BASE}/partner`, {
         method: "POST",
@@ -59,7 +62,7 @@ const PartnerDialog = () => {
         const success = await res.json();
         setStatusColor("text-primary");
         setSubmitMsg(success.message);
-        setForm(initialPartnerForm);
+        setSuccessModal(true);
       }
     } catch (error) {
       setSubmitMsg(
@@ -67,7 +70,7 @@ const PartnerDialog = () => {
       );
     } finally {
       setSubmitting(false);
-      console.log("submission Successful");
+      setForm(initialPartnerForm);
     }
   };
 
@@ -164,6 +167,41 @@ const PartnerDialog = () => {
             <p className={`${statusColor}`} aria-live="assertive">
               {submitMsg}
             </p>
+          )}
+
+          {successModal && (
+            <div
+              className="fixed inset-0 flex items-center justify-center z-10"
+              aria-modal="true"
+              role="dialog"
+            >
+              {/* Backdrop */}
+              <div
+                className="absolute inset-0 bg-black/50"
+                onClick={() => setSuccessModal(false)}
+              />
+
+              {/* Modal Content */}
+              <div className="relative text-center bg-white rounded-lg shadow-lg max-w-sm w-full p-6 mx-4">
+                <h3 className="text-xl font-semibold mb-3">
+                  Partnership Request Received
+                </h3>
+                <p className="mb-2">
+                  Thank you, <strong>{submittedName}</strong>! We’ve received
+                  your request.
+                </p>
+                <p className="mb-6">
+                  An email has been sent to <strong>{submittedEmail}</strong>.
+                  We’ll be in touch to discuss next steps.
+                </p>
+                <Button
+                  className="bg-primary text-white py-1 rounded"
+                  onClick={() => setSuccessModal(false)}
+                >
+                  Close
+                </Button>
+              </div>
+            </div>
           )}
         </form>
       </DialogContent>
