@@ -7,7 +7,7 @@ const validator = require('validator')
 // Function to create a new student
 const createStudent = async (req, res) => {
     try{
-        const { firstName, lastName, email, phone, interest } = req.body;
+        const { fullName, email, phone, interest } = req.body;
 
         // Validate the phone number
         if (!isValidPhoneNumber(phone, 'NG')){
@@ -27,15 +27,14 @@ const createStudent = async (req, res) => {
 
         // Create a new student
         const student = new Student({
-            firstName,
-            lastName,
+            fullName,
             email,
             phone,
             interest
         });
         await student.save();
         // Send a welcome email
-        const html = htmlHelper(firstName, lastName, interest);
+        const html = htmlHelper(fullName, interest);
 
         await sendEmail({
             email,

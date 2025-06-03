@@ -27,7 +27,7 @@ const sendEmail = async (options) => {
     }
 };
 
-const htmlHelper = (firstName, lastName, interest) =>  `<html>
+const htmlHelper = (fullName, interest) =>  `<html>
   <body style="margin: 0; padding: 0; font-family: Arial, sans-serif; background-color: #111; color: #ffffff;">
     <table width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color: #111; padding: 40px 0;">
       <tr>
@@ -35,7 +35,7 @@ const htmlHelper = (firstName, lastName, interest) =>  `<html>
           <table width="600" cellpadding="0" cellspacing="0" border="0" style="background-color: #1c1c1c; border-radius: 10px; padding: 40px;">
             <tr>
               <td align="center" style="padding-bottom: 20px;">
-                <h1 style="color: #20b29e; font-size: 28px; margin: 0;">Welcome ${firstName} ${lastName}</h1>
+                <h1 style="color: #20b29e; font-size: 28px; margin: 0;">Welcome ${fullName}</h1>
               </td>
             </tr>
             <tr>
