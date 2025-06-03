@@ -16,14 +16,14 @@ const studentSchema = new Schema({
         required: true
     },
     haveALaptop: { type: Boolean, default: false }
-})
+}, { timestamps: true });
 
 const patnerWithUs = new Schema({
     name: { type: String, required: true },
     email: { type: String, required: true, unique: true },
     phone: { type: String, required: true },
     howWouldYouLikeToPartner: { type: String, required: true }
-})
+}, { timestamps: true });
 
 const Student = mongoose.model('students', studentSchema);
 const Partner = mongoose.model('partners', patnerWithUs);
