@@ -76,8 +76,6 @@ const EnrollNow = () => {
 
     setSubmittedEmail(payload.email);
 
-    console.log("submitting:", payload);
-
     try {
       const res = await fetch(`${API_BASE}/enroll`, {
         method: "POST",
@@ -90,8 +88,8 @@ const EnrollNow = () => {
         const err = await res.json();
         throw new Error(err.message || "Submission failed");
       } else {
-        setStatusColor("text-primary");
         const success = await res.json();
+        setStatusColor("text-primary");
         setSubmitMsg(success.message);
         setSuccessModal(true);
       }
@@ -101,7 +99,6 @@ const EnrollNow = () => {
       );
     } finally {
       setSubmitting(false);
-      console.log("submitted successfully");
       setFormData(initialFormData);
     }
   };
