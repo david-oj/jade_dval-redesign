@@ -11,7 +11,7 @@ const studentSchema = new Schema({
             'UI/UX Design',
             'Frontend Development',
             'Backend Development',
-            'Blockchain Technology'
+            'Mobile-development',
         ],
         required: true
     },
