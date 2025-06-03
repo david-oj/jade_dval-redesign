@@ -25,6 +25,7 @@ const EnrollNow = () => {
   const [submitting, setSubmitting] = useState<boolean>(false);
   const [submitMsg, setSubmitMsg] = useState<string | null>(null);
   const [statusColor, setStatusColor] = useState<string | null>(null);
+  const [successModal, setSuccessModal] = useState<boolean>(false);
 
   // Handle hash change to set course & effect auto-scroll
   useEffect(() => {
@@ -67,7 +68,10 @@ const EnrollNow = () => {
     setSubmitting(true);
 
     // build payload with the keys your API expects
-    const payload = {...formData, haveALaptop: formData.haveALaptop === 'Yes' ? true : false};
+    const payload = {
+      ...formData,
+      haveALaptop: formData.haveALaptop === "Yes" ? true : false,
+    };
 
     console.log("submitting:", payload);
 
@@ -86,9 +90,12 @@ const EnrollNow = () => {
         setStatusColor("text-primary");
         const success = await res.json();
         setSubmitMsg(success.message);
+        setSuccessModal(true);
       }
     } catch (error) {
-      setSubmitMsg(error instanceof Error ? error.message : "Submission failed");
+      setSubmitMsg(
+        error instanceof Error ? error.message : "Submission failed"
+      );
     } finally {
       setSubmitting(false);
       console.log("submitted successfully");
@@ -99,7 +106,7 @@ const EnrollNow = () => {
   return (
     <section
       id="enroll"
-      className="md:mx-25 max-md:px-6 mt-7 sm:mt-19.5 sm:mb-8 mb-4.5"
+      className=" md:mx-25 max-md:px-6 mt-7 sm:mt-19.5 sm:mb-8 mb-4.5"
     >
       <div className="flex max-sm:flex-col-reverse gap-8 sm:items-center justify-between i">
         <div className="flex-1 shadow-sm rounded-lg sm:px-10 sm:py-8 p-4">
@@ -203,6 +210,36 @@ const EnrollNow = () => {
               </p>
             )}
           </form>
+          {successModal && (
+            <div
+              className="fixed inset-0 flex items-center justify-center z-10"
+              aria-modal="true"
+              role="dialog"
+            >
+              {/* Backdrop */}
+              <div
+                className="absolute inset-0 bg-black/50"
+                onClick={() => setSuccessModal(false)}
+              />
+
+              {/* Modal Content */}
+              <div className="relative text-center bg-white rounded-lg shadow-lg max-w-sm w-full p-6 mx-4">
+                <h2 className="text-xl font-semibold mb-4">
+                  Registration Successful
+                </h2>
+                <p className="mb-6">
+                  Thank you for enrolling! A confirmation email has been sent to{" "}
+                  <strong>{formData.email || "your inbox"}</strong>.
+                </p>
+                <Button
+                  className="bg-primary text-white py-1 rounded"
+                  onClick={() => setSuccessModal(false)}
+                >
+                  Close
+                </Button>
+              </div>
+            </div>
+          )}
         </div>
         <div className="flex-1 flex flex-col gap-4 max-sm:text-center">
           <h2>Ready to Start Your Tech Journey with Jade D’val?</h2>
