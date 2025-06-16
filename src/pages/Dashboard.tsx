@@ -65,7 +65,7 @@ const Dashboard: React.FC = () => {
     doc.text(title, 14, 22);
 
     if (view === "students") {
-      const head = [["No","Full Name", "Email", "Phone", "Interest"]];
+      const head = [["No", "Full Name", "Email", "Phone", "Interest"]];
       const body = students.map((s, i) => [
         i + 1,
         s.fullName,
@@ -81,7 +81,7 @@ const Dashboard: React.FC = () => {
         headStyles: { fillColor: [22, 101, 255] },
       });
     } else {
-      const head = [["No","Name", "Email", "Phone", "Message"]];
+      const head = [["No", "Name", "Email", "Phone", "Message"]];
       const body = partners.map((p, i) => [
         i + 1,
         p.name,
@@ -198,7 +198,9 @@ const Dashboard: React.FC = () => {
         </div>
         {/* Export buttons */}
         <div className="relative group flex gap-4">
-        <button className="hover:cursor-pointer text-sm hover:underline hover:text-primary transition ">Download</button>
+          <button className="hover:cursor-pointer text-sm hover:underline hover:text-primary transition ">
+            Download
+          </button>
           <div className="absolute overflow-hidden hidden md:group-hover:flex transition max-md:group-focus-within:flex flex-col top-9 right-0 rounded-lg bg-white">
             <button
               onClick={exportPdf}
@@ -216,59 +218,71 @@ const Dashboard: React.FC = () => {
         </div>
       </div>
 
-      <div className="overflow-auto  max-h-screen">
+      <div className="overflow-auto max-h-screen">
         {loading ? (
           <p>Loading...</p>
         ) : error ? (
           <p className="text-red-500">{error}</p>
         ) : view === "students" ? (
-          <table className="w-full font-satoshi text-sm border rounded-lg overflow-hidden">
-            <thead className="bg-gray-100 text-left">
-              <tr className="">
-                <th className="px-4 py-2">Full Name</th>
-                <th className="px-4 py-2">Email</th>
-                <th className="px-4 py-2">Phone</th>
-                <th className="px-4 py-2">Course</th>
-                <th className="px-4 py-2">Laptop</th>
-              </tr>
-            </thead>
-            <tbody>
-              {students.map((s, i) => (
-                <tr key={i} className="border-t">
-                  <td className="px-4 py-2">{s.fullName}</td>
-                  <td className="px-4 py-2">{s.email}</td>
-                  <td className="px-4 py-2">{s.phone}</td>
-                  <td className="px-4 py-2 line-clamp-3 max-h-[calc(1.5rem*3)]">
-                    {s.interest}
-                  </td>
-                  <td className="px-4 py-2]">{s.haveALaptop ? "Yes" : "No"}</td>
+          <>
+            <table className="w-full font-satoshi text-sm border rounded-lg overflow-hidden">
+              <thead className="bg-gray-100 text-left">
+                <tr className="">
+                  <th className="px-4 py-2">Full Name</th>
+                  <th className="px-4 py-2">Email</th>
+                  <th className="px-4 py-2">Phone</th>
+                  <th className="px-4 py-2">Course</th>
+                  <th className="px-4 py-2">Laptop</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {students.map((s, i) => (
+                  <tr key={i} className="border-t">
+                    <td className="px-4 py-2">{s.fullName}</td>
+                    <td className="px-4 py-2">{s.email}</td>
+                    <td className="px-4 py-2">{s.phone}</td>
+                    <td className="px-4 py-2 line-clamp-3 max-h-[calc(1.5rem*3)]">
+                      {s.interest}
+                    </td>
+                    <td className="px-4 py-2]">
+                      {s.haveALaptop ? "Yes" : "No"}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+            {students.length === 0 && (
+              <p className="text-center mt-2">No registrations yet</p>
+            )}
+          </>
         ) : (
-          <table className="w-full font-satoshi text-sm border rounded-lg overflow-hidden">
-            <thead className="bg-gray-100 text-left">
-              <tr>
-                <th className="px-4 py-2">Name</th>
-                <th className="px-4 py-2">Email</th>
-                <th className="px-4 py-2">Phone</th>
-                <th className="px-4 py-2">Message</th>
-              </tr>
-            </thead>
-            <tbody>
-              {partners.map((p, i) => (
-                <tr key={i} className="border-t">
-                  <td className="px-4 py-2">{p.name}</td>
-                  <td className="px-4 py-2">{p.email}</td>
-                  <td className="px-4 py-2">{p.phone}</td>
-                  <td className="px-4 py-2 line-clamp-3 max-h-[calc(1.5rem*3)]">
-                    {p.howWouldYouLikeToPartner}
-                  </td>
+          <>
+            <table className="w-full font-satoshi text-sm border rounded-lg overflow-hidden">
+              <thead className="bg-gray-100 text-left">
+                <tr>
+                  <th className="px-4 py-2">Name</th>
+                  <th className="px-4 py-2">Email</th>
+                  <th className="px-4 py-2">Phone</th>
+                  <th className="px-4 py-2">Message</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {partners.map((p, i) => (
+                  <tr key={i} className="border-t">
+                    <td className="px-4 py-2">{p.name}</td>
+                    <td className="px-4 py-2">{p.email}</td>
+                    <td className="px-4 py-2">{p.phone}</td>
+                    <td className="px-4 py-2 line-clamp-3 max-h-[calc(1.5rem*3)]">
+                      {p.howWouldYouLikeToPartner}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+            {partners.length === 0 && (
+              <p className="text-center mt-2">No partnerships yet</p>
+            )}
+          </>
         )}
       </div>
     </section>
