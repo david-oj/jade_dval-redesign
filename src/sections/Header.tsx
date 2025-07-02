@@ -17,7 +17,7 @@ const Header = () => {
         </div>
 
         <a href="#enroll" className="max-sm:hidden">
-          <Button children="Enroll Now" className=" px-8 py-3.5" />
+          <Button children="Enroll Now" className="px-4 md:px-8 py-2 md:py-3.5 rounded-md" />
         </a>
         
         {/* Mobile Menu */}

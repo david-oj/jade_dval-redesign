@@ -13,7 +13,7 @@ const Roadmap = () => {
           {/* vertical bar */}
           <div className="absolute max-lg:hidden h-full lg:right-1/2 max-lg:left-3  transform lg:translate-x-1/2 border-black border-2 border-dashed" />
           {/* bullet point top and bottom */}
-          <div className="h-5 w-5 max-lg:hidden bg-secondary rounded-full z-10 self-center"/>
+          <div className="relative -top-0.5 h-5 w-5 max-lg:hidden bg-secondary rounded-full z-10 self-center"/>
           <div className="h-5 w-5 bg-secondary max-lg:hidden rounded-full z-10 absolute self-center bottom-0"/>
 
           {/* steps */}

@@ -1,12 +1,8 @@
 import { useState, useEffect } from "react";
 import { courses } from "@/constants";
 import { Button } from "@/components";
+import MobileCarousel from "@/components/MobileCarousel";
 import ClampReveal from "@/components/ClampReveal";
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-} from "@/components/ui/carousel";
 
 export default function Courses() {
   const [openCourseId, setOpenCourseId] = useState<string | null>(null);
@@ -41,12 +37,9 @@ export default function Courses() {
         </h2>
 
         {/* Desktop view */}
-        <div className="flex flex-wrap gap-5 sm:mt-10 mt-6 mb-[10px] md:justify-between justify-center max-md:hidden">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 sm:mt-10 mt-6 mb-[10px] max-md:hidden">
           {courses.map((course) => (
-            <div
-              className="flex-1 relative max-w-[305px] min-w-[270px] flex flex-col"
-              key={course.id}
-            >
+            <div className="flex-1 relative flex flex-col" key={course.id}>
               <div className="h-[200px] rounded-t-[20px] overflow-hidden">
                 <img
                   src={course.image}
@@ -84,50 +77,13 @@ export default function Courses() {
 
         {/* Mobile Carousel */}
         <div className="md:hidden w-full overflow-hidden rounded-lg mt-6">
-          <Carousel opts={{ align: "start", loop: true }} className="w-full">
-            <CarouselContent>
-              {courses.map((course) => (
-                <CarouselItem
-                  key={course.id}
-                  className="basis-full max-w-[305px]"
-                >
-                  <div className="max-w-[305px] mx-auto">
-                    <div className="h-[200px] rounded-t-[20px] overflow-hidden">
-                      <img
-                        src={course.image}
-                        alt={course.title}
-                        className="w-full h-full object-cover"
-                      />
-                    </div>
-
-                    <div className="group p-5 border rounded-[8px] flex flex-col">
-                      <h3>{course.title}</h3>
-                      <ClampReveal
-                        expanded={openCourseId === course.id}
-                        onToggle={() => handleToggle(course.id)}
-                      >
-                        {course.description}
-                      </ClampReveal>
-
-                      <Button
-                        type="button"
-                        className="py-[10.5px] mt-4 text-sm bg-primary/10"
-                        textColor="text-primary"
-                        font="font-satoshi"
-                        onClick={(e) => {
-                          e.preventDefault();
-                          e.stopPropagation();
-                          handleEnrollClick(course.id);
-                        }}
-                      >
-                        Enroll Now
-                      </Button>
-                    </div>
-                  </div>
-                </CarouselItem>
-              ))}
-            </CarouselContent>
-          </Carousel>
+          <MobileCarousel
+            handleToggle={handleToggle}
+            openCourseId={openCourseId}
+            courses={courses}
+            handleEnrollClick={handleEnrollClick}
+            ClampReveal={ClampReveal}
+          />
         </div>
       </div>
     </section>
