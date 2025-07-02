@@ -179,6 +179,7 @@ const EnrollNow = () => {
                 <option value="Backend Development">Backend Development</option>
                 <option value="UI/UX Design">UI/UX Design</option>
                 <option value="Mobile-development">Mobile Development</option>
+                <option value="Digital-marketing">Digital Marketing</option>
               </select>
             </div>
 
@@ -210,6 +211,9 @@ const EnrollNow = () => {
                 {submitMsg}
               </p>
             )}
+            <p className="text-gray-400 text-sm pt-1">
+              Screening is on the 2nd of August
+            </p>
           </form>
           {successModal && (
             <div

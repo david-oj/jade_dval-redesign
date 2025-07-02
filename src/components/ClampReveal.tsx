@@ -1,7 +1,7 @@
 // src/components/ClampReveal.tsx
 import React from "react";
 
-type ClampProps = {
+export type ClampProps = {
   children?: React.ReactNode;
   className?: string;
   /** collapsed max-height */

@@ -54,6 +54,14 @@ export const courses: {
     image: courseImg4,
     linkText: "Enroll Now",
   },
+  {
+    id: "Digital-marketing",
+    title: "Digital Marketing",
+    description:
+      "Learn how to build effective online campaigns, grow brand presence, and master tools like Meta Ads, SEO, content strategy, and analytics. Perfect for aspiring marketers and business owners",
+    image: courseImg4,
+    linkText: "Enroll Now",
+  },
 ];
 
 type Steps = { step: string; title: string; description: string }[];
@@ -142,13 +150,13 @@ export const footerItems: Footer = [
   {
     icon: mail,
     title: "Email",
-    description: "http://dev.jadedval.com",
+    description: "globalepignosis@gmail.com",
   },
   {
     icon: telephone,
     title: "Phone",
     phones: [
-      { phone: "+234-811-928-6943" },
+      { phone: "09035455140" },
     ],
   },
 ];
