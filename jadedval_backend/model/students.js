@@ -12,6 +12,7 @@ const studentSchema = new Schema({
             'Frontend Development',
             'Backend Development',
             'Mobile-development',
+            'Digital Marketing',
         ],
         required: true
     },
