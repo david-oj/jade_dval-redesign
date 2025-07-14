@@ -179,7 +179,7 @@ const EnrollNow = () => {
                 <option value="Backend Development">Backend Development</option>
                 <option value="UI/UX Design">UI/UX Design</option>
                 <option value="Mobile-development">Mobile Development</option>
-                <option value="Digital-marketing">Digital Marketing</option>
+                <option value="Digital Marketing">Digital Marketing</option>
               </select>
             </div>
 

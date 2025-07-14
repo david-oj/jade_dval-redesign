@@ -3,6 +3,7 @@ import {
   courseImg2,
   courseImg3,
   courseImg4,
+  digital_marketing,
   jadeStar1,
   jadeStar2,
   jadeStar3,
@@ -59,7 +60,7 @@ export const courses: {
     title: "Digital Marketing",
     description:
       "Learn how to build effective online campaigns, grow brand presence, and master tools like Meta Ads, SEO, content strategy, and analytics. Perfect for aspiring marketers and business owners",
-    image: courseImg4,
+    image: digital_marketing,
     linkText: "Enroll Now",
   },
 ];
