@@ -56,7 +56,7 @@ export const courses: {
     linkText: "Enroll Now",
   },
   {
-    id: "Digital-marketing",
+    id: "Digital Marketing",
     title: "Digital Marketing",
     description:
       "Learn how to build effective online campaigns, grow brand presence, and master tools like Meta Ads, SEO, content strategy, and analytics. Perfect for aspiring marketers and business owners",
