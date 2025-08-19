@@ -1,4 +1,4 @@
-import CountDown from "@/components/CountDown";
+// import CountDown from "@/components/CountDown";
 import {
   Header,
   Hero,
@@ -14,7 +14,7 @@ const LandingPage = () => {
   return (
     <div className="max-w-[1536px] mx-auto">
       <div className="bg-black max-h-screen overflow-hidden">
-        <CountDown/>
+        {/* <CountDown/> */}
         <Header />
         <Hero />
       </div>
