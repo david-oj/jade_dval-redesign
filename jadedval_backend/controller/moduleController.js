@@ -111,6 +111,11 @@ export const validateAccessCode = async (req, res) => {
         }
 
         const accessCodeDepart = await AccessCode.findOne({ code }).populate("material");
+        if (!accessCodeDepart) {
+            return res.status(404).json({ message: 'Access code not found' });
+        }
+
+         // Check if the access code belongs to the specified department
         if (accessCodeDepart.material.department !== department) {
             return res.status(400).json({ message: 'Access code does not belong to your department' });
         }
@@ -132,7 +137,7 @@ export const validateAccessCode = async (req, res) => {
 
     } catch (error) {
         console.error('Error validating access code:', error);
-        res.status(500).json({ message: 'Internal server error' });
+        res.status(500).json({ message: 'Something went wrong when validating access code or access code not valid' });
     }
 }
 
