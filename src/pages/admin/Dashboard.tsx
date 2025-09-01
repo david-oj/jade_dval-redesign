@@ -51,9 +51,6 @@ export default function Overview() {
     fetchDashboardData();
   }, []);
 
-  console.log(fetchState);
-
-  console.log("HEY EVERYBODY!!!:", " I AM MOUNTED NO.!");
   return (
     <div className="space-y-8">
       {/* Header */}
