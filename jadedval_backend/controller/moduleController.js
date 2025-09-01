@@ -27,13 +27,24 @@ export const createModule = async (req, res) => {
 // Endpoint to get all modules
 export const getAllModules = async (req, res) => {
     try {
-        const modules = await DepartmentModules.find().sort({ createdAt: -1 });
-        res.status(200).json(modules);
+        const { department } = req.query;
+
+        let query = {};
+        if (department) {
+            query.department = department;
+        }
+
+        const modules = await DepartmentModules.find(query)
+            .sort({ createdAt: -1 })
+            .select('-__v'); // optional: exclude Mongoose internal __v field
+
+        return res.status(200).json(modules);
     } catch (error) {
         console.error('Error fetching modules:', error);
-        res.status(500).json({ message: 'Internal server error' });
+        return res.status(500).json({ message: 'Internal server error' });
     }
 }
+
 
 // Endpoint to get a module by ID
 export const getModuleById = async (req, res) => {

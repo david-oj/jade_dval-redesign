@@ -33,15 +33,19 @@ export const regenerateAccessCode = async (req, res) => {
         const { id } = req.params;
         const student = await StudentProfile.findById(id).populate('accessCode');
 
-        if (!student) return res.status(404).json({ message: "Student with "+ id + " not found!"});
+        if (!student) 
+            return res.status(404).json({ message: "Student with " + id + " not found!" });
 
-        // delete the previous access code for the student and regenerate another one
-        deleteAccessCode(id);
-        const newAccessCode = generateAccessCode(student.department);
+        // delete the previous access code for the student
+        await deleteAccessCode(id);
+
+        // generate a new access code
+        const newAccessCode = await generateAccessCode(student.department);
 
         // update student profile
         student.accessCode = newAccessCode._id;
-        student.save();
+        await student.save();
+
         return res.status(200).json({
             message: 'New access code generated',
             accessCode: newAccessCode.code
@@ -51,6 +55,7 @@ export const regenerateAccessCode = async (req, res) => {
         res.status(500).json({ message: 'Internal server error' });
     }
 }
+
 
 export const deleteAccessCode = async (studentId) => {
     try {
