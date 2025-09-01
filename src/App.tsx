@@ -1,14 +1,33 @@
-import { Outlet } from "react-router-dom";
-import { Footer } from "./sections";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { Toaster } from "sonner";
+import LandingPage from "./pages/LandingPage";
+import Login from "./pages/Login";
+import Dashboard from "./pages/admin/Dashboard";
+// import Dashboard from "./pages/Dashboard";
+
+import NotFound from "./pages/NotFound";
+
+import DashboardLayout from "@/components/admin/dashboard/DashdoardLayout";
+
+// import { Footer } from "./sections";
 
 function App() {
   return (
-    <div className="min-h-screen flex flex-col">
-      <main className="flex-grow">
-        <Outlet /> {/* This will contain your page content */}
-      </main>
-      <Footer /> {/* Footer will stick to bottom */}
-    </div>
+    <BrowserRouter>
+      <Toaster richColors position="bottom-right" />
+      <Routes>
+        <Route index element={<LandingPage />} />
+        <Route path="/login" element={<Login />} />
+
+        <Route path="/admin" element={<DashboardLayout />}>
+          <Route path="dashboard" element={<Dashboard />} />
+
+          <Route path="*" element={<NotFound />} />
+        </Route>
+
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 

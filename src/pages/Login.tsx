@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components";
-import { AUTH_TOKEN_KEY } from "@/hooks/useAuthGuard";
+import { AUTH_TOKEN_KEY } from "@/lib/api";
 import {sha256} from 'js-sha256';
 
 const Login = () => {
@@ -15,7 +15,7 @@ const Login = () => {
 
     if (hash === import.meta.env.VITE_ADMIN_PASSWORD_HASH) {
       localStorage.setItem(AUTH_TOKEN_KEY, Date.now().toString());
-      navigate("/dashboard", { replace: true });
+      navigate("/admin", { replace: true });
     } else {
       alert("Incorrect password");
     }
