@@ -48,7 +48,14 @@ export const createStudentProfile = async(req, res) => {
 export const getAllProfiles = async (req, res) => {
     try {
         const profiles = await StudentProfile.find().sort({ createdAt: -1 }).populate('accessCode');
-        res.status(200).json(profiles);
+
+        const profileData = profiles.map(profile => {
+            const profileObj = profile.toObject();
+            delete profileObj.password;
+            return profileObj;
+        });
+
+        res.status(200).json(profileData);
     } catch (error) {
         console.error('Error fetching profiles:', error);
         res.status(500).json({ message: 'Internal server error' });
@@ -65,7 +72,10 @@ export const getProfileById = async (req, res) => {
         if (!profile) {
             return res.status(404).json({ message: 'Student profile not found!' });
         }
-        return res.status(200).json(profile);
+        const profileData = profile.toObject();
+        delete profileData.password;
+
+        return res.status(200).json(profileData);
     } catch (error) {
         console.error('Error fetching profiles:', error);
         res.status(500).json({ message: 'Internal server error' });
