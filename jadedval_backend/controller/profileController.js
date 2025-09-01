@@ -33,9 +33,11 @@ export const createStudentProfile = async(req, res) => {
         });
 
         await profile.save();
+        const profileData = profile.toObject();
+        delete profileData.password;
 
         // Send a response back to the client
-        res.status(201).json({ message: 'Profile created successfully', profile, accessCode });
+        res.status(201).json({ message: 'Profile created successfully', profileData, accessCode });
     } catch (error) {
         console.error('Error creating profile:', error);
         res.status(500).json({ message: 'Internal server error' });
