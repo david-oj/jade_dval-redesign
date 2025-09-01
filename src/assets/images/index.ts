@@ -12,7 +12,7 @@ import jadeStar5 from "./jadeStar5.webp";
 import faqsImage from "./faqsImage.webp";
 import partnerCircles from "./partnerCircles.png";
 import formImage from "./formImage.webp";
-
+import digital_marketing from "./digital_marketing.webp";
 export {
   logo,
   heroImage,
@@ -20,6 +20,7 @@ export {
   courseImg2,
   courseImg3,
   courseImg4,
+  digital_marketing,
   jadeStar1,
   jadeStar2,
   jadeStar3,
