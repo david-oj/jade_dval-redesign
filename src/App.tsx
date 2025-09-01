@@ -5,6 +5,7 @@ import Login from "./pages/Login";
 import Dashboard from "./pages/admin/Dashboard";
 // import Dashboard from "./pages/Dashboard";
 import ProfileStudents from "./pages/admin/ProfiledStudents";
+import AddMaterial from "./pages/admin/AddMaterial";
 import NotFound from "./pages/NotFound";
 
 import DashboardLayout from "@/components/admin/dashboard/DashdoardLayout";
@@ -21,6 +22,7 @@ function App() {
 
         <Route path="/admin" element={<DashboardLayout />}>
           <Route path="dashboard" element={<Dashboard />} />
+          <Route path="add-material" element={<AddMaterial />} />
           <Route path="profile-students" element={<ProfileStudents />} />
           <Route path="*" element={<NotFound />} />
         </Route>
