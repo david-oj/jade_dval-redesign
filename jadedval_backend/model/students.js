@@ -1,7 +1,7 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 const { Schema } = mongoose;
 
-const studentSchema = new Schema({
+export const studentSchema = new Schema({
     fullName: { type: String, required: true },
     email: { type: String, required: true, unique: true },
     phone: { type: String, required: true },
@@ -19,16 +19,12 @@ const studentSchema = new Schema({
     haveALaptop: { type: Boolean, default: false }
 }, { timestamps: true });
 
-const patnerWithUs = new Schema({
+export const partnerWithUs = new Schema({
     name: { type: String, required: true },
     email: { type: String, required: true, unique: true },
     phone: { type: String, required: true },
     howWouldYouLikeToPartner: { type: String, required: true }
 }, { timestamps: true });
 
-const Student = mongoose.model('students', studentSchema);
-const Partner = mongoose.model('partners', patnerWithUs);
-module.exports = {
-    Student,
-    Partner
-};
+export const Student = mongoose.model('students', studentSchema);
+export const Partner = mongoose.model('partners', partnerWithUs);

@@ -1,8 +1,8 @@
-const express = require('express');
+import express from 'express';
 const router = express.Router();
-const { createPartner, getAllPartners } = require('../controller/partnerController.js');
+import { createPartner, getAllPartners } from '../controller/partnerController.js';
 
 router.post('/partner', createPartner);
 router.get('/partners', getAllPartners);
 
-module.exports = router;
+export default router;
