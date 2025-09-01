@@ -2,6 +2,8 @@ import express from 'express';
 import connectDB from './config/database.js';
 import studentRoute from './routes/studentRoute.js';
 import partnerRoute from './routes/partnerRoute.js';
+import profileRoute from './routes/profileRoute.js';
+import moduleRoute from './routes/moduleRoute.js';
 // import path from 'path';
 // import { fileURLToPath } from 'url';
 import cors from 'cors';
@@ -20,6 +22,8 @@ connectDB();
 // Define routes
 app.use('/api', studentRoute);
 app.use('/api', partnerRoute);
+app.use('/api/profile', profileRoute)
+app.use('/api', moduleRoute);
 
 
 // Serve static files from the 'public' directory

@@ -1,9 +1,9 @@
-const { Partner } =  require('../model/students.js');
-const { isValidPhoneNumber } = require('libphonenumber-js');
-const validator = require('validator')
+import { Partner } from '../model/students.js';
+import { isValidPhoneNumber } from 'libphonenumber-js';
+import validator from 'validator';
 
 
-const createPartner = async (req, res) => {
+export const createPartner = async (req, res) => {
     try {
         const { name, email, phone, howWouldYouLikeToPartner } = req.body;
 
@@ -41,7 +41,7 @@ const createPartner = async (req, res) => {
 }
 
 
-const getAllPartners = async (req, res) => {
+export const getAllPartners = async (req, res) => {
     try {
         const partners = await Partner.find().sort({ createdAt: -1 });
         res.status(200).json(partners);
@@ -51,7 +51,7 @@ const getAllPartners = async (req, res) => {
     }
 }
 
-module.exports = {
+export default {
     createPartner,
     getAllPartners
 };

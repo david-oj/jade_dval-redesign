@@ -1,11 +1,11 @@
-const { Student } = require('../model/students.js');
-const { sendEmail, htmlHelper } = require('../utils.js');
-const { isValidPhoneNumber } = require('libphonenumber-js');
-const validator = require('validator')
+import { Student } from '../model/students.js';
+import { sendEmail, htmlHelper } from '../utils.js';
+import { isValidPhoneNumber } from 'libphonenumber-js';
+import validator from 'validator';
 
 
 // Function to create a new student
-const createStudent = async (req, res) => {
+export const createStudent = async (req, res) => {
     try{
         const { fullName, email, phone, interest, haveALaptop } = req.body;
 
@@ -52,7 +52,7 @@ const createStudent = async (req, res) => {
 }
 
 // Function to get all students
-const getAllStudents = async (req, res) => {
+export const getAllStudents = async (req, res) => {
     try {
         const students = await Student.find().sort({ createdAt: -1 });
         res.status(200).json(students);
@@ -62,7 +62,7 @@ const getAllStudents = async (req, res) => {
     }
 }
 
-module.exports = {
+export default {
     createStudent,
     getAllStudents
 }

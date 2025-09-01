@@ -1,7 +1,9 @@
-const nodemailer = require('nodemailer');
+import nodemailer from 'nodemailer';
+import bcrypt from "bcrypt";
+import { SALT } from './config/config.js';
 
 
-const sendEmail = async (options) => {
+export const sendEmail = async (options) => {
     const transporter = nodemailer.createTransport({
         host: process.env.SMTP_HOST,
         port: process.env.SMTP_PORT,
@@ -27,7 +29,7 @@ const sendEmail = async (options) => {
     }
 };
 
-const htmlHelper = (fullName, interest) =>  `<html>
+export const htmlHelper = (fullName, interest) =>  `<html>
   <body style="margin: 0; padding: 0; font-family: Arial, sans-serif; background-color: #111; color: #ffffff;">
     <table width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color: #111; padding: 40px 0;">
       <tr>
@@ -60,5 +62,23 @@ const htmlHelper = (fullName, interest) =>  `<html>
   </body>
 </html>`
 
+// Hash password
+const saltRounds = isNaN(parseInt(SALT, 10)) ? 10 : parseInt(SALT, 10);
+export const hashPassword = async (password) => {
+  return bcrypt.hash(password, saltRounds);
+};
 
-module.exports = { sendEmail, htmlHelper };
+// 
+export const comparePassword = async (password, hashPassword) => {
+  return bcrypt.compare(password, hashPassword);
+}
+
+// function to create password
+export const autoPasswordCreation = () => {
+  const randomStr = Math.random().toString(36).substring(2, 12).toUpperCase();
+  const yr = new Date().getFullYear();
+  const password = `JDVA-${yr}-${randomStr}`
+  return password;
+}
+
+export default { sendEmail, htmlHelper, hashPassword, comparePassword, autoPasswordCreation };
