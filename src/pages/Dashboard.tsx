@@ -7,6 +7,8 @@ import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
 import * as XLSX from "xlsx";
 import { saveAs } from "file-saver";
+import { Footer } from "@/sections";
+import { AUTH_TOKEN_KEY } from "@/lib/api";
 
 type Student = {
   fullName: string;
@@ -138,154 +140,157 @@ const Dashboard: React.FC = () => {
   const titleCase = (str: string) => str.charAt(0).toUpperCase() + str.slice(1);
 
   return (
-    <section className="p-6 max-w-5xl mx-auto my-10">
-      <div className="flex justify-between items-center mb-6">
-        <h1 className="text-xl font-semibold">Admin Dashboard</h1>
-        <button
-          className="text-sm text-red-600 hover:cursor-pointer hover:underline"
-          onClick={() => {
-            localStorage.removeItem("isAdmin");
-            window.location.href = "/login";
-          }}
-        >
-          Logout
-        </button>
-      </div>
-
-      {/* Summary Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
-        <div className="bg-primary/5 p-4 rounded-lg shadow-sm">
-          <div className="font-satoshi">
-            <span className="text-2xl font-bold text-primary block">
-              {students.length}
-            </span>
-            <span className="text-gray-600 text-sm">Total Registrations</span>
-          </div>
-        </div>
-        <div className="bg-primary/5 p-4 rounded-lg shadow-sm">
-          <div className="font-satoshi">
-            <span className="text-2xl font-bold text-primary block">
-              {partners.length}
-            </span>
-            <span className="text-gray-600 text-sm">Partnership Offers</span>
-          </div>
-        </div>
-      </div>
-
-      <div className="flex justify-between mb-6">
-        {/* section View toggle buttons */}
-        <div className="flex gap-4">
-          <Button
-            onClick={() => setView("students")}
-            className={`px-4 py-2 rounded-lg text-sm ${
-              view === "students" ? "bg-primary text-white" : "bg-gray-100"
-            }`}
-            bgColor=""
-            textColor=""
+    <div className="flex flex-col">
+      <section className="w-full min-h-screen p-6 max-w-5xl mx-auto my-10 flex-1">
+        <div className="flex justify-between items-center mb-6">
+          <h1 className="text-xl font-semibold">Admin Dashboard</h1>
+          <button
+            className="text-sm text-red-600 hover:cursor-pointer hover:underline"
+            onClick={() => {
+              localStorage.removeItem(AUTH_TOKEN_KEY);
+              window.location.href = "/login";
+            }}
           >
-            Students
-          </Button>
-          <Button
-            onClick={() => setView("partners")}
-            className={`px-4 py-2 rounded-lg text-sm ${
-              view === "partners" ? "bg-primary text-white" : "bg-gray-100"
-            }`}
-            bgColor=""
-            textColor=""
-          >
-            Partners
-          </Button>
-        </div>
-        {/* Export buttons */}
-        <div className="relative group flex gap-4">
-          <button className="hover:cursor-pointer text-sm hover:underline hover:text-primary transition ">
-            Download
+            Logout
           </button>
-          <div className="absolute overflow-hidden hidden md:group-hover:flex transition max-md:group-focus-within:flex flex-col top-9 right-0 rounded-lg bg-white">
-            <button
-              onClick={exportPdf}
-              className="px-4 py-2 border-b-2 text-sm active:text-white hover:text-white hover:bg-blue-700 active:bg-blue-700"
-            >
-              Export PDF
-            </button>
-            <button
-              onClick={exportExcel}
-              className="px-4 py-2 whitespace-nowrap text-sm hover:text-white active:text-white hover:bg-green-700 active:bg-green-700"
-            >
-              Export Excel
-            </button>
+        </div>
+
+        {/* Summary Cards */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
+          <div className="bg-primary/5 p-4 rounded-lg shadow-sm">
+            <div className="font-satoshi">
+              <span className="text-2xl font-bold text-primary block">
+                {students.length}
+              </span>
+              <span className="text-gray-600 text-sm">Total Registrations</span>
+            </div>
+          </div>
+          <div className="bg-primary/5 p-4 rounded-lg shadow-sm">
+            <div className="font-satoshi">
+              <span className="text-2xl font-bold text-primary block">
+                {partners.length}
+              </span>
+              <span className="text-gray-600 text-sm">Partnership Offers</span>
+            </div>
           </div>
         </div>
-      </div>
 
-      <div className="overflow-auto max-h-screen">
-        {loading ? (
-          <p>Loading...</p>
-        ) : error ? (
-          <p className="text-red-500">{error}</p>
-        ) : view === "students" ? (
-          <>
-            <table className="w-full font-satoshi text-sm border rounded-lg overflow-hidden">
-              <thead className="bg-gray-100 text-left">
-                <tr className="">
-                  <th className="px-4 py-2">Full Name</th>
-                  <th className="px-4 py-2">Email</th>
-                  <th className="px-4 py-2">Phone</th>
-                  <th className="px-4 py-2">Course</th>
-                  <th className="px-4 py-2">Laptop</th>
-                </tr>
-              </thead>
-              <tbody>
-                {students.map((s, i) => (
-                  <tr key={i} className="border-t">
-                    <td className="px-4 py-2">{s.fullName}</td>
-                    <td className="px-4 py-2">{s.email}</td>
-                    <td className="px-4 py-2">{s.phone}</td>
-                    <td className="px-4 py-2 line-clamp-3 max-h-[calc(1.5rem*3)]">
-                      {s.interest}
-                    </td>
-                    <td className="px-4 py-2]">
-                      {s.haveALaptop ? "Yes" : "No"}
-                    </td>
+        <div className="flex justify-between mb-6">
+          {/* section View toggle buttons */}
+          <div className="flex gap-4">
+            <Button
+              onClick={() => setView("students")}
+              className={`px-4 py-2 rounded-lg text-sm ${
+                view === "students" ? "bg-primary text-white" : "bg-gray-100"
+              }`}
+              bgColor=""
+              textColor=""
+            >
+              Students
+            </Button>
+            <Button
+              onClick={() => setView("partners")}
+              className={`px-4 py-2 rounded-lg text-sm ${
+                view === "partners" ? "bg-primary text-white" : "bg-gray-100"
+              }`}
+              bgColor=""
+              textColor=""
+            >
+              Partners
+            </Button>
+          </div>
+          {/* Export buttons */}
+          <div className="relative group flex gap-4">
+            <button className="hover:cursor-pointer text-sm hover:underline hover:text-primary transition ">
+              Download
+            </button>
+            <div className="absolute overflow-hidden hidden md:group-hover:flex transition max-md:group-focus-within:flex flex-col top-9 right-0 rounded-lg bg-white">
+              <button
+                onClick={exportPdf}
+                className="px-4 py-2 border-b-2 text-sm active:text-white hover:text-white hover:bg-blue-700 active:bg-blue-700"
+              >
+                Export PDF
+              </button>
+              <button
+                onClick={exportExcel}
+                className="px-4 py-2 whitespace-nowrap text-sm hover:text-white active:text-white hover:bg-green-700 active:bg-green-700"
+              >
+                Export Excel
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div className="overflow-auto max-h-screen">
+          {loading ? (
+            <p>Loading...</p>
+          ) : error ? (
+            <p className="text-red-500">{error}</p>
+          ) : view === "students" ? (
+            <>
+              <table className="w-full font-satoshi text-sm border rounded-lg overflow-hidden">
+                <thead className="bg-gray-100 text-left">
+                  <tr className="">
+                    <th className="px-4 py-2">Full Name</th>
+                    <th className="px-4 py-2">Email</th>
+                    <th className="px-4 py-2">Phone</th>
+                    <th className="px-4 py-2">Course</th>
+                    <th className="px-4 py-2">Laptop</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
-            {students.length === 0 && (
-              <p className="text-center mt-2">No registrations yet</p>
-            )}
-          </>
-        ) : (
-          <>
-            <table className="w-full font-satoshi text-sm border rounded-lg overflow-hidden">
-              <thead className="bg-gray-100 text-left">
-                <tr>
-                  <th className="px-4 py-2">Name</th>
-                  <th className="px-4 py-2">Email</th>
-                  <th className="px-4 py-2">Phone</th>
-                  <th className="px-4 py-2">Message</th>
-                </tr>
-              </thead>
-              <tbody>
-                {partners.map((p, i) => (
-                  <tr key={i} className="border-t">
-                    <td className="px-4 py-2">{p.name}</td>
-                    <td className="px-4 py-2">{p.email}</td>
-                    <td className="px-4 py-2">{p.phone}</td>
-                    <td className="px-4 py-2 line-clamp-3 max-h-[calc(1.5rem*3)]">
-                      {p.howWouldYouLikeToPartner}
-                    </td>
+                </thead>
+                <tbody>
+                  {students.map((s, i) => (
+                    <tr key={i} className="border-t">
+                      <td className="px-4 py-2">{s.fullName}</td>
+                      <td className="px-4 py-2">{s.email}</td>
+                      <td className="px-4 py-2">{s.phone}</td>
+                      <td className="px-4 py-2 line-clamp-3 max-h-[calc(1.5rem*3)]">
+                        {s.interest}
+                      </td>
+                      <td className="px-4 py-2]">
+                        {s.haveALaptop ? "Yes" : "No"}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+              {students.length === 0 && (
+                <p className="text-center mt-2">No registrations yet</p>
+              )}
+            </>
+          ) : (
+            <>
+              <table className="w-full font-satoshi text-sm border rounded-lg overflow-hidden">
+                <thead className="bg-gray-100 text-left">
+                  <tr>
+                    <th className="px-4 py-2">Name</th>
+                    <th className="px-4 py-2">Email</th>
+                    <th className="px-4 py-2">Phone</th>
+                    <th className="px-4 py-2">Message</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
-            {partners.length === 0 && (
-              <p className="text-center mt-2">No partnerships yet</p>
-            )}
-          </>
-        )}
-      </div>
-    </section>
+                </thead>
+                <tbody>
+                  {partners.map((p, i) => (
+                    <tr key={i} className="border-t">
+                      <td className="px-4 py-2">{p.name}</td>
+                      <td className="px-4 py-2">{p.email}</td>
+                      <td className="px-4 py-2">{p.phone}</td>
+                      <td className="px-4 py-2 line-clamp-3 max-h-[calc(1.5rem*3)]">
+                        {p.howWouldYouLikeToPartner}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+              {partners.length === 0 && (
+                <p className="text-center mt-2">No partnerships yet</p>
+              )}
+            </>
+          )}
+        </div>
+      </section>
+      <Footer />
+    </div>
   );
 };
 

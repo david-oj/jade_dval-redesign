@@ -1,7 +1,8 @@
 import { useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
+import { AUTH_TOKEN_KEY as TOKEN_KEY } from "@/lib/api";
 
-export const AUTH_TOKEN_KEY = import.meta.env.VITE_AUTH_TOKEN_KEY;
+const AUTH_TOKEN_KEY = TOKEN_KEY
 
 const useAuthGuard = () => {
   const navigate = useNavigate();
