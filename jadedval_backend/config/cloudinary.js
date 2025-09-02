@@ -16,7 +16,7 @@ const storage = new CloudinaryStorage({
     params: {
         folder: 'jadedval_academy',
         allowed_formats: ['jpg', 'png', 'pdf', 'docx', 'pptx', 'mp4', 'mov'],
-        resource_type: 'auto', // Automatically detect the file type
+        resource_type: 'raw', // Automatically detect the file type
     },
 });
 
