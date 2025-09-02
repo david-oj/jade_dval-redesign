@@ -199,7 +199,7 @@ export const deleteUploadedFile = async (req, res) => {
         }
 
         // delete from cloudinary
-        const result = await cloudinary.uploader.destroy(file.publicId, { resource_type: "auto" });
+        const result = await cloudinary.uploader.destroy(file.publicId, { resource_type: "raw" });
         if (result.result !== 'ok' && result.result !== 'not found') {
             console.error('Error deleting file from Cloudinary:', result);
             return res.status(500).json({ message: 'Error deleting file from Cloudinary' });
@@ -217,7 +217,7 @@ export const deleteUploadedFile = async (req, res) => {
         return res.status(200).json({ message: 'File deleted successfully' });
     } catch (error) {
         console.error('Error deleting file:', error);
-        res.status(500).json({ message: 'Error deleting file' });
+        res.status(500).json({ message: 'Error deleting file' }, error);
     }
 }
 
