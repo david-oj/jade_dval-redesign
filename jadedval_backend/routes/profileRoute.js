@@ -7,7 +7,7 @@ import {
   updateProfileById,
   deleteProfileById 
 } from '../controller/profileController.js';
-import { regenerateAccessCode } from '../controller/accessCode.js';
+import { regenerateAccessCode, getAccessCode } from '../controller/accessCode.js';
 
 
 // Student profile routes
@@ -18,6 +18,7 @@ router.put('/student/:id', updateProfileById);
 router.delete('/student/:id', deleteProfileById);
 
 // Access code routes
-router.post('/student/:id/access-code/regenerate', regenerateAccessCode);
+router.post('/student/:id/access-code/generate', regenerateAccessCode);
+router.get('/access-code', getAccessCode);
 
 export default router;

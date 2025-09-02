@@ -9,7 +9,7 @@ const studentProfileSchema = new Schema({
     password: { type: String, required: false },
 
     // reference to access codes used by the student
-    accessCode: { type: Schema.Types.ObjectId, ref: 'AccessCodes' }
+    accessCode: { type: mongoose.Schema.Types.ObjectId, ref: 'AccessCodes', default: null }
 }, { timestamps: true });
 
 const StudentProfile = mongoose.model('StudentProfiles', studentProfileSchema);

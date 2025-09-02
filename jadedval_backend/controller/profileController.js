@@ -15,9 +15,6 @@ export const createStudentProfile = async(req, res) => {
             return res.status(400).json({ message: 'Profile already exists' });
         }
 
-        // generate access code
-        const accessCode = await generateAccessCode(department);
-
         // hash password
         const password = autoPasswordCreation();
         console.log("password to login: ", password);
@@ -29,7 +26,6 @@ export const createStudentProfile = async(req, res) => {
             email,
             department,
             password: hashedPassword,
-            accessCode: accessCode._id
         });
 
         await profile.save();
@@ -37,7 +33,7 @@ export const createStudentProfile = async(req, res) => {
         delete profileData.password;
 
         // Send a response back to the client
-        res.status(201).json({ message: 'Profile created successfully', profileData, accessCode });
+        res.status(201).json({ message: 'Profile created successfully', profileData });
     } catch (error) {
         console.error('Error creating profile:', error);
         res.status(500).json({ message: 'Internal server error' });
