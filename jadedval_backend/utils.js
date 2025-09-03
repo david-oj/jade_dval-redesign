@@ -15,7 +15,7 @@ export const sendEmail = async (options) => {
     });
 
     const mailOptions = {
-        from: `jadedval <${process.env.EMAIL_USER}>`,
+        from: `JadeDval <${process.env.EMAIL_USER}>`,
         to: options.email,
         subject: options.subject,
         html: options.html
