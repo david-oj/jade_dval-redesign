@@ -1,5 +1,6 @@
 import { AccessCode, DepartmentModules } from '../model/module.js';
 import StudentProfile from '../model/profile.js';
+import { sendEmail, accessCodeHtml } from '../utils.js';
 
 // Generate access code for modules
 export const generateAccessCode = async (department) => {
@@ -43,6 +44,16 @@ export const regenerateAccessCode = async (req, res) => {
 
         // Generate a new access code
         const newAccessCode = await generateAccessCode(student.department);
+
+        // Build email HTML
+        const emailHtml = accessCodeHtml(student.name, student.department, newAccessCode.code);
+
+        // Send email with new access code
+        await sendEmail({
+            email: student.email,
+            subject: 'Your New Access Code',
+            html: emailHtml
+        });
 
         // Link access code back to student
         student.accessCode = newAccessCode._id;
