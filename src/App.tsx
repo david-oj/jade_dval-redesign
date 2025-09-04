@@ -22,7 +22,9 @@ function App() {
         <Route path="/login" element={<Login />} />
 
         <Route path="/admin" element={<DashboardLayout />}>
-          <Route path="dashboard" element={<Dashboard />} />
+          {/* <Route index element={<Navigate to="dashboard" replace />} /> */}
+
+          <Route index element={<Dashboard />} />
           <Route path="add-material" element={<AddMaterial />} />
           <Route path="profile-students" element={<ProfileStudents />} />
           <Route path="generate-id" element={<GenerateId />} />

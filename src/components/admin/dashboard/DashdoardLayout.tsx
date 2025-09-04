@@ -20,10 +20,10 @@ import { Footer } from "@/sections";
 // }
 
 const navigation = [
-  { name: "dashboard", href: "/admin/dashboard", icon: LayoutDashboard },
-  { name: "Profile Students", href: "/admin/profile-students", icon: Users },
-  { name: "Add Material", href: "/admin/add-material", icon: BookOpen },
-  { name: "Generate ID", href: "/admin/generate-id", icon: IdCard },
+  { name: "dashboard", href: "/admin", icon: LayoutDashboard },
+  { name: "Profile Students", href: "profile-students", icon: Users },
+  { name: "Add Material", href: "add-material", icon: BookOpen },
+  { name: "Generate ID", href: "generate-id", icon: IdCard },
 ];
 
 export default function DashboardLayout() {

@@ -13,7 +13,7 @@ import { Badge } from "@/components/ui/badge";
 import { Users, Handshake } from "lucide-react";
 import { ExportDropdown } from "@/components/admin/dashboard/ExportDropdown";
 import { Students, Partners } from "@/types/types";
-import Loader from "@/components/ui/Loader";
+import Loader from "@/components/Loader";
 import ErrorUi from "@/components/ErrorUi";
 import { FetchState } from "@/pages/admin/Dashboard";
 

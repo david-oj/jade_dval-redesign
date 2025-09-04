@@ -1,8 +1,8 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { Plus, Search } from "lucide-react";
+import { Loader2, Plus, Search } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -30,6 +30,8 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import { API_BASE } from "@/lib/api";
+import Loader from "@/components/Loader";
 
 const profileStudentSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters"),
@@ -38,31 +40,6 @@ const profileStudentSchema = z.object({
 });
 
 type ProfileStudentForm = z.infer<typeof profileStudentSchema>;
-
-// Mock data
-const profiledStudents = [
-  {
-    id: 1,
-    name: "John Doe",
-    email: "john.doe@example.com",
-    department: "Frontend Development",
-    profiledAt: "2024-01-15",
-  },
-  {
-    id: 2,
-    name: "Jane Smith",
-    email: "jane.smith@example.com",
-    department: "UI/UX Design",
-    profiledAt: "2024-01-14",
-  },
-  {
-    id: 3,
-    name: "Mike Johnson",
-    email: "mike.johnson@example.com",
-    department: "Digital Marketing",
-    profiledAt: "2024-01-13",
-  },
-];
 
 const departments = [
   "Frontend Development",
@@ -73,9 +50,54 @@ const departments = [
   "Mobile Development",
 ];
 
+interface StudentProfile {
+  _id: string;
+  name: string;
+  email: string;
+  department: string;
+  accessCode: string | null;
+  createdAt: string; // ISO timestamp
+  updatedAt: string; // ISO timestamp
+}
+
+type FetchStateTypes = "idle" | "loading" | "success" | "error";
+
 export default function ProfileStudents() {
   const [open, setOpen] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
+  const [searchItems, setSearchItems] = useState<StudentProfile[]>([]);
+  const [fetchState, setFetchState] = useState<FetchStateTypes>("idle");
+  const [studentProfile, setstudentProfile] = useState<StudentProfile[]>([]);
+
+  useEffect(() => {
+    const fetchProfiledStudents = async () => {
+      setFetchState("loading");
+      try {
+        const res = await fetch(`${API_BASE}/profile/student`);
+        const data = await res.json();
+
+        if (!res.ok) {
+          throw new Error(data.message || "Failed to fetch profiled students");
+        }
+
+        setstudentProfile(data);
+        setFetchState("success");
+      } catch (err) {
+        console.log(err);
+        setFetchState("error");
+        toast.error("Failed to fetch profiled students", {
+          description: `${
+            err instanceof Error
+              ? err.message
+              : "Failed to fetch profiled students"
+          }`,
+        });
+      }
+    };
+
+    fetchProfiledStudents();
+  }, []);
 
   const form = useForm<ProfileStudentForm>({
     resolver: zodResolver(profileStudentSchema),
@@ -86,21 +108,87 @@ export default function ProfileStudents() {
     },
   });
 
-  const onSubmit = (data: ProfileStudentForm) => {
+  const onSubmit = async (data: ProfileStudentForm) => {
+    setIsSubmitting(true);
     console.log("Profile Student Data:", data);
-    toast("Student Profiled Successfully", {
-      description: `${data.name} has been added to the profiled students list.`,
-    });
-    form.reset();
-    setOpen(false);
+
+    try {
+      const res = await fetch(`${API_BASE}/profile/student`, {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify(data),
+      });
+
+      const newStudent = await res.json();
+
+      if (!res.ok) {
+        throw new Error(newStudent.message || "Failled to create profile");
+      }
+      toast.success("Student Profiled Successfully", {
+        description: `${data.name} has been added to the profiled students list.`,
+      });
+
+      setstudentProfile((prev) => [newStudent, ...prev]);
+
+      form.reset();
+      setOpen(false);
+    } catch (err) {
+      console.log("Profile STudent Failed: ", err);
+
+      toast.error("Failed to create profile", {
+        description: `${
+          err instanceof Error ? err.message : "Failed to create profile"
+        }`,
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
-  const filteredStudents = profiledStudents.filter(
-    (student) =>
-      student.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      student.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      student.department.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  // const filteredStudents = profiledStudents.filter(
+  //   (student) =>
+  //     student.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+  //     student.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
+  //     student.department.toLowerCase().includes(searchTerm.toLowerCase())
+  // );
+
+  useEffect(() => {
+    if (!searchTerm.trim()) {
+      setSearchItems([]);
+      return;
+    }
+
+    setFetchState("loading");
+    const delayDebounce = setTimeout(async () => {
+      try {
+        const res = await fetch(
+          `${API_BASE}/profile/student/?search=${searchTerm.trim()}`
+        );
+
+        const data = await res.json();
+
+        if (!res.ok) {
+          throw new Error(
+            data.message || "Failed to fetch perform query search"
+          );
+        }
+
+        setSearchItems(data);
+        setFetchState("success");
+      } catch (err) {
+        console.log("Search failed", err);
+        setFetchState("error");
+      }
+    }, 700);
+
+    return () => clearTimeout(delayDebounce);
+  }, [searchTerm]);
+
+  console.log("The search term is:", searchTerm);
+  console.log("FetchState:", isSubmitting);
+
+  const studentsDisplay =
+    searchTerm.trim().length > 0 ? searchItems : studentProfile;
 
   return (
     <div className="space-y-6">
@@ -196,7 +284,14 @@ export default function ProfileStudents() {
 
                 <div className="flex gap-3 pt-4">
                   <Button type="submit" className="flex-1">
-                    Profile Student
+                    {isSubmitting ? (
+                      <span className="flex gap-2 items-center">
+                        Profiling
+                        <Loader2 className="text-white animate-spin" />
+                      </span>
+                    ) : (
+                      "Profile Student"
+                    )}
                   </Button>
                   <Button
                     type="button"
@@ -230,20 +325,22 @@ export default function ProfileStudents() {
       {/* Students List */}
       <Card>
         <CardHeader>
-          <CardTitle>Profiled Students ({filteredStudents.length})</CardTitle>
+          <CardTitle>Profiled Students ({studentsDisplay.length})</CardTitle>
         </CardHeader>
         <CardContent>
           <div className="space-y-4">
-            {filteredStudents.length === 0 ? (
+            {fetchState === "loading" ? (
+              <Loader />
+            ) : studentsDisplay.length === 0 ? (
               <div className="text-center py-8 text-muted-foreground">
                 {searchTerm
                   ? "No students found matching your search."
                   : "No profiled students yet."}
               </div>
             ) : (
-              filteredStudents.map((student) => (
+              studentsDisplay.map((student) => (
                 <div
-                  key={student.id}
+                  key={student._id}
                   className="flex items-center justify-between p-4 border border-border rounded-lg hover:bg-muted/50 transition-colors"
                 >
                   <div className="flex-1">
@@ -257,7 +354,7 @@ export default function ProfileStudents() {
                       <Badge variant="outline">{student.department}</Badge>
                       <span className="text-xs text-muted-foreground">
                         Profiled on{" "}
-                        {new Date(student.profiledAt).toLocaleDateString()}
+                        {new Date(student.createdAt).toLocaleDateString()}
                       </span>
                     </div>
                   </div>
