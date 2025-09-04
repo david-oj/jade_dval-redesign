@@ -52,6 +52,25 @@ export const createStudentProfile = async(req, res) => {
 // Function to get all student profiles
 export const getAllProfiles = async (req, res) => {
     try {
+        const { search } = req.query;
+        if (search) {
+            const searchRegex = new RegExp(search, 'i'); // 'i' for case-insensitive
+            const filteredProfiles = await StudentProfile.find({
+                $or: [
+                    { name: { $regex: searchRegex } },
+                    { email: { $regex: searchRegex } },
+                    { department: { $regex: searchRegex } }
+                ]
+            }).sort({ createdAt: -1 }).populate('accessCode');
+            
+            const profileData = filteredProfiles.map(profile => {
+                const profileObj = profile.toObject();
+                delete profileObj.password;
+                return profileObj;
+            });
+            return res.status(200).json(profileData);
+        }
+
         const profiles = await StudentProfile.find().sort({ createdAt: -1 }).populate('accessCode');
 
         const profileData = profiles.map(profile => {
