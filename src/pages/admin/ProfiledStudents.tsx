@@ -378,7 +378,7 @@ export default function ProfileStudents() {
         <CardHeader>
           <CardTitle>Profiled Students ({studentsDisplay.length})</CardTitle>
         </CardHeader>
-        <CardContent>
+        <CardContent className="max-sm:p-4">
           <div className="space-y-4">
             {fetchState === "loading" ? (
               <Loader />
@@ -396,13 +396,13 @@ export default function ProfileStudents() {
               studentsDisplay.map((student) => (
                 <div
                   key={student._id}
-                  className="flex items-center justify-between p-4 border border-border rounded-lg hover:bg-muted/50 transition-colors"
+                  className="flex flex-col sm:flex-row sm:items-center justify-between p-4 border border-border rounded-lg hover:bg-muted/50 transition-colors"
                 >
                   <div className="flex-1">
                     <h3 className="font-semibold text-foreground">
                       {student.name}
                     </h3>
-                    <p className="text-sm text-muted-foreground">
+                    <p className="text-sm text-muted-foreground mt-1">
                       {student.email}
                     </p>
                     <div className="flex items-center gap-2 mt-2">
@@ -419,7 +419,7 @@ export default function ProfileStudents() {
                       // handleIsSelected(student._id);
                       handleGenerateId(student._id, student.name);
                     }}
-                    className="bg-secondary hover:bg-secondary/90"
+                    className="bg-secondary hover:bg-secondary/90 max-sm:mt-4"
                     disabled={isLoading(student._id)}
                   >
                     {isLoading(student._id) ? (
@@ -436,6 +436,7 @@ export default function ProfileStudents() {
             )}
           </div>
 
+          {/* Dialog for successful access code generation */}
           <Dialog
             open={accessCodeDialog.open}
             onOpenChange={(open) =>
