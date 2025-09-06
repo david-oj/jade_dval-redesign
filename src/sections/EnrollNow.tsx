@@ -3,6 +3,7 @@ import { Button } from "@/components";
 import { formImage } from "@/assets/images";
 import Mail from "@/assets/icons/mail.svg?react";
 import { API_BASE } from "@/lib/api";
+import { Loader } from "lucide-react";
 
 type FormData = {
   fullName: string;
@@ -93,6 +94,7 @@ const EnrollNow = () => {
         // setSubmitMsg(success.message);
         setSuccessModal(true);
         setSubmitMsg(null);
+        setFormData(initialFormData);
       }
     } catch (error) {
       setSubmitMsg(
@@ -100,7 +102,6 @@ const EnrollNow = () => {
       );
     } finally {
       setSubmitting(false);
-      setFormData(initialFormData);
     }
   };
 
@@ -201,9 +202,17 @@ const EnrollNow = () => {
             </div>
             <Button
               type="submit"
-              children={submitting ? "Submitting..." : " Enroll"}
-              className="rounded-4 text-sm py-[10.5px]"
-              disabled={submitting}
+              children={
+                submitting ? (
+                  <span className="flex gap-2 items-center justify-center">
+                    Submitting <Loader className="size-5 animate-spin" />{" "}
+                  </span>
+                ) : (
+                  " Enroll"
+                )
+              }
+              className="rounded-4 text-sm py-[10.5px] bg-primary/80"
+              disabled
             />
 
             {submitMsg && (
@@ -211,8 +220,9 @@ const EnrollNow = () => {
                 {submitMsg}
               </p>
             )}
-            <p className="text-gray-400 text-sm pt-1">
-              Screening is on the 2nd of August
+            <p className="text-red-400 text-sm pt-1">
+              {/* Screening is on the 2nd of August */}
+              Reqistration Closed
             </p>
           </form>
           {successModal && (

@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { Toaster } from "sonner";
-import LandingPage from "./pages/LandingPage";
+import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Dashboard from "./pages/admin/Dashboard";
 // import Dashboard from "./pages/Dashboard";
@@ -18,7 +18,7 @@ function App() {
     <BrowserRouter>
       <Toaster richColors position="bottom-right" />
       <Routes>
-        <Route index element={<LandingPage />} />
+        <Route index element={<Home />} />
         <Route path="/login" element={<Login />} />
 
         <Route path="/admin" element={<DashboardLayout />}>
