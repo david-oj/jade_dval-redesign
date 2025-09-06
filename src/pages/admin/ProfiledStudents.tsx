@@ -60,6 +60,12 @@ interface StudentProfile {
   updatedAt: string; // ISO timestamp
 }
 
+interface AccessDialog {
+  open: boolean;
+  code: string | null;
+  studentName: string | null;
+}
+
 type FetchStateTypes = "idle" | "loading" | "success" | "error";
 
 export default function ProfileStudents() {
@@ -69,6 +75,12 @@ export default function ProfileStudents() {
   const [searchItems, setSearchItems] = useState<StudentProfile[]>([]);
   const [fetchState, setFetchState] = useState<FetchStateTypes>("idle");
   const [studentProfile, setstudentProfile] = useState<StudentProfile[]>([]);
+  const [isSelected, setisSelected] = useState<string | null>(null);
+  const [accessCodeDialog, setAccessCodeDialog] = useState<AccessDialog>({
+    open: false,
+    code: null,
+    studentName: null,
+  });
 
   useEffect(() => {
     const fetchProfiledStudents = async () => {
@@ -155,6 +167,7 @@ export default function ProfileStudents() {
   useEffect(() => {
     if (!searchTerm.trim()) {
       setSearchItems([]);
+      setFetchState("success");
       return;
     }
 
@@ -183,6 +196,44 @@ export default function ProfileStudents() {
 
     return () => clearTimeout(delayDebounce);
   }, [searchTerm]);
+
+  const handleGenerateId = async (studentID: string, studentName: string) => {
+    console.log(
+      "Attempted to generate access code with the data",
+      studentID,
+      studentName
+    );
+
+    setisSelected(studentID);
+    try {
+      const res = await fetch(
+        `${API_BASE}/profile/student/${studentID}/access-code/generate`,
+        { method: "POST", headers: { "content-type": "application/json" } }
+      );
+      const data = await res.json();
+
+      if (!res.ok) {
+        throw new Error(data.message || "Failed to generate access code");
+      }
+
+      setAccessCodeDialog({
+        open: true,
+        code: data.accessCode,
+        studentName: studentName,
+      });
+    } catch (err) {
+      console.log(err);
+      toast.error("Failed to generate access code", {
+        description: `${
+          err instanceof Error ? err.message : "Operating failed"
+        }`,
+      });
+    } finally {
+      setisSelected(null);
+    }
+  };
+
+  const isLoading = (id: string) => id === isSelected;
 
   console.log("The search term is:", searchTerm);
   console.log("FetchState:", isSubmitting);
@@ -334,7 +385,11 @@ export default function ProfileStudents() {
             ) : studentsDisplay.length === 0 ? (
               <div className="text-center py-8 text-muted-foreground">
                 {searchTerm
-                  ? "No students found matching your search."
+                  ? fetchState === "error"
+                    ? "Failed to fetch search results."
+                    : "No students found matching your search."
+                  : fetchState === "error"
+                  ? "Failed to fetch students."
                   : "No profiled students yet."}
               </div>
             ) : (
@@ -358,10 +413,69 @@ export default function ProfileStudents() {
                       </span>
                     </div>
                   </div>
+
+                  <Button
+                    onClick={() => {
+                      // handleIsSelected(student._id);
+                      handleGenerateId(student._id, student.name);
+                    }}
+                    className="bg-secondary hover:bg-secondary/90"
+                    disabled={isLoading(student._id)}
+                  >
+                    {isLoading(student._id) ? (
+                      <span className="flex items-center gap-1">
+                        Generating
+                        <Loader2 className="animate-spin" />
+                      </span>
+                    ) : (
+                      " Generate Access Code"
+                    )}
+                  </Button>
                 </div>
               ))
             )}
           </div>
+
+          <Dialog
+            open={accessCodeDialog.open}
+            onOpenChange={(open) =>
+              setAccessCodeDialog((prev) => ({ ...prev, open }))
+            }
+          >
+            <DialogContent>
+              <DialogHeader>
+                <DialogTitle className="text-center">
+                  Access Code Generated
+                </DialogTitle>
+              </DialogHeader>
+              <div className="text-muted-foreground text-center">
+                Access code{" "}
+                <span className="font-mono text-black bg-amber-100/60">
+                  {accessCodeDialog.code}
+                </span>{" "}
+                <br /> has been generated for <br />
+                <strong className="text-black">
+                  {accessCodeDialog.studentName}
+                </strong>
+                .
+              </div>
+              <div className="mt-2">
+                <Button
+                  onClick={() =>
+                    setAccessCodeDialog((prev) => ({
+                      ...prev,
+                      open: false,
+                      code: null,
+                      studentName: null,
+                    }))
+                  }
+                  className="w-full"
+                >
+                  Close
+                </Button>
+              </div>
+            </DialogContent>
+          </Dialog>
         </CardContent>
       </Card>
     </div>
