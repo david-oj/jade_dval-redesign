@@ -72,28 +72,53 @@ export default function ProfileStudents() {
   const [open, setOpen] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
-  const [searchItems, setSearchItems] = useState<StudentProfile[]>([]);
+  const [debounceSearch, setDebounceSearch] = useState<string>("");
   const [fetchState, setFetchState] = useState<FetchStateTypes>("idle");
-  const [studentProfile, setstudentProfile] = useState<StudentProfile[]>([]);
+  const [profiledStudents, setProfiledStudents] = useState<StudentProfile[]>(
+    []
+  );
   const [isSelected, setisSelected] = useState<string | null>(null);
   const [accessCodeDialog, setAccessCodeDialog] = useState<AccessDialog>({
     open: false,
     code: null,
     studentName: null,
   });
+  const form = useForm<ProfileStudentForm>({
+    resolver: zodResolver(profileStudentSchema),
+    defaultValues: {
+      name: "",
+      email: "",
+      department: "",
+    },
+  });
 
+  // Debounce Search
+  useEffect(() => {
+    const delayDebounce = setTimeout(() => {
+      setDebounceSearch(searchTerm);
+    }, 500);
+
+    return () => clearTimeout(delayDebounce);
+  }, [searchTerm]);
+
+  //Profiled students initial fetch and search
   useEffect(() => {
     const fetchProfiledStudents = async () => {
       setFetchState("loading");
+
+      const API_URL = debounceSearch
+        ? `${API_BASE}/profile/student/?search=${debounceSearch.trim()}`
+        : `${API_BASE}/profile/student`;
+
       try {
-        const res = await fetch(`${API_BASE}/profile/student`);
+        const res = await fetch(`${API_URL}`);
         const data = await res.json();
 
         if (!res.ok) {
           throw new Error(data.message || "Failed to fetch profiled students");
         }
 
-        setstudentProfile(data);
+        setProfiledStudents(data);
         setFetchState("success");
       } catch (err) {
         console.log(err);
@@ -109,17 +134,9 @@ export default function ProfileStudents() {
     };
 
     fetchProfiledStudents();
-  }, []);
+  }, [debounceSearch]);
 
-  const form = useForm<ProfileStudentForm>({
-    resolver: zodResolver(profileStudentSchema),
-    defaultValues: {
-      name: "",
-      email: "",
-      department: "",
-    },
-  });
-
+  //Create new profiled students
   const onSubmit = async (data: ProfileStudentForm) => {
     setIsSubmitting(true);
     console.log("Profile Student Data:", data);
@@ -140,7 +157,7 @@ export default function ProfileStudents() {
         description: `${data.name} has been added to the profiled students list.`,
       });
 
-      setstudentProfile((prev) => [newStudent, ...prev]);
+      setProfiledStudents((prev) => [newStudent, ...prev]);
 
       form.reset();
       setOpen(false);
@@ -157,46 +174,7 @@ export default function ProfileStudents() {
     }
   };
 
-  // const filteredStudents = profiledStudents.filter(
-  //   (student) =>
-  //     student.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-  //     student.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
-  //     student.department.toLowerCase().includes(searchTerm.toLowerCase())
-  // );
-
-  useEffect(() => {
-    if (!searchTerm.trim()) {
-      setSearchItems([]);
-      setFetchState("success");
-      return;
-    }
-
-    setFetchState("loading");
-    const delayDebounce = setTimeout(async () => {
-      try {
-        const res = await fetch(
-          `${API_BASE}/profile/student/?search=${searchTerm.trim()}`
-        );
-
-        const data = await res.json();
-
-        if (!res.ok) {
-          throw new Error(
-            data.message || "Failed to fetch perform query search"
-          );
-        }
-
-        setSearchItems(data);
-        setFetchState("success");
-      } catch (err) {
-        console.log("Search failed", err);
-        setFetchState("error");
-      }
-    }, 700);
-
-    return () => clearTimeout(delayDebounce);
-  }, [searchTerm]);
-
+  //Generate Access Code
   const handleGenerateId = async (studentID: string, studentName: string) => {
     console.log(
       "Attempted to generate access code with the data",
@@ -237,9 +215,6 @@ export default function ProfileStudents() {
 
   console.log("The search term is:", searchTerm);
   console.log("FetchState:", isSubmitting);
-
-  const studentsDisplay =
-    searchTerm.trim().length > 0 ? searchItems : studentProfile;
 
   return (
     <div className="space-y-6">
@@ -376,13 +351,13 @@ export default function ProfileStudents() {
       {/* Students List */}
       <Card>
         <CardHeader>
-          <CardTitle>Profiled Students ({studentsDisplay.length})</CardTitle>
+          <CardTitle>Profiled Students ({profiledStudents.length})</CardTitle>
         </CardHeader>
         <CardContent className="max-sm:p-4">
           <div className="space-y-4">
             {fetchState === "loading" ? (
               <Loader />
-            ) : studentsDisplay.length === 0 ? (
+            ) : profiledStudents.length === 0 ? (
               <div className="text-center py-8 text-muted-foreground">
                 {searchTerm
                   ? fetchState === "error"
@@ -393,7 +368,7 @@ export default function ProfileStudents() {
                   : "No profiled students yet."}
               </div>
             ) : (
-              studentsDisplay.map((student) => (
+              profiledStudents.map((student) => (
                 <div
                   key={student._id}
                   className="flex flex-col sm:flex-row sm:items-center justify-between p-4 border border-border rounded-lg hover:bg-muted/50 transition-colors"
