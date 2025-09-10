@@ -1,8 +1,7 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { Upload, FileText } from "lucide-react";
+import { FileText } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -23,10 +22,20 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import {
+  API_BASE,
+  // CLOUDINARY_CLOUD_NAME,
+  // CLOUDINARY_UPLOAD_PRESET,
+} from "@/lib/api";
+import { formatDate, validateFutureDate } from "@/lib/utils";
+import { useEffect, useState } from "react";
+import Loader from "@/components/Loader";
 
 const addMaterialSchema = z.object({
   department: z.string().min(1, "Please select a department"),
-  month: z.string().min(1, "Please select a month"),
+  date: z
+    .string()
+    .refine(validateFutureDate, "Please select today or a future date"),
   file: z
     .instanceof(FileList)
     .refine((files) => files.length > 0, "Please select a file to upload"),
@@ -37,49 +46,187 @@ type AddMaterialForm = z.infer<typeof addMaterialSchema>;
 const departments = [
   "Frontend Development",
   "Backend Development",
-  "UI/UX Design",
+  "UI/UX & Product Design",
   "Digital Marketing",
-  "Data Science",
   "Mobile Development",
 ];
 
-const months = [
-  { value: "01", label: "January" },
-  { value: "02", label: "February" },
-  { value: "03", label: "March" },
-  { value: "04", label: "April" },
-  { value: "05", label: "May" },
-  { value: "06", label: "June" },
-  { value: "07", label: "July" },
-  { value: "08", label: "August" },
-  { value: "09", label: "September" },
-  { value: "10", label: "October" },
-  { value: "11", label: "November" },
-  { value: "12", label: "December" },
-];
+interface Upload {
+  _id: string;
+  filename: string;
+  fileUrl: string;
+  publicId: string;
+  fileType: string; // e.g. "application/pdf"
+  fileSize: number; // in bytes
+  uploadedAt: string; // ISO date string
+  createdAt: string; // ISO date string
+  updatedAt: string; // ISO date string
+  department: string; // ISO date string
+  __v: number;
+}
+
+// Material shape
+interface Material {
+  _id: string;
+  materialName: string;
+  department: string;
+  uploads: Upload[];
+  date: string;
+  createdAt: string;
+  updatedAt: string;
+  materiallink?: string; // optional, since only some have this
+}
+
+type UploadWithDept = Upload & {
+  department: string;
+  materialname?: string;
+};
+
+type FetchStateTypes = "idle" | "loading" | "success" | "error";
 
 export default function AddMaterial() {
+  const [fetchState, setFetchState] = useState<FetchStateTypes>("idle");
+  const [isDownloading, setisDownloading] = useState(false);
+  const [uploadedMaterials, setUploadedMaterials] = useState<Upload[]>([]);
+
   const form = useForm<AddMaterialForm>({
     resolver: zodResolver(addMaterialSchema),
     defaultValues: {
       department: "",
-      month: "",
+      date: "",
     },
   });
 
-  const onSubmit = (data: AddMaterialForm) => {
-    console.log("Add Material Data:", {
-      ...data,
-      fileName: data.file[0]?.name,
-      fileSize: data.file[0]?.size,
-    });
+  useEffect(() => {
+    const fetchMaterials = async () => {
+      setFetchState("loading");
 
-    toast.success("Material Added Successfully", {
-      description: `Material for ${data.department} - ${
-        months.find((m) => m.value === data.month)?.label
-      } has been uploaded.`,
-    });
-    form.reset();
+      const API_URL = `${API_BASE}/module`;
+
+      try {
+        const res = await fetch(`${API_URL}`);
+        const data = await res.json();
+
+        if (!res.ok) {
+          throw new Error(data.message || "Failed to fetch profiled students");
+        }
+
+        const uploadWithDept: UploadWithDept[] = data.flatMap(
+          (material: Material) =>
+            material.uploads.map((upload: Upload) => ({
+              ...upload,
+              department: material.department,
+              materialName: material.materialName,
+            }))
+        );
+
+        const sortedUploads = [...uploadWithDept].sort(
+          (a, b) =>
+            new Date(b.uploadedAt).getTime() - new Date(a.uploadedAt).getTime()
+        );
+
+        setUploadedMaterials(sortedUploads);
+        setFetchState("success");
+      } catch (err) {
+        console.log(err);
+        setFetchState("error");
+        toast.error("Failed to fetch profiled students", {
+          description: `${
+            err instanceof Error
+              ? err.message
+              : "Failed to fetch profiled students"
+          }`,
+        });
+      }
+    };
+
+    fetchMaterials();
+  }, []);
+
+  // const uploadFileTOCloudinary = async (file: File) => {
+  //   const formData = new FormData();
+  //   formData.append("file", file);
+  //   formData.append("upload_preset", CLOUDINARY_UPLOAD_PRESET);
+
+  //   const res = await fetch(
+  //     `https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/auto/upload`,
+  //     {
+  //       method: "POST",
+  //       body: formData,
+  //     }
+  //   );
+
+  //   const data = await res.json();
+  //   return data.secure_url;
+  // };
+
+  const onSubmit = async (data: AddMaterialForm) => {
+    const [{ _id }] = await fetch(
+      `${API_BASE}/module?department=${data.department}`
+    )
+      .then((res) => res.json())
+      .catch((err) => console.log("Module ID fetch err", err));
+
+    // const fileUrl = await uploadFileTOCloudinary(data.file[0]);
+    // console.log("File URL:", fileUrl);
+    const formData = new FormData();
+    formData.append("file", data.file[0]);
+    formData.append("uploadDate", data.date);
+
+    console.log("FormData", formData);
+
+    try {
+      const res = await fetch(`${API_BASE}/module/${_id}/upload`, {
+        method: "POST",
+        body: formData,
+      });
+      const data = await res.json();
+
+      if (!res.ok) {
+        throw new Error(data.message || "Failed to upload material");
+      }
+
+      toast.success("Material Added Successfully", {
+        description: `Material for ${data.department} - ${new Date(
+          data.date
+        ).toLocaleDateString("en-us", {
+          month: "long",
+          year: "numeric",
+        })} has been uploaded.`,
+      });
+
+      form.reset();
+    } catch (err) {
+      console.log(err);
+      toast.error("Upload failed", {
+        description: err instanceof Error ? err.message : "Unknown error",
+      });
+    }
+  };
+
+  const handleDownload = async (fileUrl: string, filename: string) => {
+    setisDownloading(true);
+    try {
+      const res = await fetch(fileUrl);
+      if (!res.ok) throw new Error("Failed to fetch file");
+
+      const blob = await res.blob();
+      const url = window.URL.createObjectURL(blob);
+
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = filename; // ✅ preserves filename + extension
+      document.body.appendChild(link);
+      link.click();
+
+      // cleanup
+      link.remove();
+      window.URL.revokeObjectURL(url);
+    } catch (err) {
+      console.error(err);
+    }finally{
+      setisDownloading(false)
+    }
   };
 
   return (
@@ -117,7 +264,7 @@ export default function AddMaterial() {
                       <FormLabel>Department</FormLabel>
                       <Select
                         onValueChange={field.onChange}
-                        defaultValue={field.value}
+                        value={field.value}
                       >
                         <FormControl>
                           <SelectTrigger>
@@ -139,27 +286,17 @@ export default function AddMaterial() {
 
                 <FormField
                   control={form.control}
-                  name="month"
+                  name="date"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Month</FormLabel>
-                      <Select
-                        onValueChange={field.onChange}
-                        defaultValue={field.value}
-                      >
-                        <FormControl>
-                          <SelectTrigger>
-                            <SelectValue placeholder="Select month" />
-                          </SelectTrigger>
-                        </FormControl>
-                        <SelectContent>
-                          {months.map((month) => (
-                            <SelectItem key={month.value} value={month.value}>
-                              {month.label}
-                            </SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
+                      <FormLabel>Date</FormLabel>
+                      <FormControl>
+                        <Input
+                          type="date"
+                          min={new Date().toISOString().split("T")[0]}
+                          {...field}
+                        />
+                      </FormControl>
                       <FormMessage />
                     </FormItem>
                   )}
@@ -168,7 +305,7 @@ export default function AddMaterial() {
                 <FormField
                   control={form.control}
                   name="file"
-                  render={({ field: { onChange, value, ...field } }) => (
+                  render={({ field: { onChange, ...field } }) => (
                     <FormItem>
                       <FormLabel>File Upload</FormLabel>
                       <FormControl>
@@ -177,8 +314,9 @@ export default function AddMaterial() {
                             type="file"
                             accept=".pdf,.doc,.docx,.ppt,.pptx,.zip"
                             onChange={(e) => onChange(e.target.files)}
-                            className="file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:bg-primary file:text-primary-foreground hover:file:bg-primary/90"
+                            className="file:mr-4 file:px-4 file:rounded-md file:border-0 file:bg-primary file:text-primary-foreground hover:file:bg-primary/90"
                             {...field}
+                            value={undefined} // Explicitly set value to undefined
                           />
                           <div className="mt-2 text-xs text-muted-foreground">
                             Accepted formats: PDF, DOC, DOCX, PPT, PPTX, ZIP
@@ -192,7 +330,15 @@ export default function AddMaterial() {
                 />
 
                 {/* Drag and drop area alternative */}
-                <div className="border-2 border-dashed border-border rounded-lg p-8 text-center bg-muted/20">
+                {/* <div
+                  className="border-2 border-dashed border-border rounded-lg p-8 text-center bg-muted/20"
+                  onDragOver={(e) => e.preventDefault()}
+                  onDrop={(e) => {
+                    e.preventDefault();
+                    const files = e.dataTransfer.files;
+                    form.setValue("file", files);
+                  }}
+                >
                   <Upload className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
                   <p className="text-sm text-muted-foreground mb-2">
                     Drag and drop files here, or click to browse
@@ -200,7 +346,7 @@ export default function AddMaterial() {
                   <p className="text-xs text-muted-foreground">
                     PDF, DOC, DOCX, PPT, PPTX, ZIP up to 50MB
                   </p>
-                </div>
+                </div> */}
 
                 <Button type="submit" className="w-full">
                   Upload Material
@@ -217,46 +363,41 @@ export default function AddMaterial() {
           <CardTitle>Recent Uploads</CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="space-y-3">
-            {[
-              {
-                name: "Frontend_Week1_Materials.pdf",
-                dept: "Frontend Development",
-                month: "January",
-                date: "2024-01-15",
-              },
-              {
-                name: "UX_Design_Guidelines.zip",
-                dept: "UI/UX Design",
-                month: "January",
-                date: "2024-01-14",
-              },
-              {
-                name: "Marketing_Strategy_2024.pptx",
-                dept: "Digital Marketing",
-                month: "December",
-                date: "2024-01-13",
-              },
-            ].map((upload, index) => (
-              <div
-                key={index}
-                className="flex items-center justify-between p-3 border border-border rounded-lg"
-              >
-                <div className="flex items-center gap-3">
-                  <FileText className="h-5 w-5 text-primary" />
-                  <div>
-                    <p className="font-medium text-sm">{upload.name}</p>
-                    <p className="text-xs text-muted-foreground">
-                      {upload.dept} • {upload.month}
-                    </p>
+          {fetchState === "loading" ? (
+            <Loader />
+          ) : fetchState === "error" ? (
+            <p className="text-muted-foreground py-8 text-center">
+              Failed to fetch Materials
+            </p>
+          ) : (
+            <div className="space-y-3">
+              {uploadedMaterials.slice(0, 4).map((upload, index) => (
+                <div
+                  key={index}
+                  className="flex items-center justify-between p-3 border border-border rounded-lg gap-3"
+                >
+                  <div className="flex items-center gap-3">
+                    <FileText className="h-5 w-5 text-primary" />
+                    <div>
+                      <p className="font-medium text-sm">{upload.filename}</p>
+                      <p className="text-xs text-muted-foreground">
+                        {upload.department} • {formatDate(upload.uploadedAt)}
+                      </p>
+                    </div>
                   </div>
+
+                  <Button
+                    size="sm"
+                    onClick={() =>
+                      handleDownload(upload.fileUrl, upload.filename)
+                    }
+                  >
+                   {isDownloading ? "Downloading" : "Download"} 
+                  </Button>
                 </div>
-                <span className="text-xs text-muted-foreground">
-                  {upload.date}
-                </span>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          )}
         </CardContent>
       </Card>
     </div>

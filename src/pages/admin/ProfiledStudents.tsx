@@ -41,12 +41,18 @@ const profileStudentSchema = z.object({
 
 type ProfileStudentForm = z.infer<typeof profileStudentSchema>;
 
+const validateAccessSchema = z.object({
+  accessCode: z.string().min(1, "Please enter an access code"),
+  department: z.string().min(1, "Please select a department"),
+});
+
+type ValidateAccessForm = z.infer<typeof validateAccessSchema>;
+
 const departments = [
   "Frontend Development",
   "Backend Development",
-  "UI/UX Design",
+  "UI/UX & Product Design",
   "Digital Marketing",
-  "Data Science",
   "Mobile Development",
 ];
 
@@ -77,17 +83,34 @@ export default function ProfileStudents() {
   const [profiledStudents, setProfiledStudents] = useState<StudentProfile[]>(
     []
   );
+  const [isValidating, setIsValidating] = useState(false);
+  const [validateCodeMessage, setValidateCodeMessage] = useState<{
+    message: string;
+    color: string;
+  }>({
+    message: "",
+    color: "",
+  });
   const [isSelected, setisSelected] = useState<string | null>(null);
   const [accessCodeDialog, setAccessCodeDialog] = useState<AccessDialog>({
     open: false,
     code: null,
     studentName: null,
   });
+
   const form = useForm<ProfileStudentForm>({
     resolver: zodResolver(profileStudentSchema),
     defaultValues: {
       name: "",
       email: "",
+      department: "",
+    },
+  });
+
+  const validateForm = useForm<ValidateAccessForm>({
+    resolver: zodResolver(validateAccessSchema),
+    defaultValues: {
+      accessCode: "",
       department: "",
     },
   });
@@ -211,6 +234,47 @@ export default function ProfileStudents() {
     }
   };
 
+  const handleValidate = async (data: ValidateAccessForm) => {
+    setIsValidating(true);
+    const payload = {
+      code: data.accessCode,
+      department: data.department,
+    };
+
+    try {
+      const res = await fetch(`${API_BASE}/module/validate-access-code`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+
+      const result = await res.json();
+      if (!res.ok) throw new Error(result.message || "Invalid access code");
+
+      toast.success("Access code validated", {
+        description: `Code ${data.accessCode} is valid for ${data.department}`,
+      });
+
+      setValidateCodeMessage({
+        message: `Code: ${data.accessCode} is valid for ${data.department}`,
+        color: "bg-green-50 text-green-500",
+      });
+
+      validateForm.reset();
+    } catch (err) {
+      setValidateCodeMessage({
+        message: err instanceof Error ? err.message : "Validation vailed",
+        color: "bg-red-50 text-red-500",
+      });
+      toast.error("Validation failed", {
+        description:
+          err instanceof Error ? err.message : "Something went wrong",
+      });
+    } finally {
+      setIsValidating(false);
+    }
+  };
+
   const isLoading = (id: string) => id === isSelected;
 
   console.log("The search term is:", searchTerm);
@@ -229,6 +293,7 @@ export default function ProfileStudents() {
           </p>
         </div>
 
+        {/* Profile New Student Modal */}
         <Dialog open={open} onOpenChange={setOpen}>
           <DialogTrigger asChild>
             <Button>
@@ -350,8 +415,87 @@ export default function ProfileStudents() {
 
       {/* Students List */}
       <Card>
-        <CardHeader>
+        <CardHeader className="flex justify-between items-center">
           <CardTitle>Profiled Students ({profiledStudents.length})</CardTitle>
+          {/* Validate Access Code modal */}
+          <Dialog>
+            <DialogTrigger asChild>
+              <Button className="bg-primary ">Validate Access Code</Button>
+            </DialogTrigger>
+            <DialogContent>
+              <DialogHeader>
+                <DialogTitle>Validate Access Code</DialogTitle>
+              </DialogHeader>
+
+              <Form {...validateForm}>
+                <form
+                  onSubmit={validateForm.handleSubmit(handleValidate)}
+                  className="space-y-4 mt-2"
+                >
+                  <FormField
+                    control={validateForm.control}
+                    name="accessCode"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Access Code</FormLabel>
+                        <FormControl>
+                          <Input placeholder="Enter access code" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+
+                  <FormField
+                    control={validateForm.control}
+                    name="department"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Department</FormLabel>
+                        <Select
+                          onValueChange={field.onChange}
+                          value={field.value}
+                        >
+                          <FormControl>
+                            <SelectTrigger>
+                              <SelectValue placeholder="Select department" />
+                            </SelectTrigger>
+                          </FormControl>
+                          <SelectContent>
+                            {departments.map((dept) => (
+                              <SelectItem key={dept} value={dept}>
+                                {dept}
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+
+                  <Button
+                    type="submit"
+                    className="w-full"
+                    disabled={isValidating}
+                  >
+                    {isValidating ? (
+                      <span className="flex items-center gap-2">
+                        Validating <Loader2 className="animate-spin h-4 w-4" />
+                      </span>
+                    ) : (
+                      "Validate"
+                    )}
+                  </Button>
+                  {validateCodeMessage.message && (
+                    <p className={`${validateCodeMessage.color} rounded-md text-sm p-2`}>
+                      {validateCodeMessage.message}
+                    </p>
+                  )}
+                </form>
+              </Form>
+            </DialogContent>
+          </Dialog>
         </CardHeader>
         <CardContent className="max-sm:p-4">
           <div className="space-y-4">

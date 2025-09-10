@@ -9,7 +9,7 @@ import AddMaterial from "./pages/admin/AddMaterial";
 import NotFound from "./pages/NotFound";
 
 import DashboardLayout from "@/components/admin/dashboard/DashdoardLayout";
-import GenerateId from "./pages/admin/GenerateID";
+// import GenerateId from "./pages/admin/GenerateID";
 
 // import { Footer } from "./sections";
 
@@ -27,7 +27,7 @@ function App() {
           <Route index element={<Dashboard />} />
           <Route path="add-material" element={<AddMaterial />} />
           <Route path="profile-students" element={<ProfileStudents />} />
-          <Route path="generate-id" element={<GenerateId />} />
+          {/* <Route path="generate-id" element={<GenerateId />} /> */}
           <Route path="*" element={<NotFound />} />
         </Route>
 

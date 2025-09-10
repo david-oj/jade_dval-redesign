@@ -5,7 +5,7 @@ import {
   LayoutDashboard,
   Users,
   BookOpen,
-  IdCard,
+  // IdCard,
   Menu,
   X,
   LogOut,
@@ -14,6 +14,8 @@ import {
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { Footer } from "@/sections";
+import useAuthGuard from "@/hooks/useAuthGuard";
+import { AUTH_TOKEN_KEY } from "@/lib/api";
 
 // interface DashboardLayoutProps {
 //   children: ReactNode;
@@ -23,10 +25,11 @@ const navigation = [
   { name: "dashboard", href: "/admin", icon: LayoutDashboard },
   { name: "Profile Students", href: "profile-students", icon: Users },
   { name: "Add Material", href: "add-material", icon: BookOpen },
-  { name: "Generate ID", href: "generate-id", icon: IdCard },
+  // { name: "Generate ID", href: "generate-id", icon: IdCard },
 ];
 
 export default function DashboardLayout() {
+  useAuthGuard();
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const location = useLocation();
 
@@ -60,8 +63,9 @@ export default function DashboardLayout() {
         </div>
 
         <nav className="flex-1 px-3 py-4 space-y-1">
-          {navigation.map((item) => {
-            const isActive = location.pathname === item.href;
+          {navigation.map((item, i) => {
+            const adjustedHref = i === 0 ? "/admin" : `/admin/${item.href}`;
+            const isActive = location.pathname === adjustedHref;
             return (
               <NavLink
                 key={item.name}
@@ -100,7 +104,15 @@ export default function DashboardLayout() {
               <User className="h-4 w-4" />
               <span>Admin</span>
             </div>
-            <Button variant="ghost" size="sm" className="text-destructive">
+            <Button
+              variant="ghost"
+              size="sm"
+              className="text-destructive"
+              onClick={() => {
+                localStorage.removeItem(AUTH_TOKEN_KEY);
+                window.location.href = "/login";
+              }}
+            >
               <LogOut className="h-4 w-4 mr-2" />
               Logout
             </Button>
