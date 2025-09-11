@@ -18,21 +18,6 @@ import * as XLSX from "xlsx";
 import { saveAs } from "file-saver";
 import { Students, Partners } from "@/types/types";
 
-// interface Students {
-//   name: string;
-//   email: string;
-//   phone: string;
-//   course: string;
-//   laptop: boolean;
-// }
-
-// interface Partners {
-//   name: string;
-//   email: string;
-//   phone: string;
-//   type: string;
-//   status: string;
-// }
 interface ExportData {
   students?: Students[];
   partners?: Partners[];
@@ -177,21 +162,21 @@ export function ExportDropdown({ data, activeTab }: ExportDropdownProps) {
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-48">
         <DropdownMenuItem
-          onSelect={exportToPDF}
+          onClick={exportToPDF}
           className="gap-2 cursor-pointer"
         >
           <FileText className="h-4 w-4" />
           Download as PDF
         </DropdownMenuItem>
         <DropdownMenuItem
-          onSelect={exportToExcel}
+          onClick={exportToExcel}
           className="gap-2 cursor-pointer"
         >
           <FileSpreadsheet className="h-4 w-4" />
           Download as Excel
         </DropdownMenuItem>
         <DropdownMenuItem
-          onSelect={exportToCSV}
+          onClick={exportToCSV}
           className="gap-2 cursor-pointer"
         >
           <FileDown className="h-4 w-4" />

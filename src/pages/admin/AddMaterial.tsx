@@ -30,6 +30,7 @@ import {
 import { formatDate, validateFutureDate } from "@/lib/utils";
 import { useEffect, useState } from "react";
 import Loader from "@/components/Loader";
+import { saveAs } from "file-saver";
 
 const addMaterialSchema = z.object({
   department: z.string().min(1, "Please select a department"),
@@ -86,8 +87,8 @@ type FetchStateTypes = "idle" | "loading" | "success" | "error";
 
 export default function AddMaterial() {
   const [fetchState, setFetchState] = useState<FetchStateTypes>("idle");
-  const [isDownloading, setisDownloading] = useState(false);
   const [uploadedMaterials, setUploadedMaterials] = useState<Upload[]>([]);
+  const [selected, setselected] = useState<string | null>(null);
 
   const form = useForm<AddMaterialForm>({
     resolver: zodResolver(addMaterialSchema),
@@ -204,29 +205,27 @@ export default function AddMaterial() {
     }
   };
 
-  const handleDownload = async (fileUrl: string, filename: string) => {
-    setisDownloading(true);
+  const handleDownload = async (
+    fileUrl: string,
+    filename: string,
+    id: string
+  ) => {
+    setselected(id);
     try {
       const res = await fetch(fileUrl);
       if (!res.ok) throw new Error("Failed to fetch file");
 
       const blob = await res.blob();
-      const url = window.URL.createObjectURL(blob);
-
-      const link = document.createElement("a");
-      link.href = url;
-      link.download = filename; // ✅ preserves filename + extension
-      document.body.appendChild(link);
-      link.click();
-
-      // cleanup
-      link.remove();
-      window.URL.revokeObjectURL(url);
+      saveAs(blob, filename);
     } catch (err) {
       console.error(err);
-    }finally{
-      setisDownloading(false)
+    } finally {
+      setselected(null);
     }
+  };
+
+  const isSelected = (id: string) => {
+    return id === selected;
   };
 
   return (
@@ -377,7 +376,9 @@ export default function AddMaterial() {
                   className="flex items-center justify-between p-3 border border-border rounded-lg gap-3"
                 >
                   <div className="flex items-center gap-3">
-                    <FileText className="h-5 w-5 text-primary" />
+                    <div>
+                      <FileText className="size-4 sm:size-5 text-primary" />
+                    </div>
                     <div>
                       <p className="font-medium text-sm">{upload.filename}</p>
                       <p className="text-xs text-muted-foreground">
@@ -389,10 +390,15 @@ export default function AddMaterial() {
                   <Button
                     size="sm"
                     onClick={() =>
-                      handleDownload(upload.fileUrl, upload.filename)
+                      handleDownload(
+                        upload.fileUrl,
+                        upload.filename,
+                        upload._id
+                      )
                     }
+                    disabled={isSelected(upload._id)}
                   >
-                   {isDownloading ? "Downloading" : "Download"} 
+                    {isSelected(upload._id) ? "Downloading" : "Download"}
                   </Button>
                 </div>
               ))}
