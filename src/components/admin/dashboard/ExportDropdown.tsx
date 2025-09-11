@@ -1,4 +1,3 @@
-// import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -16,6 +15,7 @@ import {
 import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
 import * as XLSX from "xlsx";
+import { saveAs } from "file-saver";
 import { Students, Partners } from "@/types/types";
 
 // interface Students {
@@ -112,8 +112,8 @@ export function ExportDropdown({ data, activeTab }: ExportDropdownProps) {
       });
     }
 
-    doc.save(`${filename}.pdf`);
- 
+    const blob = doc.output("blob");
+    saveAs(blob, `${filename}.pdf`);
   };
 
   const exportToExcel = () => {
@@ -126,8 +126,10 @@ export function ExportDropdown({ data, activeTab }: ExportDropdownProps) {
       activeTab.charAt(0).toUpperCase() + activeTab.slice(1)
     );
 
-    XLSX.writeFile(workbook, `${filename}.xlsx`);
-  
+    // use file-saver
+    const wbout = XLSX.write(workbook, { bookType: "xlsx", type: "array" });
+    const blob = new Blob([wbout], { type: "application/octet-stream" });
+    saveAs(blob, `${filename}.xlsx`);
   };
 
   const exportToCSV = () => {
@@ -159,19 +161,9 @@ export function ExportDropdown({ data, activeTab }: ExportDropdownProps) {
       ...csvData.map((row) => row.join(",")),
     ].join("\n");
 
+    // use file-saver
     const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
-    const link = document.createElement("a");
-    const url = URL.createObjectURL(blob);
-
-    link.setAttribute("href", url);
-    link.setAttribute("download", `${filename}.csv`);
-    link.style.visibility = "hidden";
-
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-
- 
+    saveAs(blob, `${filename}.csv`);
   };
 
   return (
