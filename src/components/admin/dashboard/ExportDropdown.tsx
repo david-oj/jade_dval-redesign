@@ -1,4 +1,4 @@
-import { useState } from "react";
+// import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -44,7 +44,6 @@ interface ExportDropdownProps {
 }
 
 export function ExportDropdown({ data, activeTab }: ExportDropdownProps) {
-  const [open, setOpen] = useState(false);
   const studentsData = data.students || [];
   const partnersData = data.partners || [];
 
@@ -114,7 +113,7 @@ export function ExportDropdown({ data, activeTab }: ExportDropdownProps) {
     }
 
     doc.save(`${filename}.pdf`);
-    setOpen(false);
+ 
   };
 
   const exportToExcel = () => {
@@ -128,7 +127,7 @@ export function ExportDropdown({ data, activeTab }: ExportDropdownProps) {
     );
 
     XLSX.writeFile(workbook, `${filename}.xlsx`);
-    setOpen(false);
+  
   };
 
   const exportToCSV = () => {
@@ -172,11 +171,11 @@ export function ExportDropdown({ data, activeTab }: ExportDropdownProps) {
     link.click();
     document.body.removeChild(link);
 
-    setOpen(false);
+ 
   };
 
   return (
-    <DropdownMenu open={open} onOpenChange={setOpen}>
+    <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button variant="outline" size="sm" className="gap-2">
           <Download className="h-4 w-4" />
@@ -186,21 +185,21 @@ export function ExportDropdown({ data, activeTab }: ExportDropdownProps) {
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-48">
         <DropdownMenuItem
-          onClick={exportToPDF}
+          onSelect={exportToPDF}
           className="gap-2 cursor-pointer"
         >
           <FileText className="h-4 w-4" />
           Download as PDF
         </DropdownMenuItem>
         <DropdownMenuItem
-          onClick={exportToExcel}
+          onSelect={exportToExcel}
           className="gap-2 cursor-pointer"
         >
           <FileSpreadsheet className="h-4 w-4" />
           Download as Excel
         </DropdownMenuItem>
         <DropdownMenuItem
-          onClick={exportToCSV}
+          onSelect={exportToCSV}
           className="gap-2 cursor-pointer"
         >
           <FileDown className="h-4 w-4" />
