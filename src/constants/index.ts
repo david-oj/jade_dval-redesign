@@ -151,13 +151,13 @@ export const footerItems: Footer = [
   {
     icon: mail,
     title: "Email",
-    description: "globalepignosis@gmail.com",
+    description: "support@jadedval.com",
   },
   {
     icon: telephone,
     title: "Phone",
     phones: [
-      { phone: "09035455140" },
+      { phone: "+234 70 3241 3350" },
     ],
   },
 ];

@@ -220,11 +220,12 @@ const EnrollNow = () => {
                 {submitMsg}
               </p>
             )}
-            <p className="text-red-400 text-sm pt-1">
+            <p className="text-muted-foregroun text-sm pt-1">
               {/* Screening is on the 2nd of August */}
-              Reqistration Closed
+              Next cohort begins 1st of November
             </p>
           </form>
+
           {successModal && (
             <div
               className="fixed inset-0 flex items-center justify-center z-10"
