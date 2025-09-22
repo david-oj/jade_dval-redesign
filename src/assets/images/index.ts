@@ -13,6 +13,8 @@ import faqsImage from "./faqsImage.webp";
 import partnerCircles from "./partnerCircles.png";
 import formImage from "./formImage.webp";
 import digital_marketing from "./digital_marketing.webp";
+import heroStudents from "./hero-students.jpg"
+
 export {
   logo,
   heroImage,
@@ -29,4 +31,5 @@ export {
   faqsImage,
   partnerCircles,
   formImage,
+  heroStudents,
 };

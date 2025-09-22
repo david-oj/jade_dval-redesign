@@ -9,6 +9,7 @@ import AddMaterial from "./pages/admin/AddMaterial";
 import NotFound from "./pages/NotFound";
 
 import DashboardLayout from "@/components/admin/dashboard/DashdoardLayout";
+import Partnership from "./pages/Partnership";
 // import GenerateId from "./pages/admin/GenerateID";
 
 // import { Footer } from "./sections";
@@ -19,6 +20,7 @@ function App() {
       <Toaster richColors position="bottom-right" />
       <Routes>
         <Route index element={<Home />} />
+        <Route path="/partnership" element={<Partnership/>} />
         <Route path="/login" element={<Login />} />
 
         <Route path="/admin" element={<DashboardLayout />}>

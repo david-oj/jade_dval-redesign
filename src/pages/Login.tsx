@@ -22,7 +22,7 @@ const Login = () => {
   };
 
   return (
-    <section className="max-w-md mx-auto p-6 my-20 border rounded-xl shadow-sm">
+    <main className="max-w-md mx-auto p-6 my-20 border rounded-xl shadow-sm">
       <h2 className="text-xl font-semibold mb-4 text-center">Admin Login</h2>
       <form onSubmit={handleLogin} className="space-y-4">
         <div>
@@ -40,7 +40,7 @@ const Login = () => {
           Login
         </Button>
       </form>
-    </section>
+    </main>
   );
 };
 

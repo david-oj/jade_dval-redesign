@@ -4,7 +4,7 @@ import {steps} from "@/constants";
 const Roadmap = () => {
   return (
     <section className="bg-primary/5 overflow-hidden">
-      <div className="md:mx-20 max-sm:px-6 ">
+      <div className="-">
         <h2 className="mt-17.5 md:mb-6 mb-10 max-sm:text-2xl text-center">
           Roadmap to Becoming a Techstar
         </h2>

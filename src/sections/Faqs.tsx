@@ -9,7 +9,7 @@ import { faqs } from "@/constants";
 
 const Faqs = () => {
     return (
-        <section className=" max=md:px-6 md:mr-25 max-md:px-6">
+        <section className="md:mr-25 max-md:px-6">
             <div className="flex gap-12 items-center">
                 <div className="flex-1 max-md:hidden max-w-[619px] overflow-hidden lg:h-[698px] md:h-[657px]">
                     <img src={faqsImage} alt="faqs" className="w-full h-full object-cover" />
