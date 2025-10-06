@@ -98,6 +98,10 @@ export default function AddMaterial() {
     },
   });
 
+  const {
+    formState: { isSubmitting },
+  } = form;
+
   useEffect(() => {
     const fetchMaterials = async () => {
       setFetchState("loading");
@@ -347,8 +351,12 @@ export default function AddMaterial() {
                   </p>
                 </div> */}
 
-                <Button type="submit" className="w-full">
-                  Upload Material
+                <Button
+                  disabled={isSubmitting}
+                  type="submit"
+                  className="w-full"
+                >
+                  {isSubmitting ? "Uploading" : "Upload Material"}
                 </Button>
               </form>
             </Form>
