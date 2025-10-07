@@ -85,7 +85,7 @@ const OurImpact = () => {
                 key={index}
                 className={`${
                   index === 0 ? "ml-8" : ""
-                } shadow-card min-w-[432px]`}
+                } shadow-card min-w-full sm:min-w-[432px]`}
               >
                 <CardContent className="p-6">
                   <p className="text-muted-foreground italic mb-4 leading-relaxed">

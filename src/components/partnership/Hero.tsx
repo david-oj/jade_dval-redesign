@@ -16,7 +16,7 @@ import {
 const Hero = () => {
   return (
     <section
-      className=" bg-cover bg-top relative "
+      className=" bg-cover bg-top relative"
       style={{
         background: `url(${partnershipHero})`,
         backgroundPosition: "center",
@@ -30,7 +30,7 @@ const Hero = () => {
       {/* Subtle Pattern Overlay */}
       <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
 
-      <div className="relative max-w-4xl mx-auto py-10 sm:py-16 px-6 z-10">
+      <div className="relative max-w-4xl mx-auto py-10 sm:py-16 lg:py-20 px-6 z-10">
         {/* Impact Badge */}
         <div className="flex w-fit mx-auto items-center gap-2 bg-white/20 backdrop-blur-sm border border-white/30 rounded-full max-sm:text-sm px-4 sm:px-6 py-3 mb-8 sm:mb-12">
           <Heart className="h-4 w-4 text-white" />

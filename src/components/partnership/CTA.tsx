@@ -9,7 +9,7 @@ const CTA = () => {
         <img
           src={hackathonImg}
           alt="Students working at a hackathon event"
-          className="w-full h-80 lg:h-96 object-cover"
+          className="w-full h-62 lg:h-96  object-cover"
         />
         <div className="absolute inset-0 bg-gradient-to-r from-primary/80 via-primary/60 to-transparent"/>
         <div className="absolute inset-0 flex items-center">
@@ -28,7 +28,7 @@ const CTA = () => {
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </>
               }
-            //   buttonStyles="font-semibold"
+              buttonStyles="bg-white text-primary hover:bg-white"
             />
 
           </div>

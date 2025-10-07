@@ -97,13 +97,13 @@ export const FAQSection = () => {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <a
-                href="mailto:partnerships@jadedval.com"
+                href="mailto:support@jadedval.com"
                 className="inline-flex items-center justify-center px-6 py-3 bg-primary text-primary-foreground font-satoshi font-semibold rounded-lg hover:bg-primary/90 transition-colors duration-200"
               >
                 Email Our Partnership Team
               </a>
               <a
-                href="tel:+234-xxx-xxx-xxxx"
+                href="tel:+2347032413350"
                 className="inline-flex items-center justify-center px-6 py-3 border border-border bg-background text-foreground font-satoshi font-semibold rounded-lg hover:bg-muted transition-colors duration-200"
               >
                 Schedule a Call

@@ -45,7 +45,7 @@ const Header = () => {
                   className="text-white hover:text-primary transition-colors duration-100"
                   href="/partnership"
                 >
-                  Partnerships
+                  Partnership
                 </a>
               </li>
               <li>
@@ -85,7 +85,7 @@ const Header = () => {
                     href="/partnership"
                     className="text-white hover:text-primary transition-colors duration-100"
                   >
-                    Partner
+                    Partnership
                   </a>
                 </li>
                 {homePage && (
