@@ -1,5 +1,5 @@
 // components/PartnerWithUsDialog.tsx
-import { useState, ChangeEvent, FormEvent } from "react";
+import React, { useState, ChangeEvent, FormEvent } from "react";
 import {
   Dialog,
   DialogTrigger,
@@ -8,8 +8,8 @@ import {
   DialogTitle,
   DialogDescription,
 } from "@/components/ui/dialog";
-import { Button } from "@/components";
 import { API_BASE } from "@/lib/api";
+import { Button } from "./ui/button";
 
 type PartnerForm = {
   name: string;
@@ -25,7 +25,13 @@ const initialPartnerForm: PartnerForm = {
   howWouldYouLikeToPartner: "",
 };
 
-const PartnerDialog = () => {
+const PartnerDialog = ({
+  button,
+  buttonStyles,
+}: {
+  button: React.ReactNode;
+  buttonStyles?: string;
+}) => {
   const [form, setForm] = useState<PartnerForm>(initialPartnerForm);
   const [submitMsg, setSubmitMsg] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState<boolean>(false);
@@ -53,25 +59,24 @@ const PartnerDialog = () => {
         headers: { "content-type": "application/json" },
         body: JSON.stringify(form),
       });
+      const data = await res.json();
 
       if (!res.ok) {
-        const err = await res.json();
-        setStatusColor("text-red-400");
-        throw new Error(err.message || "Submission failed");
-      } else {
-        // const success = await res.json();
-        // setStatusColor("text-primary");
-        // setSubmitMsg(success.message);
-        setSuccessModal(true);
-        setSubmitMsg(null);
+        throw new Error(data.message || "Submission failed");
       }
+
+      // setStatusColor("text-primary");
+      // setSubmitMsg(data.message);
+      setSuccessModal(true);
+      setSubmitMsg(null);
+      setForm(initialPartnerForm);
     } catch (error) {
+      setStatusColor("text-red-400");
       setSubmitMsg(
         error instanceof Error ? error.message : "Submission failed"
       );
     } finally {
       setSubmitting(false);
-      setForm(initialPartnerForm);
     }
   };
 
@@ -79,11 +84,10 @@ const PartnerDialog = () => {
     <Dialog>
       <DialogTrigger asChild>
         <Button
-          children="Become a partner"
-          bgColor="bg-white"
-          textColor="text-primary"
-          className="max-w-[327px] py-[10.5px] text-sm"
-        />
+          className={`${buttonStyles} py-[20.5px] text-sm  font-raleway`}
+        >
+          {button}
+        </Button>
       </DialogTrigger>
       <DialogContent className="shadow-sm rounded-lg p-4 sm:px-10 sm:py-8 sm:max-w-md">
         <DialogHeader>

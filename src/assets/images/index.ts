@@ -13,7 +13,14 @@ import faqsImage from "./faqsImage.webp";
 import partnerCircles from "./partnerCircles.png";
 import formImage from "./formImage.webp";
 import digital_marketing from "./digital_marketing.webp";
-import heroStudents from "./hero-students.jpg"
+import heroStudents from "./hero-students.jpg";
+import demoDay from "./demo-day.jpg";
+import startupWorkspace from "./startup-workspace.jpg";
+import community from "./community.jpg";
+import partnershipHero from "./partnership-hero.jpg";
+import inclusivity from "./inclusivity.jpg";
+import innovation from "./innovation.jpg";
+import hackathon from "./hackathon.jpg"
 
 export {
   logo,
@@ -32,4 +39,11 @@ export {
   partnerCircles,
   formImage,
   heroStudents,
+  demoDay,
+  startupWorkspace,
+  community,
+  partnershipHero,
+  inclusivity,
+  innovation,
+  hackathon
 };

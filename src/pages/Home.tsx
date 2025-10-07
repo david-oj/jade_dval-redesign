@@ -8,7 +8,6 @@ import {
   Faqs,
   Partner,
   EnrollNow,
-  Footer,
 } from "@/sections";
 
 const LandingPage = () => {
@@ -26,7 +25,6 @@ const LandingPage = () => {
       <Partner />
       <JadeStarCTA />
       <EnrollNow />
-      <Footer />
     </div>
   );
 };

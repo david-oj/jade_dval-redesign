@@ -10,6 +10,7 @@ import NotFound from "./pages/NotFound";
 
 import DashboardLayout from "@/components/admin/dashboard/DashdoardLayout";
 import Partnership from "./pages/Partnership";
+import PageLayout from "./components/PageLayout";
 // import GenerateId from "./pages/admin/GenerateID";
 
 // import { Footer } from "./sections";
@@ -19,9 +20,11 @@ function App() {
     <BrowserRouter>
       <Toaster richColors position="bottom-right" />
       <Routes>
-        <Route index element={<Home />} />
-        <Route path="/partnership" element={<Partnership/>} />
-        <Route path="/login" element={<Login />} />
+        <Route path="/" element={<PageLayout />}>
+          <Route index element={<Home />} />
+          <Route path="/partnership" element={<Partnership />} />
+          <Route path="/login" element={<Login />} />
+        </Route>
 
         <Route path="/admin" element={<DashboardLayout />}>
           {/* <Route index element={<Navigate to="dashboard" replace />} /> */}

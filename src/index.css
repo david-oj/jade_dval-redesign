@@ -5,7 +5,7 @@
 
 @layer base {
   h2 {
-    @apply font-satoshi font-bold text-[32px] leading-[120%] text-black max-sm:text-xl
+    @apply font-satoshi font-bold text-xl sm:text-[32px] leading-[120%] text-black 
   }
 
   h3 {

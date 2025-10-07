@@ -1,15 +1,22 @@
-import FAQSection from "@/components/partnership/FAQSection"
-import Intro from "@/components/partnership/Intro"
-import OurMission from "@/components/partnership/OurMIssion"
+import CTA from "@/components/partnership/CTA";
+import FAQSection from "@/components/partnership/FAQSection";
+import Hero from "@/components/partnership/Hero";
+import OurImpact from "@/components/partnership/OurImpact";
+import OurMission from "@/components/partnership/OurMIssion";
+import WhyPartner from "@/components/partnership/WhyPartner";
+// import { Header } from "@/sections";
 
 const Partnership = () => {
   return (
-    <main>
-        <Intro/>
-        <OurMission />
-        <FAQSection/>
-    </main>
-  )
-}
+    <div>
+      <Hero />
+      <OurMission />
+      <WhyPartner />
+      <OurImpact />
+      <CTA />
+      <FAQSection />
+    </div>
+  );
+};
 
-export default Partnership
+export default Partnership;

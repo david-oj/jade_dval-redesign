@@ -17,9 +17,6 @@ import { Footer } from "@/sections";
 import useAuthGuard from "@/hooks/useAuthGuard";
 import { AUTH_TOKEN_KEY } from "@/lib/api";
 
-// interface DashboardLayoutProps {
-//   children: ReactNode;
-// }
 
 const navigation = [
   { name: "dashboard", href: "/admin", icon: LayoutDashboard },
@@ -120,7 +117,9 @@ export default function DashboardLayout() {
         </div>
 
         {/* Page content */}
-        <main className="p-4 sm:p-6 lg:p-8 font-satoshi">{<Outlet />}</main>
+        <main className="p-4 sm:p-6 lg:p-8 font-satoshi">
+          <Outlet />
+        </main>
         <Footer />
       </div>
     </div>
