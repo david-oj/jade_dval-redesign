@@ -4,9 +4,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { ArrowRight, HelpCircle } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import hackathonImg from "@/assets/images/hackathon.jpg";
+// import {  HelpCircle } from "lucide-react";
 
 export const FAQSection = () => {
   const faqs = [
@@ -54,39 +52,15 @@ export const FAQSection = () => {
   ];
 
   return (
-    <section className="my-10 sm:my-20 md:mx-20 px-6 ">
-      <div className="relative rounded-2xl overflow-hidden shadow-xl my-8">
-        <img
-          src={hackathonImg}
-          alt="Students working at a hackathon event"
-          className="w-full h-80 lg:h-96 object-cover"
-        />
-        <div className="absolute inset-0 bg-gradient-to-r from-primary/80 via-primary/60 to-transparent"></div>
-        <div className="absolute inset-0 flex items-center">
-          <div className="max-w-2xl mx-auto px-8 text-center lg:text-left lg:ml-12">
-            <h3 className="text-3xl lg:text-4xl font-bold font-raleway text-white mb-4">
-              Ready to Make an Impact?
-            </h3>
-            <p className="text-lg font-satoshi text-white/90 mb-6 leading-relaxed">
-              Join leading organizations who are already transforming lives and
-              building Africa's tech future through strategic partnerships.
-            </p>
-            <Button size="lg" className="font-satoshi font-semibold">
-              Start Your Partnership Journey
-              <ArrowRight className="ml-2 h-5 w-5" />
-            </Button>
-          </div>
-        </div>
-      </div>
-
+    <section className="py-10 sm:py-16 md:px-25 px-6 ">
       <div className="max-w-4xl mx-auto">
         {/* Header */}
         <div className="text-center mb-8 md:mb-16">
-          <div className="size-12 md:size-14 bg-primary/10 rounded-2xl flex items-center justify-center mx-auto mb-6">
+          {/* <div className="size-12 md:size-14 bg-primary/10 rounded-2xl flex items-center justify-center mx-auto mb-6">
             <HelpCircle className="size-6 md:size-8 text-primary" />
-          </div>
+          </div> */}
           <h2>Frequently Asked Questions</h2>
-          <p className="text-xl font-satoshi text-muted-foreground mt-4">
+          <p className=" sm:text-xl font-satoshi text-muted-foreground mt-4">
             Get answers to common questions about partnering with Jade D'val
             Tech Academy
           </p>
@@ -95,26 +69,29 @@ export const FAQSection = () => {
         {/* FAQ Accordion */}
         <Accordion type="single" collapsible className="space-y-4">
           {faqs.map((faq, index) => (
-            <AccordionItem
-              key={index}
-              value={`item-${index}`}
-              className="bg-card border border-border rounded-lg px-6"
-            >
-              <AccordionTrigger className="text-left font-satoshi font-semibold text-foreground hover:text-primary transition-colors duration-200">
-                {faq.question}
-              </AccordionTrigger>
-              <AccordionContent className="font-raleway text-muted-foreground leading-relaxed">
-                {faq.answer}
-              </AccordionContent>
-            </AccordionItem>
+            <div className="relative">
+              <AccordionItem
+                key={index}
+                value={`item-${index}`}
+                className="bg-card  border-border rounded-sm ml-2.5 px-6"
+              >
+                <div className="absolute -z-10 h-full border-[10px] rounded-l-sm left-0 border-primary" />
+                <AccordionTrigger className="text-left text-base font-satoshi font-bold text-foreground hover:text-primary transition-colors duration-200">
+                  {faq.question}
+                </AccordionTrigger>
+                <AccordionContent className="font-satoshi font-normal  text-base leading-[140%] text-black">
+                  {faq.answer}
+                </AccordionContent>
+              </AccordionItem>
+            </div>
           ))}
         </Accordion>
 
         {/* Contact CTA */}
         <div className="mt-16 text-center">
-          <div className="bg-gradient-to-r from-primary/5 to-accent/5 border border-primary/20 rounded-2xl p-8">
-            <h3>Still have questions?</h3>
-            <p className="font-raleway text-muted-foreground mb-6 max-w-xl mx-auto mt-4">
+          <div className="bg-gradient-to-r from-primary from-20%sa to-130% to-secondary/70 rounded-2xl p-8">
+            <h3 className="text-white capitalize">Still have questions?</h3>
+            <p className=" text-white mb-6 max-w-xl mx-auto mt-4">
               Our partnership team is here to help you find the perfect
               collaboration model for your organization's goals and budget.
             </p>
