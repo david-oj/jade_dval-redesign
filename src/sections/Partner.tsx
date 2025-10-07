@@ -11,7 +11,7 @@ const Partner = () => {
                     partnering with Jade D’val means supporting Africa’s boldest talents as they rise in tech. <br className="md:block hidden"/>
                     Let’s co-create the future—one developer, designer, and data wizard at a time.
                 </p>
-                <PartnerDialog/>
+                <PartnerDialog button="Become a partner" buttonStyles=" max-w-[327px] bg-white text-primary hover:bg-white"/>
             </div>
             <div className="absolute right-0  lg:max-w-[600px] max-sm:hidden md:max-w-[400px]">
                 <img src={partnerCircles} alt="partner" className="w-full h-full" />
