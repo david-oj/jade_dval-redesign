@@ -16,7 +16,7 @@ import {
 const Hero = () => {
   return (
     <section
-      className=" bg-cover bg-top relative"
+      className=" bg-cover bg-top relative h-screen"
       style={{
         background: `url(${partnershipHero})`,
         backgroundPosition: "center",

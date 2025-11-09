@@ -62,7 +62,7 @@ const OurImpact = () => {
   return (
     <section className="py-10 sm:py-16 px-6 bg-[#EFF7F7]">
       <div className="max-w-4xl mx-auto">
-        <h2 className="md:text-3xl text-center font-bold mb-8 md:mb-10 text-foreground">
+        <h2 className="text-center mb-8 md:mb-10">
           Our Impact & Reach
         </h2>
         <div className="grid md:grid-cols-4 grid-cols-2 gap-6 mb-12">

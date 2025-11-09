@@ -15,7 +15,7 @@ const WhyPartner = () => {
       <div className="max-w-6xl mx-auto">
         <div className="grid md:grid-cols-2 gap-12 items-center">
           <div>
-            <h2 className="md:text-3xl font-bold mb-8 text-foreground">
+            <h2 className="mb-8">
               Why Partner With Us?
             </h2>
             <div className="space-y-4">
