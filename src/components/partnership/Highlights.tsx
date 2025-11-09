@@ -54,9 +54,9 @@ const Highlights = () => {
         </div>
 
         <div className="mt-10 sm:mt-16">
-          <h3 className="sm:text-[32px] text-center">
+          {/* <h3 className="sm:text-[32px] text-center">
             Speech From The COO{" "}
-          </h3>
+          </h3> */}
           <div className="aspect-video mt-8">
             <iframe
               // width="560"
