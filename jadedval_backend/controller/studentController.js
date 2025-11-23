@@ -7,7 +7,13 @@ import validator from 'validator';
 // Function to create a new student
 export const createStudent = async (req, res) => {
     try{
-        const { fullName, email, phone, interest, haveALaptop } = req.body;
+        const { 
+            fullName,
+            email,
+            phone,
+            interest,
+            haveALaptop,
+        } = req.body;
 
         // Validate the phone number
         if (!isValidPhoneNumber(phone, 'NG')){
