@@ -13,6 +13,12 @@ export const studentSchema = new Schema({
             'Backend Development',
             'Mobile-development',
             'Digital Marketing',
+            'Data analysis',
+            'Video editing',
+            'Graphic design',
+            'Audio engineer',
+            'Photo tech',
+            'Animation and motion graphics',
         ],
         required: true
     },

@@ -134,11 +134,26 @@ export const validateAccessCode = async (req, res) => {
         }
 
         if (accessCode && accessCode.material.department === department) {
-            const module = await DepartmentModules.find().sort({ createdAt: -1 }).where('department').equals(department).populate('uploads');
-            if (!module) {
+            // const module = await DepartmentModules.find().sort({ createdAt: -1 }).where('department').equals(department).populate('uploads');
+
+            // aggregate pipeline to get module base on department
+            const aggregateModule = await DepartmentModules.aggregate([
+                { $match: { department: department }},
+                { $sort: { createdAt: -1 }},
+                {
+                    $lookup: {
+                        from: 'uploadedfiles',
+                        localField: 'uploads',
+                        foreignField: '_id',
+                        as: 'uploads'
+                    }
+                }
+            ]);
+
+            if (!aggregateModule.length === 0) {
                 return res.status(404).json({ message: 'No modules found for this department' });
             }
-            return res.status(200).json({ message: 'Access code is valid', materials: module });
+            return res.status(200).json({ message: 'Access code is valid', materials: aggregateModule });
         }
 
     } catch (error) {
