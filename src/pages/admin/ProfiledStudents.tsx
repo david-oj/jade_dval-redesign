@@ -277,8 +277,8 @@ export default function ProfileStudents() {
 
   const isLoading = (id: string) => id === isSelected;
 
-  console.log("The search term is:", searchTerm);
-  console.log("FetchState:", isSubmitting);
+  // console.log("The search term is:", searchTerm);
+  // console.log("FetchState:", isSubmitting);
 
   return (
     <div className="space-y-6">

@@ -144,7 +144,7 @@ const EnrollNow = () => {
             </div>
 
             <div>
-              <label>Phone Number</label>
+              <label>Whatsapp Number</label>
               <div className="flex rounded-lg border h-10 ">
                 <span className="flex items-center px-3 bg-[#E5E5E5]/25 border-r">
                   <p className="text-subtle">+234</p>
@@ -181,6 +181,14 @@ const EnrollNow = () => {
                 <option value="UI/UX Design">UI/UX Design</option>
                 <option value="Mobile-development">Mobile Development</option>
                 <option value="Digital Marketing">Digital Marketing</option>
+                <option value="Data analysis">Data Analysis</option>
+                <option value="Video editing">Video Editing</option>
+                <option value="Graphic design">Graphiic Design</option>
+                <option value="Audio engineer">Audio Engineering</option>
+                <option value="Photo tech">Photo Tech</option>
+                <option value="Animation and motion graphics">
+                  Animation & Motion Graphics
+                </option>
               </select>
             </div>
 
@@ -211,8 +219,8 @@ const EnrollNow = () => {
                   " Enroll"
                 )
               }
-              className="rounded-4 text-sm py-[10.5px] bg-primary/80"
-              disabled
+              className="rounded-4 text-sm py-[10.5px] bg-primary/80 cursor-pointer"
+              // disabled
             />
 
             {submitMsg && (
@@ -222,7 +230,7 @@ const EnrollNow = () => {
             )}
             <p className="text-muted-foregroun text-sm pt-1">
               {/* Screening is on the 2nd of August */}
-              Next cohort begins 1st of November
+              Next cohort registration has begun
             </p>
           </form>
 
