@@ -18,7 +18,7 @@ export const studentSchema = new Schema({
             'Graphic design',
             'Audio engineer',
             'Photo tech',
-            'Animation and motion graphics',
+            'Animation and motion graphics',
         ],
         required: true
     },
