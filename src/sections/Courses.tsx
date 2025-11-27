@@ -42,6 +42,7 @@ export default function Courses() {
             <div className="flex-1 relative flex flex-col" key={course.id}>
               <div className="h-[200px] rounded-t-[20px] overflow-hidden">
                 <img
+                  loading="lazy"
                   src={course.image}
                   alt={course.title}
                   className="w-full h-full object-cover"
@@ -49,7 +50,7 @@ export default function Courses() {
               </div>
 
               <div className="group p-5 border rounded-[8px] flex flex-col">
-                <h3>{course.title}</h3>
+                <h3 className="line-clamp-1">{course.title}</h3>
                 <ClampReveal
                   expanded={openCourseId === course.id}
                   onToggle={() => handleToggle(course.id)}

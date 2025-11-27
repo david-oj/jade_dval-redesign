@@ -1,7 +1,7 @@
 import { useState, useEffect, useMemo, useCallback } from "react";
 import CircularProgressBar from "./CircularProgressBar";
 const CountDown = () => {
-  const EVENT_DATE_ISO = "2025-07-31T00:00:00";
+  const EVENT_DATE_ISO = "2026-01-10T00:00:00";
 
   const useCountdown = (targetMs: number) => {
     // calculate ms remaining,clamp ≥0

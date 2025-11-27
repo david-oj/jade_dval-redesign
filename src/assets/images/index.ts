@@ -20,7 +20,13 @@ import community from "./community.jpg";
 import partnershipHero from "./partnership-hero.jpg";
 import inclusivity from "./inclusivity.jpg";
 import innovation from "./innovation.jpg";
-import hackathon from "./hackathon.jpg"
+import hackathon from "./hackathon.jpg";
+import animation from "./animation.webp";
+import audioEngineering from "./audio_engineering.webp";
+import dataAnalysis from "./data_analysis.webp";
+import graphicsDesign from "./graphics_design.webp";
+import photoTech from "./photo_tech.webp";
+import videoEditing from "./video_editing.webp"
 
 export {
   logo,
@@ -45,5 +51,11 @@ export {
   partnershipHero,
   inclusivity,
   innovation,
-  hackathon
+  hackathon,
+  animation,
+  audioEngineering,
+  dataAnalysis,
+  graphicsDesign,
+  photoTech,
+  videoEditing
 };

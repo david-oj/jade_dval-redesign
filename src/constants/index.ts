@@ -9,12 +9,23 @@ import {
   jadeStar3,
   jadeStar4,
   jadeStar5,
+  animation,
+  audioEngineering,
+  dataAnalysis,
+  graphicsDesign,
+  photoTech,
+  videoEditing
 } from "@/assets/images";
 import location from "@/assets/icons/location.svg?react";
 import mail from "@/assets/icons/mail.svg?react";
 import telephone from "@/assets/icons/telephone.svg?react";
-import {facebook, instagram, linkedin, twitter, whatsapp} from "@/assets/icons";
-
+import {
+  facebook,
+  instagram,
+  linkedin,
+  twitter,
+  whatsapp,
+} from "@/assets/icons";
 
 export const courses: {
   id: string;
@@ -61,6 +72,54 @@ export const courses: {
     description:
       "Learn how to build effective online campaigns, grow brand presence, and master tools like Meta Ads, SEO, content strategy, and analytics. Perfect for aspiring marketers and business owners",
     image: digital_marketing,
+    linkText: "Enroll Now",
+  },
+  {
+    id: "Data analysis",
+    title: "Data Analysis",
+    description:
+      "Learn how to collect, clean, and interpret data to uncover insights and support data-driven decisions. Covers tools and techniques like Excel, Python, SQL, and visualization with Tableau or Power BI.",
+    image: dataAnalysis,
+    linkText: "Enroll Now",
+  },
+  {
+    id: "Video editing",
+    title: "Video Editing",
+    description:
+      "Master the art of video storytelling by learning editing techniques, transitions, and visual effects using tools like Adobe Premiere Pro, Final Cut Pro, and DaVinci Resolve.",
+    image: videoEditing,
+    linkText: "Enroll Now",
+  },
+  {
+    id: "Graphic design",
+    title: "Graphic Design",
+    description:
+      "Learn to create visually compelling designs for digital and print media. Covers design principles, typography, branding, and hands-on work with Adobe Photoshop, Illustrator, and Canva.",
+    image: graphicsDesign,
+    linkText: "Enroll Now",
+  },
+  {
+    id: "Audio engineer",
+    title: "Audio Engineering",
+    description:
+      "Learn to record, mix, and master high-quality audio for music, podcasts, and media projects. Covers DAWs, sound design, effects processing, and professional production workflows.",
+    image: audioEngineering,
+    linkText: "Enroll Now",
+  },
+  {
+    id: "Photo tech",
+    title: "Photo Tech",
+    description:
+      "Explore photography techniques and digital photo editing. Learn about composition, lighting, camera settings, and retouching with tools like Lightroom and Photoshop.",
+    image: photoTech,
+    linkText: "Enroll Now",
+  },
+  {
+    id: "Animation and motion graphics",
+    title: "Animation & Motion Graphics",
+    description:
+      "Learn to bring visuals to life with 2D and 3D animation techniques. Covers keyframe animation, motion graphics, and tools like After Effects, Blender, and Cinema 4D.",
+    image: animation,
     linkText: "Enroll Now",
   },
 ];
@@ -137,7 +196,7 @@ export const faqs: { question: string; answer: string }[] = [
 ];
 
 type Footer = {
-  icon: React.ElementType ;
+  icon: React.ElementType;
   title: string;
   description?: string;
   phones?: { phone: string }[];
@@ -146,7 +205,8 @@ export const footerItems: Footer = [
   {
     icon: location,
     title: "Location",
-    description: "Loveworld Arena, Christ Embassy Ministry Center, Behind Dove Filling Station, New Garage, Ibadan.",
+    description:
+      "Loveworld Arena, Christ Embassy Ministry Center, Behind Dove Filling Station, New Garage, Ibadan.",
   },
   {
     icon: mail,
@@ -156,9 +216,7 @@ export const footerItems: Footer = [
   {
     icon: telephone,
     title: "Phone",
-    phones: [
-      { phone: "+234 70 3241 3350" },
-    ],
+    phones: [{ phone: "+234 70 3241 3350" }],
   },
 ];
 export const socialIcons: {
