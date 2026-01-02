@@ -14,7 +14,8 @@ import {
   dataAnalysis,
   graphicsDesign,
   photoTech,
-  videoEditing
+  videoEditing,
+  projectManagement,
 } from "@/assets/images";
 import location from "@/assets/icons/location.svg?react";
 import mail from "@/assets/icons/mail.svg?react";
@@ -120,6 +121,14 @@ export const courses: {
     description:
       "Learn to bring visuals to life with 2D and 3D animation techniques. Covers keyframe animation, motion graphics, and tools like After Effects, Blender, and Cinema 4D.",
     image: animation,
+    linkText: "Enroll Now",
+  },
+  {
+    id: "Project management",
+    title: "Project Management",
+    description:
+      "Master the fundamentals of project management tailored for professional teams. Learn how to plan, excecute and deliver projects on time using modern tools, agile workflow,s and clear stakeholder communication.",
+    image: projectManagement,
     linkText: "Enroll Now",
   },
 ];

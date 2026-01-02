@@ -26,7 +26,8 @@ import audioEngineering from "./audio_engineering.webp";
 import dataAnalysis from "./data_analysis.webp";
 import graphicsDesign from "./graphics_design.webp";
 import photoTech from "./photo_tech.webp";
-import videoEditing from "./video_editing.webp"
+import videoEditing from "./video_editing.webp";
+import projectManagement from "./project_management.webp";
 
 export {
   logo,
@@ -57,5 +58,6 @@ export {
   dataAnalysis,
   graphicsDesign,
   photoTech,
-  videoEditing
+  videoEditing,
+  projectManagement,
 };

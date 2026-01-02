@@ -189,6 +189,7 @@ const EnrollNow = () => {
                 <option value="Animation and motion graphics">
                   Animation & Motion Graphics
                 </option>
+                <option value="Project management">Project Management</option>
               </select>
             </div>
 
