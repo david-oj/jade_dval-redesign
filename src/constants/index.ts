@@ -215,7 +215,7 @@ export const footerItems: Footer = [
     icon: location,
     title: "Location",
     description:
-      "Loveworld Arena, Christ Embassy Ministry Center, Behind Dove Filling Station, New Garage, Ibadan.",
+      "New Garage, Ibadan, Oyo State",
   },
   {
     icon: mail,
