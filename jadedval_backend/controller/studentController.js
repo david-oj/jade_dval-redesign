@@ -43,11 +43,11 @@ export const createStudent = async (req, res) => {
         // Send a welcome email
         const html = htmlHelper(fullName, interest);
 
-        await sendEmail({
-            email,
-            subject: 'Welcome to jadedval',
-            html
-        })
+        // await sendEmail({
+        //     email,
+        //     subject: 'Welcome to jadedval',
+        //     html
+        // })
         
         // Send a response back to the client
         res.status(201).json({ message: 'Student created successfully', student });
