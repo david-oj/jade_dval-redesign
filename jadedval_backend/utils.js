@@ -7,11 +7,14 @@ export const sendEmail = async (options) => {
     const transporter = nodemailer.createTransport({
         host: process.env.SMTP_HOST,
         port: Number(process.env.SMTP_PORT),
-        secure: false,
+        secure: true,
         auth: {
-            user: process.env.EMAIL_USER,
-            pass: process.env.EMAIL_PASS
+          user: process.env.EMAIL_USER,
+          pass: process.env.EMAIL_PASS
         },
+        tls: {
+          rejectUnauthorized: false
+        }
     });
 
     const mailOptions = {
