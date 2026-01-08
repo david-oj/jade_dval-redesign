@@ -7,14 +7,11 @@ export const sendEmail = async (options) => {
     const transporter = nodemailer.createTransport({
         host: process.env.SMTP_HOST,
         port: Number(process.env.SMTP_PORT),
-        secure: true,
+        secure: false,
         auth: {
           user: process.env.EMAIL_USER,
           pass: process.env.EMAIL_PASS
         },
-        tls: {
-          rejectUnauthorized: false
-        }
     });
 
     const mailOptions = {
@@ -48,6 +45,7 @@ export const htmlHelper = (fullName, interest) =>  `<html>
                 <p style="margin-top: 0;">Thank you for registering with <strong style="color: #20b29e;">Jade D’Val</strong>. We're excited to have you on board and to support your journey in tech!</p>
                 <p>Your area of interest is: <strong style="color: #ffffff;">${interest}</strong></p>
                 <p>If you have any questions, feel free to reach out to our team at any time. We're here to help you succeed.</p>
+                <p> Please kindly use this link to join our community on <a href="https://chat.whatsapp.com/DwmFC4pN6B52QAS7hQmhQD" style="color: #20b29e;">WhatsApp</a> to stay updated with the latest news and connect with fellow learners.</p>
                 <p style="margin-bottom: 0;">Best regards,</p>
                 <p style="margin-top: 5px;">The <span style="color: #20b29e;">Jade D’Val</span> Team</p>
               </td>
