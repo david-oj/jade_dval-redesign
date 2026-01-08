@@ -27,6 +27,7 @@ const EnrollNow = () => {
   const [submitMsg, setSubmitMsg] = useState<string | null>(null);
   const [statusColor, setStatusColor] = useState<string | null>(null);
   const [successModal, setSuccessModal] = useState<boolean>(false);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [submittedEmail, setSubmittedEmail] = useState<string>("");
 
   // Handle hash change to set course & effect auto-scroll
@@ -253,9 +254,20 @@ const EnrollNow = () => {
                   Registration Successful
                 </h2>
                 <p className="mb-6">
-                  Thank you for enrolling! A confirmation email has been sent to{" "}
-                  <strong>{submittedEmail || "your inbox"}</strong>.
+                  {/* Thank you for enrolling! A confirmation email has been sent to{" "} */}
+                  Thank you for enrolling! Click this{" "}
+                  <a
+                    href="https://chat.whatsapp.com/DwmFC4pN6B52QAS7hQmhQD"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-primary underline underline-offset-1 hover:cursor-pointer"
+                  >
+                    link
+                  </a>{" "}
+                  to join this cohorts whatsapp group
+                  {/* <strong>{submittedEmail || "your inbox"}</strong>. */}
                 </p>
+
                 <Button
                   className="bg-primary text-white py-1 rounded"
                   onClick={() => setSuccessModal(false)}

@@ -9,7 +9,7 @@ import {
   Partner,
   EnrollNow,
 } from "@/sections";
-import WhatsappFill from "@/assets/icons/whatsappFill.svg?react";
+// import WhatsappFill from "@/assets/icons/whatsappFill.svg?react";
 
 const LandingPage = () => {
   return (
@@ -28,7 +28,7 @@ const LandingPage = () => {
       <EnrollNow />
 
       {/* WHatsapp group link */}
-      <a
+      {/* <a
         rel="noreferrer noopener "
         target="_blank"
         href="https://chat.whatsapp.com/DwmFC4pN6B52QAS7hQmhQD"
@@ -36,7 +36,7 @@ const LandingPage = () => {
         <button className="fixed bottom-8 right-5 z-50 size-10 sm:size-14 bg-secondary rounded-full flex items-center justify-center shadow-lg hover:shadow-xl hover:cursor-pointer">
           <WhatsappFill className="size-6 sm:size-8 text-white" />
         </button>
-      </a>
+      </a> */}
     </div>
   );
 };
