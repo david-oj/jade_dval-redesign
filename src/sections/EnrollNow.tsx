@@ -257,7 +257,7 @@ const EnrollNow = () => {
                   {/* Thank you for enrolling! A confirmation email has been sent to{" "} */}
                   Thank you for enrolling! Click this{" "}
                   <a
-                    href="https://chat.whatsapp.com/DwmFC4pN6B52QAS7hQmhQD"
+                    href="https://chat.whatsapp.com/HvcYCqZrTafB2jrIkllxwo"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-primary underline underline-offset-1 hover:cursor-pointer"
