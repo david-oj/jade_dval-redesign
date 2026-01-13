@@ -125,7 +125,7 @@ export const courses: {
   },
   {
     id: "Project management",
-    title: "Project Management",
+    title: "Product Management",
     description:
       "Master the fundamentals of project management tailored for professional teams. Learn how to plan, excecute and deliver projects on time using modern tools, agile workflow,s and clear stakeholder communication.",
     image: projectManagement,
