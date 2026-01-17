@@ -257,14 +257,14 @@ const EnrollNow = () => {
                   {/* Thank you for enrolling! A confirmation email has been sent to{" "} */}
                   Thank you for enrolling! Click this{" "}
                   <a
-                    href="https://chat.whatsapp.com/Fe8gGRALfrE5biofSj9Vjh"
+                    href="https://t.me/+UD0gCdRoOYNhNzBk"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-primary underline underline-offset-1 hover:cursor-pointer"
                   >
                     link
                   </a>{" "}
-                  to join this cohorts whatsapp group
+                  to join this cohorts telegram group
                   {/* <strong>{submittedEmail || "your inbox"}</strong>. */}
                 </p>
 
