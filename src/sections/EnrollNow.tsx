@@ -27,6 +27,7 @@ const EnrollNow = () => {
   const [submitMsg, setSubmitMsg] = useState<string | null>(null);
   const [statusColor, setStatusColor] = useState<string | null>(null);
   const [successModal, setSuccessModal] = useState<boolean>(false);
+  const [showLink, setShowLink] = useState<boolean>(false);
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [submittedEmail, setSubmittedEmail] = useState<string>("");
 
@@ -96,6 +97,16 @@ const EnrollNow = () => {
         setSuccessModal(true);
         setSubmitMsg(null);
         setFormData(initialFormData);
+        setShowLink(true);
+        const timer = setTimeout(() => {
+          window.open(
+            "https://t.me/+UD0gCdRoOYNhNzBk",
+            "_blank",
+            "noopener, noreferrer"
+          );
+        }, 1000);
+
+        return () => clearTimeout(timer);
       }
     } catch (error) {
       setSubmitMsg(
@@ -225,6 +236,22 @@ const EnrollNow = () => {
               // disabled
             />
 
+            {showLink && (
+              <p className="mb-1 text-sm text-primary">
+                {/* Thank you for enrolling! A confirmation email has been sent to{" "} */}
+                Registration Successful! Click this{" "}
+                <a
+                  href="https://t.me/+UD0gCdRoOYNhNzBk"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-primary underline underline-offset-2 hover:cursor-pointer"
+                >
+                  link
+                </a>{" "}
+                to join this cohorts telegram group
+                {/* <strong>{submittedEmail || "your inbox"}</strong>. */}
+              </p>
+            )}
             {submitMsg && (
               <p className={`${statusColor} text-sm `} aria-live="assertive">
                 {submitMsg}
