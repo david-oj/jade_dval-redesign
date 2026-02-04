@@ -57,6 +57,18 @@ export const createStudent = async (req, res) => {
     }
 }
 
+// function to get all student email and phone number
+export const getAllStudentEmailPhone = async (req, res) => {
+    try {
+        const student = await Student.find().sort({ createdAt: -1 });
+        const emailPhoneList = student.map(({ email, phone }) => ({ email, phone }));
+        res.status(200).json(emailPhoneList);
+    } catch (error) {
+        console.error('Error fetching student email and phone:', error);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+}
+
 // Function to get all students
 export const getAllStudents = async (req, res) => {
     try {
@@ -70,5 +82,6 @@ export const getAllStudents = async (req, res) => {
 
 export default {
     createStudent,
-    getAllStudents
+    getAllStudents,
+    getAllStudentEmailPhone
 }
