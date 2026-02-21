@@ -54,6 +54,13 @@ const departments = [
   "UI/UX & Product Design",
   "Digital Marketing",
   "Mobile Development",
+  "Data Analysis",
+  "Video Editing",
+  "Graphic Design",
+  "Audio Engineering",
+  "Photography Technology",
+  "Animation & Motion Graphics",
+  "Product Management",
 ];
 
 interface StudentProfile {
@@ -281,7 +288,7 @@ export default function ProfileStudents() {
   // console.log("FetchState:", isSubmitting);
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 min-h-screen">
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
@@ -356,7 +363,7 @@ export default function ProfileStudents() {
                         defaultValue={field.value}
                       >
                         <FormControl>
-                          <SelectTrigger>
+                          <SelectTrigger className="w-full">
                             <SelectValue placeholder="Select department" />
                           </SelectTrigger>
                         </FormControl>
@@ -488,7 +495,9 @@ export default function ProfileStudents() {
                     )}
                   </Button>
                   {validateCodeMessage.message && (
-                    <p className={`${validateCodeMessage.color} rounded-md text-sm p-2`}>
+                    <p
+                      className={`${validateCodeMessage.color} rounded-md text-sm p-2`}
+                    >
                       {validateCodeMessage.message}
                     </p>
                   )}

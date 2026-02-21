@@ -54,7 +54,7 @@ const departments = [
   "Video Editing",
   "Graphic Design",
   "Audio Engineering",
-  "Photo Tech",
+  "Photography Technology",
   "Animation & Motion Graphics",
   "Product Management",
 ];
@@ -173,19 +173,19 @@ export default function AddMaterial() {
   // };
 
   const onSubmit = async (data: AddMaterialForm) => {
-    const [{ _id }] = await fetch(
+    const [{ _id, department }] = await fetch(
       `${API_BASE}/module?department=${data.department}`
     )
       .then((res) => res.json())
       .catch((err) => console.log("Module ID fetch err", err));
 
     // const fileUrl = await uploadFileTOCloudinary(data.file[0]);
-    // console.log("File URL:", fileUrl);
+    console.log("File URL:", department, "And:", _id);
     const formData = new FormData();
     formData.append("file", data.file[0]);
     formData.append("uploadDate", data.date);
 
-    console.log("FormData", formData);
+    // console.log("FormData", formData);
 
     try {
       const res = await fetch(`${API_BASE}/module/${_id}/upload`, {
@@ -198,9 +198,9 @@ export default function AddMaterial() {
         throw new Error(data.message || "Failed to upload material");
       }
 
-      toast.success("Material Added Successfully", {
-        description: `Material for ${data.department} - ${new Date(
-          data.date
+      toast.success(data.message || "Material Added Successfully", {
+        description: `Material for ${department} - ${new Date(
+          data.file.createdAt
         ).toLocaleDateString("en-us", {
           month: "long",
           year: "numeric",
