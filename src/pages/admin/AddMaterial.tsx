@@ -50,6 +50,13 @@ const departments = [
   "UI/UX & Product Design",
   "Digital Marketing",
   "Mobile Development",
+  "Data Analysis",
+  "Video Editing",
+  "Graphic Design",
+  "Audio Engineering",
+  "Photo Tech",
+  "Animation & Motion Graphics",
+  "Product Management",
 ];
 
 interface Upload {
@@ -254,7 +261,6 @@ export default function AddMaterial() {
             </CardTitle>
           </CardHeader>
           <CardContent>
-            
             <Form {...form}>
               <form
                 onSubmit={form.handleSubmit(onSubmit)}
@@ -271,7 +277,7 @@ export default function AddMaterial() {
                         value={field.value}
                       >
                         <FormControl>
-                          <SelectTrigger>
+                          <SelectTrigger className="w-full">
                             <SelectValue placeholder="Select department" />
                           </SelectTrigger>
                         </FormControl>
