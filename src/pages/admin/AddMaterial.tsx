@@ -42,7 +42,13 @@ const addMaterialSchema = z.object({
     .refine((files) => files.length > 0, "Please select a file to upload"),
 });
 
+const addDepartmentSchema = z.object({
+  materialName: z.string().min(1, "Please select a department"),
+  department: z.string().min(1, "Please select a department"),
+});
+
 type AddMaterialForm = z.infer<typeof addMaterialSchema>;
+type AddDepartmentForm = z.infer<typeof addDepartmentSchema>;
 
 const departments = [
   "Frontend Development",
@@ -97,17 +103,28 @@ export default function AddMaterial() {
   const [uploadedMaterials, setUploadedMaterials] = useState<Upload[]>([]);
   const [selected, setselected] = useState<string | null>(null);
 
-  const form = useForm<AddMaterialForm>({
+  const addMaterialForm = useForm<AddMaterialForm>({
     resolver: zodResolver(addMaterialSchema),
     defaultValues: {
       department: "",
       date: "",
     },
   });
+  const addDepartmenForm = useForm<AddDepartmentForm>({
+    resolver: zodResolver(addDepartmentSchema),
+    defaultValues: {
+      department: "",
+      materialName: "",
+    },
+  });
 
   const {
     formState: { isSubmitting },
-  } = form;
+  } = addMaterialForm;
+
+  const {
+    formState: { isSubmitting: isCreating },
+  } = addDepartmenForm;
 
   useEffect(() => {
     const fetchMaterials = async () => {
@@ -207,7 +224,7 @@ export default function AddMaterial() {
         })} has been uploaded.`,
       });
 
-      form.reset();
+      addMaterialForm.reset();
     } catch (err) {
       console.log(err);
       toast.error("Upload failed", {
@@ -239,20 +256,89 @@ export default function AddMaterial() {
     return id === selected;
   };
 
+  const handleCreateModule = async (data: AddDepartmentForm) => {
+    console.log("Form Values: ", data);
+
+    try {
+      const res = await fetch(`${API_BASE}/module`, {
+        method: "POST",
+        body: JSON.stringify(data),
+      });
+
+      if (!res.ok) {
+        const err = await res.json();
+        console.error("Failed to create module:", err);
+      }
+
+      console.log("MODULE CREATED SUCCESSFULLY");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div className="space-y-6">
       {/* Header */}
       <div>
         <h1 className="text-3xl font-bold tracking-tight text-foreground">
-          Add Material
+          Add Department & Materials
         </h1>
-        <p className="text-muted-foreground">
-          Upload learning materials for specific departments and months.
+        <p className="text-muted-foreground mt-1">
+          Create Departments & Upload learning materials for specific
+          departments.
         </p>
       </div>
 
       {/* Form */}
-      <div className="max-w-2xl">
+      <div className="space-y-8 max-w-4xl">
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <FileText className="h-5 w-5" />
+              Add New Department
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <Form {...addDepartmenForm}>
+              <form
+                onSubmit={addDepartmenForm.handleSubmit(handleCreateModule)}
+                className="space-y-6"
+              >
+                <FormField
+                  control={addDepartmenForm.control}
+                  name="department"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Department Name: </FormLabel>
+                      <FormControl>
+                        <Input type="text" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={addDepartmenForm.control}
+                  name="materialName"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Material Name: </FormLabel>
+                      <FormControl>
+                        <Input type="text" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                <Button disabled={isCreating} type="submit" className="w-full">
+                  {isCreating ? "creating" : "Create Department"}
+                </Button>
+              </form>
+            </Form>
+          </CardContent>
+        </Card>
+
         <Card>
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
@@ -261,13 +347,13 @@ export default function AddMaterial() {
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <Form {...form}>
+            <Form {...addMaterialForm}>
               <form
-                onSubmit={form.handleSubmit(onSubmit)}
+                onSubmit={addMaterialForm.handleSubmit(onSubmit)}
                 className="space-y-6"
               >
                 <FormField
-                  control={form.control}
+                  control={addMaterialForm.control}
                   name="department"
                   render={({ field }) => (
                     <FormItem>
@@ -295,7 +381,7 @@ export default function AddMaterial() {
                 />
 
                 <FormField
-                  control={form.control}
+                  control={addMaterialForm.control}
                   name="date"
                   render={({ field }) => (
                     <FormItem>
@@ -313,7 +399,7 @@ export default function AddMaterial() {
                 />
 
                 <FormField
-                  control={form.control}
+                  control={addMaterialForm.control}
                   name="file"
                   render={({ field: { onChange, ...field } }) => (
                     <FormItem>
