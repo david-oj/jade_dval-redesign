@@ -31,12 +31,12 @@ export const createStudentProfile = async(req, res) => {
         await profile.save();
         
         // Send email with login details
-        const emailHtml = loginDetailsHtml(name, email, password);
-        await sendEmail({
-            email,
-            subject: 'Your Login Details',
-            html: emailHtml
-        });
+        // const emailHtml = loginDetailsHtml(name, email, password);
+        // await sendEmail({
+        //     email,
+        //     subject: 'Your Login Details',
+        //     html: emailHtml
+        // });
 
         const profileData = profile.toObject();
         delete profileData.password;
