@@ -204,7 +204,8 @@ export const comparePassword = async (password, hashPassword) => {
 export const autoPasswordCreation = () => {
   const randomStr = Math.random().toString(36).substring(2, 12).toUpperCase();
   const yr = new Date().getFullYear();
-  const password = `JDVA-${yr}-${randomStr}`;
+  // const password = `JDVA-${yr}-${randomStr}`;
+  const password = 'JDVA-0024-ABD';
   return password;
 }
 
