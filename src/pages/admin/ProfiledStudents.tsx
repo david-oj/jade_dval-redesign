@@ -551,15 +551,17 @@ export default function ProfileStudents() {
                         {new Date(student.createdAt).toLocaleDateString()}
                       </span>
                     </div>
-                    <p
-                      className={`${
-                        student.accessCode.code
-                          ? "text-muted-foreground"
-                          : "text-red-400"
-                      } text-sm mt-1`}
-                    >
-                      Access code: {student.accessCode.code || "no access code"}
-                    </p>
+
+                    {student.accessCode ? (
+                      <p className="text-muted-foreground text-sm mt-1">
+                        Access code: {" "}
+                        {student.accessCode.code || "no access code"}
+                      </p>
+                    ) : (
+                      <p className="text-red-400 text-sm mt-1">
+                        No access code
+                      </p>
+                    )}
                   </div>
 
                   <Button
