@@ -11,7 +11,8 @@ export const generateAccessCode = async (department) => {
 
     const year = new Date().getFullYear();
     const randomAlphNum = Math.random().toString(36).substring(2, 8).toUpperCase();
-    const code = `JDVA-${year}-${randomAlphNum}`;
+    // const code = `JDVA-${year}-${randomAlphNum}`;
+    const code = 'JDVA-2026-ABD003';
 
     // Create a new AccessCode document
     const accessCode = new AccessCode({
@@ -46,14 +47,14 @@ export const regenerateAccessCode = async (req, res) => {
         const newAccessCode = await generateAccessCode(student.department);
 
         // Build email HTML
-        const emailHtml = accessCodeHtml(student.name, student.department, newAccessCode.code);
+        // const emailHtml = accessCodeHtml(student.name, student.department, newAccessCode.code);
 
         // Send email with new access code
-        await sendEmail({
-            email: student.email,
-            subject: 'Your New Access Code',
-            html: emailHtml
-        });
+        // await sendEmail({
+        //     email: student.email,
+        //     subject: 'Your New Access Code',
+        //     html: emailHtml
+        // });
 
         // Link access code back to student
         student.accessCode = newAccessCode._id;
