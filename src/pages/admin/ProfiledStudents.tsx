@@ -68,7 +68,16 @@ interface StudentProfile {
   name: string;
   email: string;
   department: string;
-  accessCode: string | null;
+  accessCode: {
+    _id: string;
+    code: string;
+    isUsed: true;
+    material: string;
+    createdAt: string;
+    updatedAt: string;
+    __v: number;
+    usedAt: string;
+  };
   createdAt: string; // ISO timestamp
   updatedAt: string; // ISO timestamp
 }
@@ -506,6 +515,7 @@ export default function ProfileStudents() {
             </DialogContent>
           </Dialog>
         </CardHeader>
+
         <CardContent className="max-sm:p-4">
           <div className="space-y-4">
             {fetchState === "loading" ? (
@@ -533,6 +543,7 @@ export default function ProfileStudents() {
                     <p className="text-sm text-muted-foreground mt-1">
                       {student.email}
                     </p>
+
                     <div className="flex items-center gap-2 mt-2">
                       <Badge variant="outline">{student.department}</Badge>
                       <span className="text-xs text-muted-foreground">
@@ -540,6 +551,15 @@ export default function ProfileStudents() {
                         {new Date(student.createdAt).toLocaleDateString()}
                       </span>
                     </div>
+                    <p
+                      className={`${
+                        student.accessCode.code
+                          ? "text-muted-foreground"
+                          : "text-red-400"
+                      } text-sm mt-1`}
+                    >
+                      Access code: {student.accessCode.code || "no access code"}
+                    </p>
                   </div>
 
                   <Button
