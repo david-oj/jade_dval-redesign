@@ -36,10 +36,10 @@ export const loginUser = async (req, res)=> {
         }
 
         // Check password is a match
-        const isMatch = await comparePassword(password, student.password);
-        if (!isMatch) {
-            return res.status(401).json({ message: "Invalid credentials"});
-        }
+        // const isMatch = await comparePassword(password, student.password);
+        // if (!isMatch) {
+        //     return res.status(401).json({ message: "Invalid credentials"});
+        // }
 
         return res.status(200).json({
             success: true,
